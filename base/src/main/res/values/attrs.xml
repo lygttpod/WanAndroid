@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TopBar">
+
+        <attr name="topBar_leftIcon" format="reference|color" />
+        <attr name="topBar_leftIconShow" format="boolean" />
+
+        <attr name="topBar_leftText" format="string" />
+        <attr name="topBar_leftTextSize" format="dimension" />
+        <attr name="topBar_leftTextColor" format="color" />
+        <attr name="topBar_leftTextShow" format="boolean" />
+
+        <attr name="topBar_centerText" format="string" />
+        <attr name="topBar_centerTextSize" format="dimension" />
+        <attr name="topBar_centerTextColor" format="color" />
+        <attr name="topBar_centerTextShow" format="boolean" />
+
+        <attr name="topBar_centerBackgroundIcon" format="reference|color" />
+        <attr name="topBar_centerBackgroundIconShow" format="boolean" />
+
+        <attr name="topBar_rightText" format="string" />
+        <attr name="topBar_rightTextSize" format="dimension" />
+        <attr name="topBar_rightTextColor" format="color" />
+        <attr name="topBar_rightTextShow" format="boolean" />
+
+        <attr name="topBar_rightIcon" format="reference|color" />
+        <attr name="topBar_rightIconShow" format="boolean" />
+
+        <attr name="topBar_backgroundColor" format="color" />
+
+    </declare-styleable>
+    <declare-styleable name="TabView">
+        <attr name="tab_view_icon" format="reference"/>
+        <attr name="tab_view_color" format="color"/>
+        <attr name="tab_view_text" format="string"/>
+        <attr name="tab_view_text_size" format="dimension"/>
+    </declare-styleable>
+</resources>

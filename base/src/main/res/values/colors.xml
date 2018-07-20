@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="base_common_pressed">#20000000</color>  <!--白色背景按下去的颜色-->
+    <color name="base_pressed">#32000000</color>
+
+    <color name="base_white">#ffffff</color>
+    <color name="base_top_bar_title">#212629</color>
+
+    <color name="base_transparent">#00000000</color>
+    <color name="base_text_select">#0049c7</color>
+    <color name="base_text_no_select">#4a4a4a</color>
+
+    <color name="base_refresh_color">#158075</color>
+    <color name="base_top_bar_bg">#ffffff</color>
+    <color name="search_bar_bg">#F5F6F7</color>
+
+</resources>

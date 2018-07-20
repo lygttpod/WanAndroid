@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.library.base.widget.TopBar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/topBar"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/base_top_bar_bg"
+    app:topBar_centerTextColor="@color/base_top_bar_title"
+    app:topBar_centerTextSize="16sp"
+    app:topBar_leftIcon="@mipmap/app_back_icon_3x"
+    app:topBar_leftTextColor="@color/base_white"
+    app:topBar_leftTextSize="20sp"
+    app:topBar_rightTextColor="#212629" />
