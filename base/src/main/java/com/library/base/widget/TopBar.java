@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -214,6 +215,8 @@ public class TopBar extends RelativeLayout {
         leftTextView.setTextColor(leftTextColor);
         leftTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, leftTextSize);
 
+        leftTextView.setSingleLine(true);
+        leftTextView.setEllipsize(TextUtils.TruncateAt.END);
         addView(leftTextView, leftTextViewParams);
     }
 

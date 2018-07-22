@@ -30,4 +30,5 @@ public interface IBaseMvpPresenter<V extends IBaseMvpView> {
      * @return boolean
      */
     boolean isViewAttached();
+
 }

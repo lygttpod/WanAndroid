@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:background="@color/base_top_bar_bg"
-    app:topBar_centerTextColor="@color/base_top_bar_title"
+    app:topBar_centerTextColor="@color/base_white"
     app:topBar_centerTextSize="16sp"
     app:topBar_leftIcon="@mipmap/app_back_icon_3x"
     app:topBar_leftTextColor="@color/base_white"

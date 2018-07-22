@@ -17,9 +17,6 @@ import android.widget.Toast;
 import com.library.base.R;
 import com.library.base.widget.TopBar;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 
 /**
  * Created by Allen on 2017/5/2.
@@ -29,8 +26,6 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment {
 
     protected final String TAG = this.getClass().getSimpleName();
-
-    Unbinder unbinder;
 
     /**
      * 带TopBar的跟布局
@@ -95,8 +90,7 @@ public abstract class BaseFragment extends Fragment {
      * @param target 当前页面
      * @param view view
      */
-//    public void initButterKnife(Object target, View view) {
-//    }
+    public void initButterKnife(Object target, View view) { }
 
     /**
      * 初始化MVP架构的P层
@@ -168,9 +162,6 @@ public abstract class BaseFragment extends Fragment {
         return baseView;
     }
 
-    private void initButterKnife(Object object, View rootView) {
-        unbinder = ButterKnife.bind(object, rootView);
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -336,8 +327,6 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (null != unbinder) {
-            unbinder.unbind();
-        }
+        Log.d(TAG, "onDestroyView()");
     }
 }

@@ -18,8 +18,6 @@ import com.library.base.R;
 import com.library.base.permission.BasePermissionActivity;
 import com.library.base.widget.TopBar;
 
-import butterknife.ButterKnife;
-
 /**
  * <pre>
  *      @author : xiaoyao
@@ -83,8 +81,7 @@ public abstract class BaseActivity extends BasePermissionActivity {
      *
      * @param context 上下文对象
      */
-//    public void initButterKnife(Context context) {
-//    }
+    public void initButterKnife(Context context) { }
 
     /**
      * 初始化MVP架构的P层
@@ -206,13 +203,6 @@ public abstract class BaseActivity extends BasePermissionActivity {
         LayoutInflater.from(this).inflate(bindLayout(), viewContent);
     }
 
-    /**
-     * 初始化ButterKnife
-     * @param activity 类
-     */
-    private void initButterKnife(BaseActivity activity) {
-        ButterKnife.bind(activity);
-    }
 
 
     /**********************常用方法***********************/

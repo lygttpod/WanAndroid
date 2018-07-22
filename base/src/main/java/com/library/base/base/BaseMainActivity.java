@@ -1,13 +1,11 @@
 package com.library.base.base;
 
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -19,7 +17,9 @@ import com.library.base.utils.ActivityCollector;
 import com.library.base.widget.BottomTabView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Allen on 2017/5/5.
@@ -34,19 +34,45 @@ public abstract class BaseMainActivity extends BasePermissionActivity {
     public BottomTabView bottomTabView;
     private List<Tab> mTabs = new ArrayList<>();
 
-    private List<Fragment> fragments = new ArrayList<>();
-
+    private Map<String, Fragment> fragmentMap = new HashMap<>();
     private List<String> fragmentNames = new ArrayList<>();
 
     protected FragmentManager fm;
 
+    /**
+     * 底部导航相关参数
+     *
+     * @param tabs tab
+     * @return tab数组
+     */
     public abstract List<Tab> setBottomTabs(List<Tab> tabs);
 
+    /**
+     * 外界传入需要显示的fragment类目用于创建事例使用
+     *
+     * @param fragmentClassNames 类名
+     * @return 类目数组
+     */
     public abstract List<String> setFragmentClassNames(List<String> fragmentClassNames);
 
+    /**
+     * 用于处理是否需要登录之后才能跳转的问题
+     *
+     * @return 默认不拦截 直接跳转
+     */
+    public abstract boolean isInterceptBeforeSkip();
 
+    /**
+     * tab点击事件
+     *
+     * @param v        View
+     * @param position 位置
+     */
     public abstract void setTabSelectListener(View v, int position);
 
+    /**
+     * 业务逻辑处理
+     */
     public abstract void doBusiness();
 
     @Override
@@ -73,55 +99,59 @@ public abstract class BaseMainActivity extends BasePermissionActivity {
         bottomTabView.setCurrentItem(0);
     }
 
+    /**
+     * tab点击事件回调
+     */
     private void initListener() {
         bottomTabView.setOnTabSelectedListener(new BottomTabView.OnTabSelectedListener() {
             @Override
             public void onTabSelected(View v, int position) {
-                setTabSelectListener(v, position);
-                showFragment(position);
+                if (isInterceptBeforeSkip()) {
+                    setTabSelectListener(v, position);
+                } else {
+                    showFragment(position);
+                }
             }
         });
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (System.currentTimeMillis() - lastBackPressTime > 1000) {
-                Toast.makeText(this, "连按两次退出系统", Toast.LENGTH_SHORT).show();
-                lastBackPressTime = System.currentTimeMillis();
-            } else {
-                ActivityCollector.finishAll();
-                this.finish();
-            }
-        }
-        return false;
-    }
 
-    private void showFragment(int position) {
+    /**
+     * 显示或添加fragment
+     *
+     * @param position 当前位置
+     */
+    protected void showFragment(int position) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         hideFragment(ft);
         Fragment fragment = null;
-        if (fragments.size() > position) {
-            fragment = fragments.get(position);
-        }
-        if (null == fragment) {
-            if (position < fragmentNames.size()) {
+        StringBuilder className = new StringBuilder();
+        //类名前追加position作为唯一标示
+        className.append(position);
+        //说明创建的fragment数量在tab的范围之类，防止数组越界
+        if (position < fragmentNames.size()) {
+            className.append(fragmentNames.get(position));
+            fragment = fragmentMap.get(className.toString());
+            //为空说明还没有创建过实例
+            if (null == fragment) {
                 fragment = createFragment(fragmentNames.get(position));
-            } else {
-                fragment = ErrorFragment.newInstance("fragment数量和tab不匹配");
-                Log.e(TAG, "fragment数量和tab不匹配");
-            }
-            if (null != fragment) {
-                fragments.add(fragment);
+                //动态实例化失败，生成默认错误页面提示
+                if (null == fragment) {
+                    fragment = ErrorFragment.newInstance("未能创建fragment实例 \n\t" +
+                            "请检查类名是否传递正确 \n\t " +
+                            "请使用XXX.class.getName()获取类名");
+                }
+                fragmentMap.put(className.toString(), fragment);
                 ft.add(R.id.home_container, fragment);
             } else {
-                fragment = ErrorFragment.newInstance("未能创建fragment实例");
-                fragments.add(fragment);
-                ft.add(R.id.home_container, fragment);
-                Log.e(TAG, "未能创建fragment实例");
+                ft.show(fragment);
             }
         } else {
-            ft.show(fragment);
+            fragment = ErrorFragment.newInstance("fragment数量和tab数量不匹配 \n\t" +
+                    "fragment.size()必须大于或等于tab.size()");
+            fragmentMap.put(className.toString(), fragment);
+
+            ft.add(R.id.home_container, fragment);
         }
         ft.commit();
     }
@@ -132,8 +162,8 @@ public abstract class BaseMainActivity extends BasePermissionActivity {
      * @param ft FragmentTransaction
      */
     private void hideFragment(FragmentTransaction ft) {
-        if (null != fragments && fragments.size() > 0) {
-            for (Fragment fragment : fragments) {
+        if (null != fragmentMap && fragmentMap.size() > 0) {
+            for (Fragment fragment : fragmentMap.values()) {
                 ft.hide(fragment);
             }
         }
@@ -162,5 +192,19 @@ public abstract class BaseMainActivity extends BasePermissionActivity {
             }
         }
         return fragment;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - lastBackPressTime > 1000) {
+                Toast.makeText(this, "连按两次退出系统", Toast.LENGTH_SHORT).show();
+                lastBackPressTime = System.currentTimeMillis();
+            } else {
+                ActivityCollector.finishAll();
+                this.finish();
+            }
+        }
+        return false;
     }
 }

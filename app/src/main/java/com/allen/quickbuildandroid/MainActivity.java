@@ -2,6 +2,7 @@ package com.allen.quickbuildandroid;
 
 import android.view.View;
 
+import com.allen.quickbuildandroid.home.HomeFragment;
 import com.allen.quickbuildandroid.movie.MovieFragment;
 import com.library.base.base.BaseMainActivity;
 import com.library.base.bean.Tab;
@@ -13,24 +14,29 @@ public class MainActivity extends BaseMainActivity {
     @Override
     public List<Tab> setBottomTabs(List<Tab> tabs) {
         tabs.add(new Tab("首页", R.mipmap.icon_home_unselected, R.mipmap.icon_home_selected, R.color.colorTabNormal, R.color.colorTabSelected));
-        tabs.add(new Tab("首页", R.mipmap.icon_home_unselected, R.mipmap.icon_home_selected, R.color.colorTabNormal, R.color.colorTabSelected));
-        tabs.add(new Tab("首页", R.mipmap.icon_home_unselected, R.mipmap.icon_home_selected, R.color.colorTabNormal, R.color.colorTabSelected));
-        tabs.add(new Tab("首页", R.mipmap.icon_home_unselected, R.mipmap.icon_home_selected, R.color.colorTabNormal, R.color.colorTabSelected));
+        tabs.add(new Tab("热搜", R.mipmap.icon_home_unselected, R.mipmap.icon_home_selected, R.color.colorTabNormal, R.color.colorTabSelected));
+        tabs.add(new Tab("体系", R.mipmap.icon_home_unselected, R.mipmap.icon_home_selected, R.color.colorTabNormal, R.color.colorTabSelected));
+        tabs.add(new Tab("我的", R.mipmap.icon_home_unselected, R.mipmap.icon_home_selected, R.color.colorTabNormal, R.color.colorTabSelected));
         return tabs;
     }
 
     @Override
     public List<String> setFragmentClassNames(List<String> fragmentClassNames) {
-        fragmentClassNames.add(MovieFragment.class.getName());
-        fragmentClassNames.add(MovieFragment.class.getName());
-        fragmentClassNames.add(MovieFragment.class.getName());
+        fragmentClassNames.add(HomeFragment.class.getName());
+        fragmentClassNames.add(HomeFragment.class.getName());
+        fragmentClassNames.add(HomeFragment.class.getName());
+        fragmentClassNames.add(HomeFragment.class.getName());
         return fragmentClassNames;
+    }
+
+    @Override
+    public boolean isInterceptBeforeSkip() {
+        return false;
     }
 
 
     @Override
     public void setTabSelectListener(View v, int position) {
-
     }
 
     @Override
