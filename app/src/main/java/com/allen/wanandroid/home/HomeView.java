@@ -1,7 +1,5 @@
 package com.allen.wanandroid.home;
 
-import android.app.Dialog;
-
 import com.allen.wanandroid.bean.BannerBean;
 import com.allen.wanandroid.bean.HomeBean;
 import com.library.base.mvp.IBaseMvpView;
@@ -25,6 +23,5 @@ public interface HomeView extends IBaseMvpView {
 
      void loadMoreComplete();
      void loadMoreEnd();
-     Dialog getLoadingDialog();
 
 }

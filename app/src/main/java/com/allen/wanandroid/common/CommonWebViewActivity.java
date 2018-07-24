@@ -1,5 +1,6 @@
 package com.allen.wanandroid.common;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -10,8 +11,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.base.BaseAppActivity;
 import com.allen.wanandroid.constant.BundleKey;
+import com.library.base.base.BaseActivity;
 import com.library.base.widget.TopBar;
 
 import butterknife.BindView;
@@ -25,7 +26,7 @@ import butterknife.BindView;
  *      version : 1.0
  * </pre>
  */
-public class CommonWebViewActivity extends BaseAppActivity {
+public class CommonWebViewActivity extends BaseActivity {
     @BindView(R.id.web_view)
     WebView webView;
 
@@ -111,4 +112,6 @@ public class CommonWebViewActivity extends BaseAppActivity {
             dismissLoading();
         }
     }
+
+
 }

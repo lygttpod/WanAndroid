@@ -2,6 +2,7 @@ package com.allen.wanandroid;
 
 import android.view.View;
 
+import com.allen.wanandroid.category.CategoryHomeFragment;
 import com.allen.wanandroid.home.HomeFragment;
 import com.allen.wanandroid.movie.MovieFragment;
 import com.library.base.base.BaseMainActivity;
@@ -24,7 +25,7 @@ public class MainActivity extends BaseMainActivity {
     public List<String> setFragmentClassNames(List<String> fragmentClassNames) {
         fragmentClassNames.add(HomeFragment.class.getName());
         fragmentClassNames.add(HomeFragment.class.getName());
-        fragmentClassNames.add(HomeFragment.class.getName());
+        fragmentClassNames.add(CategoryHomeFragment.class.getName());
         fragmentClassNames.add(HomeFragment.class.getName());
         return fragmentClassNames;
     }

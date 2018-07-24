@@ -5,6 +5,7 @@ import com.allen.library.bean.BaseData;
 import com.allen.library.interceptor.Transformer;
 import com.allen.library.observer.DataObserver;
 import com.allen.wanandroid.bean.BannerBean;
+import com.allen.wanandroid.bean.CategoryBean;
 import com.allen.wanandroid.bean.HomeBean;
 
 import java.util.List;
@@ -26,11 +27,24 @@ public class ApiModel {
                 .compose(Transformer.<BaseData<HomeBean>>switchSchedulers(observer.getProgressDialog()))
                 .subscribe(observer);
     }
+    public void getHomeArticleListWithId(int page,int id, DataObserver<HomeBean> observer) {
+        RxHttpUtils.createApi(Apiservice.class)
+                .getHomeArticleListWithId(page,id)
+                .compose(Transformer.<BaseData<HomeBean>>switchSchedulers(observer.getProgressDialog()))
+                .subscribe(observer);
+    }
 
     public void getBanner(DataObserver<List<BannerBean>> observer) {
         RxHttpUtils.createApi(Apiservice.class)
                 .getBanner()
                 .compose(Transformer.<BaseData<List<BannerBean>>>switchSchedulers(observer.getProgressDialog()))
+                .subscribe(observer);
+    }
+
+    public void getCategoryList(DataObserver<List<CategoryBean>> observer) {
+        RxHttpUtils.createApi(Apiservice.class)
+                .getCategoryList()
+                .compose(Transformer.<BaseData<List<CategoryBean>>>switchSchedulers(observer.getProgressDialog()))
                 .subscribe(observer);
     }
 }

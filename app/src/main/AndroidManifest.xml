@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".common.CommonWebViewActivity" />
+        <activity android:name=".article.ArticleActivity" />
     </application>
 
 </manifest>

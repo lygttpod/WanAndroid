@@ -12,4 +12,5 @@ package com.allen.wanandroid.constant;
 public interface BundleKey {
     String TITLE = "title";
     String URL = "url";
+    String ID = "id";
 }
