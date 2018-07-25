@@ -1,8 +1,9 @@
-package com.allen.wanandroid.category;
+package com.allen.wanandroid.ui.presenter;
 
 import com.allen.library.observer.DataObserver;
 import com.allen.wanandroid.api.ApiModel;
 import com.allen.wanandroid.bean.CategoryBean;
+import com.allen.wanandroid.ui.view.CategoryHomeView;
 import com.library.base.mvp.BaseMvpPresenter;
 
 import java.util.List;

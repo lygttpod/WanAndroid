@@ -1,4 +1,4 @@
-package com.allen.wanandroid.category;
+package com.allen.wanandroid.ui.view;
 
 import com.allen.wanandroid.bean.CategoryBean;
 import com.library.base.mvp.IBaseMvpView;

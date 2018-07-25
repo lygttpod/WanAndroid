@@ -21,7 +21,6 @@ import com.library.base.widget.LoadingDialog;
 import com.library.base.widget.TopBar;
 
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * <pre>
@@ -37,8 +36,6 @@ public abstract class BaseActivity extends BasePermissionActivity {
     protected final String TAG = this.getClass().getSimpleName();
 
     public Dialog loadingDialog;
-
-    private Unbinder unbinder;
 
     private FrameLayout viewContent;
 
@@ -91,7 +88,7 @@ public abstract class BaseActivity extends BasePermissionActivity {
      * @param context 上下文对象
      */
     public void initButterKnife(Context context) {
-        unbinder = ButterKnife.bind(this);
+        ButterKnife.bind(this);
     }
 
     /**
@@ -364,9 +361,6 @@ public abstract class BaseActivity extends BasePermissionActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy()");
-        if (null != unbinder) {
-            unbinder.unbind();
-        }
     }
 
 }

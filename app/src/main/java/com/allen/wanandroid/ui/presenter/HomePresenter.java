@@ -1,9 +1,10 @@
-package com.allen.wanandroid.home;
+package com.allen.wanandroid.ui.presenter;
 
 import com.allen.library.observer.DataObserver;
 import com.allen.wanandroid.api.ApiModel;
 import com.allen.wanandroid.bean.BannerBean;
 import com.allen.wanandroid.bean.HomeBean;
+import com.allen.wanandroid.ui.view.HomeView;
 import com.library.base.mvp.BaseMvpPresenter;
 
 import java.util.List;
@@ -38,6 +39,9 @@ public class HomePresenter extends BaseMvpPresenter<HomeView> {
                 mView.hideLoading();
                 if (data.getCurPage() == 1) {
                     mView.showNewArticleList(data.getDatas());
+                    if (data.isOver()){
+                        mView.loadMoreEnd();
+                    }
                 } else {
                     if (data.isOver()) {
                         mView.loadMoreEnd();

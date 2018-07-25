@@ -2,9 +2,8 @@ package com.allen.wanandroid;
 
 import android.view.View;
 
-import com.allen.wanandroid.category.CategoryHomeFragment;
-import com.allen.wanandroid.home.HomeFragment;
-import com.allen.wanandroid.movie.MovieFragment;
+import com.allen.wanandroid.ui.ui.fragment.CategoryHomeFragment;
+import com.allen.wanandroid.ui.ui.fragment.HomeFragment;
 import com.library.base.base.BaseMainActivity;
 import com.library.base.bean.Tab;
 

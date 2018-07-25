@@ -1,4 +1,4 @@
-package com.allen.wanandroid.home;
+package com.allen.wanandroid.ui.view;
 
 import com.allen.wanandroid.bean.BannerBean;
 import com.allen.wanandroid.bean.HomeBean;

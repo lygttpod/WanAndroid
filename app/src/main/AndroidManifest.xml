@@ -24,8 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".common.CommonWebViewActivity" />
-        <activity android:name=".article.ArticleActivity" />
+        <activity android:name=".ui.ui.activity.WebViewActivity" />
+        <activity android:name=".ui.ui.activity.ArticleActivity" />
+        <activity android:name=".ui.ui.activity.LoginActivity" />
     </application>
 
 </manifest>

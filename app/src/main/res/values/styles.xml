@@ -7,8 +7,64 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="TextInputLayoutStyle">
+        <item name="android:theme">@style/TextInputLayoutLineColor</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="counterOverflowTextAppearance">@style/HintErrorAppearance</item>
+        <item name="errorTextAppearance">@style/TextErrorAppearance</item>
+        <item name="hintTextAppearance">@style/HintAppearance</item>
+    </style>
+    <style name="TextInputLayout_psd_Style">
+        <item name="android:theme">@style/TextInputLayoutLineColor</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="counterEnabled">true</item>
+        <item name="counterMaxLength">12</item>
+        <item name="errorEnabled">true</item>
+        <item name="passwordToggleEnabled">true</item>
+        <item name="counterOverflowTextAppearance">@style/HintErrorAppearance</item>
+        <item name="errorTextAppearance">@style/TextErrorAppearance</item>
+        <item name="hintTextAppearance">@style/HintAppearance</item>
+    </style>
+
+
+    <!--EditText的主題 Start-->
+    <style name="TextInputLayoutLineColor" parent="Theme.AppCompat.Light">
+        <!--没有获取焦点时的颜色-->
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <!--获取焦点时的颜色-->
+        <item name="colorControlActivated">@color/colorAccent</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:layout_width">match_parent</item>　　
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="HintAppearance" parent="TextAppearance.AppCompat">　
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorTabNormal</item>
+    </style>
+
+    <style name="HintErrorAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">16sp</item>　
+        <item name="android:textColor">@color/colorAccent</item>　
+        <item name="textColorError">@color/colorAccent</item>
+    </style>
+
+    <style name="TextErrorAppearance" parent="TextAppearance.AppCompat">　
+        <item name="android:textSize">16sp</item>　
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="textColorError">@color/colorAccent</item>
     </style>
 </resources>

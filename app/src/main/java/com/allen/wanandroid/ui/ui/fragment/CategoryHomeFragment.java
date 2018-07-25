@@ -1,4 +1,4 @@
-package com.allen.wanandroid.category;
+package com.allen.wanandroid.ui.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,9 +8,11 @@ import android.view.View;
 
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.CategoryHomeAdapter;
-import com.allen.wanandroid.article.ArticleActivity;
+import com.allen.wanandroid.ui.ui.activity.ArticleActivity;
 import com.allen.wanandroid.bean.CategoryBean;
 import com.allen.wanandroid.constant.BundleKey;
+import com.allen.wanandroid.ui.presenter.CategoryHomePresenter;
+import com.allen.wanandroid.ui.view.CategoryHomeView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.library.base.mvp.BaseMvpFragment;
@@ -18,7 +20,6 @@ import com.library.base.widget.SuperDividerItemDecoration;
 import com.library.base.widget.TopBar;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;

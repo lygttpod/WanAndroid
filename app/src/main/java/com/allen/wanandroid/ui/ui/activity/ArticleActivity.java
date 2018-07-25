@@ -1,4 +1,4 @@
-package com.allen.wanandroid.article;
+package com.allen.wanandroid.ui.ui.activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.constant.BundleKey;
+import com.allen.wanandroid.ui.ui.fragment.ArticleFragment;
 import com.library.base.base.BaseActivity;
 import com.library.base.widget.TopBar;
 

@@ -4,12 +4,13 @@ import com.allen.library.bean.BaseData;
 import com.allen.wanandroid.bean.BannerBean;
 import com.allen.wanandroid.bean.CategoryBean;
 import com.allen.wanandroid.bean.HomeBean;
+import com.allen.wanandroid.bean.UserBean;
 
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.Observer;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -22,10 +23,11 @@ import retrofit2.http.Query;
  *      version : 1.0
  * </pre>
  */
-public interface Apiservice {
+public interface ApiService {
 
     /**
      * 获取首页文章列表
+     *
      * @param page
      * @return
      */
@@ -40,4 +42,10 @@ public interface Apiservice {
 
     @GET("tree/json")
     Observable<BaseData<List<CategoryBean>>> getCategoryList();
+
+    @POST("user/login")
+    Observable<BaseData<UserBean>> login(@Query("username") String userName, @Query("password") String passWord);
+
+    @POST("user/register")
+    Observable<BaseData<UserBean>> register(@Query("username") String userName, @Query("password") String passWord, @Query("repassword") String repPassWord);
 }
