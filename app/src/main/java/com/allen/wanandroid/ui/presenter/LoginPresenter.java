@@ -4,6 +4,7 @@ import com.allen.library.observer.DataObserver;
 import com.allen.wanandroid.api.ApiModel;
 import com.allen.wanandroid.bean.UserBean;
 import com.allen.wanandroid.ui.view.LoginView;
+import com.allen.wanandroid.utils.DbUtils;
 import com.library.base.mvp.BaseMvpPresenter;
 
 /**
@@ -34,6 +35,7 @@ public class LoginPresenter extends BaseMvpPresenter<LoginView> {
 
             @Override
             protected void onSuccess(UserBean data) {
+                DbUtils.insertUserInfo(data);
                 mView.optionSuccess(data);
             }
         });

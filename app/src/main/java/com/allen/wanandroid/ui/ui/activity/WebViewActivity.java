@@ -6,7 +6,9 @@ import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
+import com.allen.wanandroid.constant.ARouterPath;
 import com.allen.wanandroid.constant.BundleKey;
 import com.allen.wanandroid.ui.presenter.WebViewPresenter;
 import com.allen.wanandroid.ui.view.WebViewView;
@@ -24,6 +26,7 @@ import butterknife.BindView;
  *      version : 1.0
  * </pre>
  */
+@Route(path = ARouterPath.webViewPath)
 public class WebViewActivity extends BaseMvpActivity<WebViewPresenter> implements WebViewView {
     @BindView(R.id.web_view)
     WebView webView;

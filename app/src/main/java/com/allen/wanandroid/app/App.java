@@ -3,8 +3,12 @@ package com.allen.wanandroid.app;
 import android.app.Application;
 import android.content.Context;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.allen.library.RxHttpUtils;
 import com.allen.library.config.OkHttpConfig;
+import com.allen.wanandroid.BuildConfig;
+import com.allen.wanandroid.db.DaoMaster;
+import com.allen.wanandroid.db.DaoSession;
 
 import okhttp3.OkHttpClient;
 
@@ -23,13 +27,31 @@ public class App extends Application {
     }
 
     public static Context context;
+    private static DaoSession daoSession;
 
+    public static DaoSession getDaoSession() {
+        return daoSession;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = this;
+        initARouter();
         initHttp();
+        initGreenDao();
+    }
+
+    private void initARouter() {
+        // 这两行必须写在init之前，否则这些配置在init过程中将无效
+        if (BuildConfig.DEBUG) {
+            // 打印日志
+            ARouter.openLog();
+            // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+            ARouter.openDebug();
+        }
+        // 尽可能早，推荐在Application中初始化
+        ARouter.init(this);
     }
 
     private void initHttp() {
@@ -42,7 +64,7 @@ public class App extends Application {
                 //2、在没有网络的时候，去读缓存中的数据。
                 .setCache(false)
                 //全局持久话cookie,保存本地每次都会携带在header中（默认false）
-                .setSaveCookie(false)
+                .setSaveCookie(true)
                 //可以添加自己的拦截器(比如使用自己熟悉三方的缓存库等等)
                 //.setAddInterceptor(null)
                 //全局ssl证书认证
@@ -71,4 +93,13 @@ public class App extends Application {
                 //开启全局配置
                 .setOkClient(okHttpClient);
     }
+
+    /**
+     * 初始化数据库
+     */
+    private void initGreenDao() {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "wan_android.db");
+        daoSession = new DaoMaster(helper.getWritableDb()).newSession();
+    }
+
 }

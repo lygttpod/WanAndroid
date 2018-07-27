@@ -78,7 +78,7 @@ public abstract class DataObserver<T> extends BaseDataObserver<T> {
         if (data.getErrorCode()>=0){
             onSuccess(data.getData());
         }else {
-            onError(data.getErrorMsg());
+            doOnError(data.getErrorMsg());
         }
     }
 

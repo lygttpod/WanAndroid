@@ -7,6 +7,7 @@ import com.allen.library.observer.DataObserver;
 import com.allen.wanandroid.bean.BannerBean;
 import com.allen.wanandroid.bean.CategoryBean;
 import com.allen.wanandroid.bean.HomeBean;
+import com.allen.wanandroid.bean.HotBean;
 import com.allen.wanandroid.bean.UserBean;
 
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
  * </pre>
  */
 public class ApiModel {
+
 
     public void getHomeArticleList(int page, DataObserver<HomeBean> observer) {
         RxHttpUtils.createApi(ApiService.class)
@@ -65,4 +67,41 @@ public class ApiModel {
                 .subscribe(observer);
 
     }
+
+    public void getUserCollectList(int page, DataObserver<HomeBean> observer) {
+        RxHttpUtils.createApi(ApiService.class)
+                .getUserCollectList(page)
+                .compose(Transformer.<BaseData<HomeBean>>switchSchedulers(observer.getProgressDialog()))
+                .subscribe(observer);
+    }
+
+    public void getHotSearchData(DataObserver<List<HotBean>> observer) {
+        RxHttpUtils.createApi(ApiService.class)
+                .getHotSearchData()
+                .compose(Transformer.<BaseData<List<HotBean>>>switchSchedulers(observer.getProgressDialog()))
+                .subscribe(observer);
+    }
+
+    public void getWebSiteData(DataObserver<List<HotBean>> observer) {
+        RxHttpUtils.createApi(ApiService.class)
+                .getWebSiteData()
+                .compose(Transformer.<BaseData<List<HotBean>>>switchSchedulers(observer.getProgressDialog()))
+                .subscribe(observer);
+    }
+
+    public void getProjectTabData(DataObserver<List<CategoryBean>> observer) {
+        RxHttpUtils.createApi(ApiService.class)
+                .getProjectTabData()
+                .compose(Transformer.<BaseData<List<CategoryBean>>>switchSchedulers(observer.getProgressDialog()))
+                .subscribe(observer);
+    }
+
+    public void getProjectArticleListWithId(int page, int id, DataObserver<HomeBean> observer) {
+        RxHttpUtils.createApi(ApiService.class)
+                .getProjectArticleListWithId(page, id)
+                .compose(Transformer.<BaseData<HomeBean>>switchSchedulers())
+                .subscribe(observer);
+    }
+
+
 }

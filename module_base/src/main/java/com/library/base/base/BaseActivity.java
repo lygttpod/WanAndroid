@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.library.base.R;
 import com.library.base.permission.BasePermissionActivity;
 import com.library.base.widget.LoadingDialog;
@@ -144,6 +145,8 @@ public abstract class BaseActivity extends BasePermissionActivity {
         loadingDialog = setLoadingView();
 
         Log.d(TAG, "onCreate()");
+
+        ARouter.getInstance().inject(this);
 
         setBundleData();
 

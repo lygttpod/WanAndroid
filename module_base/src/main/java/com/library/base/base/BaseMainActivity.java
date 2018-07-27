@@ -1,7 +1,7 @@
 package com.library.base.base;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,9 +12,9 @@ import android.widget.Toast;
 
 import com.library.base.R;
 import com.library.base.bean.Tab;
-import com.library.base.permission.BasePermissionActivity;
 import com.library.base.utils.ActivityCollector;
 import com.library.base.widget.BottomTabView;
+import com.library.base.widget.TopBar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +27,7 @@ import java.util.Map;
  * 快速实现底部导航基础类
  */
 
-public abstract class BaseMainActivity extends BasePermissionActivity {
-    protected final String TAG = this.getClass().getSimpleName();
+public abstract class BaseMainActivity extends BaseActivity {
     private long lastBackPressTime = 0;
 
     public BottomTabView bottomTabView;
@@ -70,21 +69,38 @@ public abstract class BaseMainActivity extends BasePermissionActivity {
      */
     public abstract void setTabSelectListener(View v, int position);
 
-    /**
-     * 业务逻辑处理
-     */
-    public abstract void doBusiness();
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base_bottom_tab);
+    protected void getBundleData(Bundle params) {
+
+    }
+
+    @Override
+    public int bindLayout() {
+        return R.layout.activity_base_bottom_tab;
+    }
+
+    @Override
+    public void setTopBar(TopBar topBar) {
+        hideTopBar();
+    }
+
+    @Override
+    public boolean isCanRefresh() {
+        return false;
+    }
+
+    @Override
+    public void doOnRefresh() {
+
+    }
+
+    @Override
+    public void doBusiness(Context context) {
         fm = getSupportFragmentManager();
         fragmentNames = setFragmentClassNames(new ArrayList<String>());
         initTab();
-        doBusiness();
     }
-
 
     /**
      * 初始化底部导航

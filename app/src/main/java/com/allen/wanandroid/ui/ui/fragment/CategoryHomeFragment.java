@@ -6,12 +6,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.CategoryHomeAdapter;
-import com.allen.wanandroid.ui.ui.activity.ArticleActivity;
 import com.allen.wanandroid.bean.CategoryBean;
+import com.allen.wanandroid.constant.ARouterPath;
 import com.allen.wanandroid.constant.BundleKey;
 import com.allen.wanandroid.ui.presenter.CategoryHomePresenter;
+import com.allen.wanandroid.ui.ui.activity.ArticleActivity;
 import com.allen.wanandroid.ui.view.CategoryHomeView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
@@ -35,6 +37,7 @@ import static com.allen.wanandroid.adapter.CategoryHomeAdapter.TYPE_TWO;
  *      version : 1.0
  * </pre>
  */
+@Route(path = ARouterPath.categoryPath)
 public class CategoryHomeFragment extends BaseMvpFragment<CategoryHomePresenter> implements CategoryHomeView, BaseQuickAdapter.OnItemClickListener {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -50,7 +53,8 @@ public class CategoryHomeFragment extends BaseMvpFragment<CategoryHomePresenter>
 
     @Override
     protected void lazyLoad() {
-
+        showRefreshView();
+        mPresenter.getCategoryData();
     }
 
     @Override
@@ -65,7 +69,8 @@ public class CategoryHomeFragment extends BaseMvpFragment<CategoryHomePresenter>
 
     @Override
     public void initTopBar(TopBar topBar) {
-        hideTopBar();
+        topBar.isShowLeftImg(false).setCenterText("知识体系");
+
     }
 
     @Override
@@ -90,17 +95,6 @@ public class CategoryHomeFragment extends BaseMvpFragment<CategoryHomePresenter>
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.addItemDecoration(new SuperDividerItemDecoration.Builder(context).build());
         recyclerView.setAdapter(adapter);
-
-        mPresenter.getCategoryData();
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
 
     }
 

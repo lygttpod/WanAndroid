@@ -6,14 +6,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.HomeAdapter;
 import com.allen.wanandroid.bean.BannerBean;
 import com.allen.wanandroid.bean.HomeBean;
+import com.allen.wanandroid.constant.ARouterPath;
 import com.allen.wanandroid.constant.BundleKey;
-import com.allen.wanandroid.ui.presenter.HomePresenter;
+import com.allen.wanandroid.ui.presenter.ArticlePresenter;
 import com.allen.wanandroid.ui.ui.activity.WebViewActivity;
-import com.allen.wanandroid.ui.view.HomeView;
+import com.allen.wanandroid.ui.view.ArticleView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.library.base.mvp.BaseMvpFragment;
 import com.library.base.widget.TopBar;
@@ -32,7 +34,8 @@ import butterknife.BindView;
  *      version : 1.0
  * </pre>
  */
-public class ArticleFragment extends BaseMvpFragment<HomePresenter> implements HomeView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+@Route(path = ARouterPath.articleListFrPath)
+public class ArticleFragment extends BaseMvpFragment<ArticlePresenter> implements ArticleView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -54,13 +57,14 @@ public class ArticleFragment extends BaseMvpFragment<HomePresenter> implements H
     }
 
     @Override
-    protected HomePresenter createPresenter() {
-        return new HomePresenter();
+    protected ArticlePresenter createPresenter() {
+        return new ArticlePresenter();
     }
 
     @Override
     protected void lazyLoad() {
-
+        showRefreshView();
+        mPresenter.getHomeArticleListWithId(0, id);
     }
 
     @Override
@@ -90,7 +94,7 @@ public class ArticleFragment extends BaseMvpFragment<HomePresenter> implements H
     @Override
     public void doOnRefresh() {
         page = 0;
-        mPresenter.getHomeArticleListWithId(0, id);
+        mPresenter.getHomeArticleListWithId(page, id);
     }
 
     @Override
@@ -103,17 +107,6 @@ public class ArticleFragment extends BaseMvpFragment<HomePresenter> implements H
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
 
-        mPresenter.getHomeArticleListWithId(0, id);
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-        refreshComplete();
     }
 
 
@@ -149,7 +142,7 @@ public class ArticleFragment extends BaseMvpFragment<HomePresenter> implements H
     @Override
     public void onLoadMoreRequested() {
         page++;
-        mPresenter.getHomeArticleListWithId(0, id);
+        mPresenter.getHomeArticleListWithId(page, id);
     }
 
     @Override

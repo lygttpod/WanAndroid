@@ -48,9 +48,9 @@ public abstract class BaseFragment extends Fragment {
     public TopBar topBar;
 
     /**
-     * 判断fragment是否显示
+     * 判断fragment是否创建完并可见
      */
-    public boolean isVisible;
+    private boolean isViewCreated = false;
 
     /**
      * 消息提示
@@ -139,11 +139,10 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (getUserVisibleHint()) {
-            isVisible = true;
+        if (isVisibleToUser && isViewCreated) {
+            isViewCreated = false;
             onVisible();
         } else {
-            isVisible = false;
             onInVisible();
         }
     }
@@ -173,7 +172,21 @@ public abstract class BaseFragment extends Fragment {
 
         initPresenter();
 
+        initLazyLoad();
+
         return baseView;
+    }
+
+    /**
+     * 实现懒加载，在页面创建之后在加载
+     */
+    private void initLazyLoad() {
+        isViewCreated = true;
+        //判断Fragment是否可见
+        if (getUserVisibleHint()) {
+            lazyLoad();
+            isViewCreated = false;
+        }
     }
 
 
@@ -302,6 +315,13 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
+     * 显示刷新
+     */
+    public void showRefreshView() {
+        swipeRefreshLayout.setRefreshing(true);
+    }
+
+    /**
      * 刷新完成
      */
     public void refreshComplete() {
@@ -351,6 +371,8 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         Log.d(TAG, "onDestroyView()");
+        isViewCreated = false;//视图销毁将变量置为false
+
     }
 
     @Override

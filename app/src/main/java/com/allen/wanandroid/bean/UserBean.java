@@ -1,6 +1,14 @@
 package com.allen.wanandroid.bean;
 
+import com.allen.wanandroid.db.StringConverter;
+
+import org.greenrobot.greendao.annotation.Convert;
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Property;
+
 import java.util.List;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * <pre>
@@ -11,6 +19,7 @@ import java.util.List;
  *      version : 1.0
  * </pre>
  */
+@Entity
 public class UserBean {
 
     /**
@@ -23,67 +32,75 @@ public class UserBean {
      * username : 134679
      */
 
+    @Property
     private String email;
+    @Property
     private String icon;
-    private int id;
+    @Id
+    private Long id;
+    @Property
     private String password;
+    @Property
     private int type;
+    @Property
     private String username;
-    private List<Integer> collectIds;
-
-    public String getEmail() {
-        return email;
+    @Convert(converter = StringConverter.class,columnType = String.class)
+    private List<String> collectIds;
+    @Generated(hash = 808883233)
+    public UserBean(String email, String icon, Long id, String password, int type,
+            String username, List<String> collectIds) {
+        this.email = email;
+        this.icon = icon;
+        this.id = id;
+        this.password = password;
+        this.type = type;
+        this.username = username;
+        this.collectIds = collectIds;
     }
-
+    @Generated(hash = 1203313951)
+    public UserBean() {
+    }
+    public String getEmail() {
+        return this.email;
+    }
     public void setEmail(String email) {
         this.email = email;
     }
-
     public String getIcon() {
-        return icon;
+        return this.icon;
     }
-
     public void setIcon(String icon) {
         this.icon = icon;
     }
-
-    public int getId() {
-        return id;
+    public Long getId() {
+        return this.id;
     }
-
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
-
     public String getPassword() {
-        return password;
+        return this.password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-
     public int getType() {
-        return type;
+        return this.type;
     }
-
     public void setType(int type) {
         this.type = type;
     }
-
     public String getUsername() {
-        return username;
+        return this.username;
     }
-
     public void setUsername(String username) {
         this.username = username;
     }
-
-    public List<Integer> getCollectIds() {
-        return collectIds;
+    public List<String> getCollectIds() {
+        return this.collectIds;
     }
-
-    public void setCollectIds(List<Integer> collectIds) {
+    public void setCollectIds(List<String> collectIds) {
         this.collectIds = collectIds;
     }
+    
 }

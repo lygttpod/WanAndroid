@@ -15,7 +15,7 @@ import java.util.List;
  *      version : 1.0
  * </pre>
  */
-public interface HomeView extends IBaseMvpView {
+public interface ArticleView extends IBaseMvpView {
 
      void showBanner(List<BannerBean> list);
      void showNewArticleList(List<HomeBean.DatasEntity> list);

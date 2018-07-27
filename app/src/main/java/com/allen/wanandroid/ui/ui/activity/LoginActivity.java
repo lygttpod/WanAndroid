@@ -10,8 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.bean.UserBean;
+import com.allen.wanandroid.constant.ARouterPath;
 import com.allen.wanandroid.ui.presenter.LoginPresenter;
 import com.allen.wanandroid.ui.view.LoginView;
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -38,6 +40,7 @@ import io.reactivex.observables.ConnectableObservable;
  *      version : 1.0
  * </pre>
  */
+@Route(path = ARouterPath.loginPath)
 public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements LoginView {
 
     @BindView(R.id.user_name_et)

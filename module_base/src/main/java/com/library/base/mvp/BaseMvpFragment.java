@@ -46,4 +46,14 @@ public abstract class BaseMvpFragment<P extends BaseMvpPresenter> extends BaseFr
     public Dialog getLoadingDialog() {
         return loadingDialog;
     }
+
+    @Override
+    public void showLoading() {
+        showRefreshView();
+    }
+
+    @Override
+    public void hideLoading() {
+        refreshComplete();
+    }
 }

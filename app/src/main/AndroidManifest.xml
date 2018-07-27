@@ -17,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,6 +29,8 @@
         <activity android:name=".ui.ui.activity.WebViewActivity" />
         <activity android:name=".ui.ui.activity.ArticleActivity" />
         <activity android:name=".ui.ui.activity.LoginActivity" />
+        <activity android:name=".ui.ui.activity.UserCollectActivity" />
+        <activity android:name=".ui.ui.activity.SearchActivity" />
     </application>
 
 </manifest>
