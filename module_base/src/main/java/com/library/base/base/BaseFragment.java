@@ -324,7 +324,7 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 刷新完成
      */
-    public void refreshComplete() {
+    public void hideRefreshView() {
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -333,7 +333,7 @@ public abstract class BaseFragment extends Fragment {
         });
     }
 
-    public void showLoading() {
+    public void showLoadingDialog() {
         if (null != loadingDialog) {
             if (!getActivity().isFinishing() && !loadingDialog.isShowing()) {
                 loadingDialog.show();
@@ -341,7 +341,7 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    public void dismissLoading() {
+    public void hideLoadingDialog() {
         if (null != loadingDialog) {
             if (!getActivity().isFinishing()) {
                 loadingDialog.dismiss();

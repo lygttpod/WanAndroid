@@ -63,7 +63,7 @@ public class BottomTabView extends LinearLayout implements View.OnClickListener 
     /**
      * 添加Tab
      *
-     * @param tab
+     * @param tab tab
      */
     public void addTab(Tab tab) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.base_custom_tab_item_layout, null);
@@ -129,13 +129,19 @@ public class BottomTabView extends LinearLayout implements View.OnClickListener 
     public void onClick(View view) {
         int position = (int) view.getTag();
         if (mOnTabSelectedListener != null) {
-            mOnTabSelectedListener.onTabSelected(view, position);
+            if (mOnTabSelectedListener.onTabIsInterceptBeforeSelected(view,position)){
+                mOnTabSelectedListener.onTabInterceptBeforeSelected(view,position);
+            }else {
+                mOnTabSelectedListener.onTabSelected(view,position);
+                updateState(position);
+            }
         }
-        updateState(position);
     }
 
     public interface OnTabSelectedListener {
+        boolean onTabIsInterceptBeforeSelected(View v, int position);
         void onTabSelected(View v, int position);
+        void onTabInterceptBeforeSelected(View v, int position);
     }
 
     @Override

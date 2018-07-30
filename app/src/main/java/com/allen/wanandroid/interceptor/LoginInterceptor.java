@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.facade.callback.InterceptorCallback;
 import com.alibaba.android.arouter.facade.template.IInterceptor;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.allen.wanandroid.constant.ARouterPath;
+import com.allen.wanandroid.utils.DbUtils;
 
 /**
  * <pre>
@@ -23,8 +24,8 @@ public class LoginInterceptor implements IInterceptor {
     @Override
     public void process(Postcard postcard, InterceptorCallback callback) {
 
-        if (postcard.getExtra()==1){
-            if (false){
+        if (postcard.getPath().equals(ARouterPath.userCollectAcPath)){
+            if (DbUtils.isQueryUser()){
                 callback.onContinue(postcard);
             }else {
                 callback.onInterrupt(null);

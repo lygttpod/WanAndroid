@@ -291,10 +291,19 @@ public abstract class BaseActivity extends BasePermissionActivity {
         }
     }
 
+
+    /**
+     * 显示刷新
+     */
+    public void showRefreshView() {
+        swipeRefreshLayout.setRefreshing(true);
+    }
+
+
     /**
      * 刷新完成关闭刷新样式
      */
-    public void refreshComplete() {
+    public void hideRefreshView() {
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -304,7 +313,7 @@ public abstract class BaseActivity extends BasePermissionActivity {
     }
 
 
-    public void showLoading() {
+    public void showLoadingDialog() {
         if (null != loadingDialog) {
             if (!isFinishing() && !loadingDialog.isShowing()) {
                 loadingDialog.show();
@@ -312,7 +321,7 @@ public abstract class BaseActivity extends BasePermissionActivity {
         }
     }
 
-    public void dismissLoading() {
+    public void hideLoadingDialog() {
         if (null != loadingDialog) {
             if (!isFinishing()) {
                 loadingDialog.dismiss();

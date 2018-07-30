@@ -16,7 +16,7 @@ public interface ARouterPath {
     String loginPath = "/app/login/activity";
     String webViewPath = "/article/details/webView/activity";
     String categoryPath = "/article/category/fragment";
-    String articleListAcPath = "/article/list/activity";
+    String articleTabViewPagerAcPath = "/article/tab_viewpager/activity";
     String articleListFrPath = "/article/list/fragment";
     String userCollectAcPath = "/user/collect/activity";
 }

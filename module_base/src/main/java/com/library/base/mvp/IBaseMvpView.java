@@ -19,6 +19,7 @@ public interface IBaseMvpView {
     void showLoading();
 
     void hideLoading();
+
     Dialog getLoadingDialog();
 
 }

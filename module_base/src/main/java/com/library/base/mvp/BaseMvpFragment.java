@@ -54,6 +54,6 @@ public abstract class BaseMvpFragment<P extends BaseMvpPresenter> extends BaseFr
 
     @Override
     public void hideLoading() {
-        refreshComplete();
+        hideRefreshView();
     }
 }

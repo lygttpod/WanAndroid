@@ -31,7 +31,7 @@ public class ApiModel {
                 .subscribe(observer);
     }
 
-    public void getHomeArticleListWithId(int page, int id, DataObserver<HomeBean> observer) {
+    public void getCategoryArticleListWithId(int page, int id, DataObserver<HomeBean> observer) {
         RxHttpUtils.createApi(ApiService.class)
                 .getHomeArticleListWithId(page, id)
                 .compose(Transformer.<BaseData<HomeBean>>switchSchedulers(observer.getProgressDialog()))

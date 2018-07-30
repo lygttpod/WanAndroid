@@ -46,4 +46,14 @@ public abstract class BaseMvpActivity<P extends BaseMvpPresenter> extends BaseAc
     public Dialog getLoadingDialog() {
         return loadingDialog;
     }
+
+    @Override
+    public void showLoading() {
+        showRefreshView();
+    }
+
+    @Override
+    public void hideLoading() {
+        hideRefreshView();
+    }
 }

@@ -26,7 +26,7 @@
                 android:id="@+id/author_header_iv"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@mipmap/ic_launcher_round" />
+                android:src="@mipmap/ic_launcher" />
 
             <TextView
                 android:id="@+id/author_tv"

@@ -59,7 +59,7 @@ public abstract class BaseMainActivity extends BaseActivity {
      *
      * @return 默认不拦截 直接跳转
      */
-    public abstract boolean isInterceptBeforeSkip();
+    public abstract boolean isInterceptBeforeSkip(int position);
 
     /**
      * tab点击事件
@@ -67,7 +67,7 @@ public abstract class BaseMainActivity extends BaseActivity {
      * @param v        View
      * @param position 位置
      */
-    public abstract void setTabSelectListener(View v, int position);
+    public abstract void setTabInterceptSkip(View v, int position);
 
 
     @Override
@@ -121,12 +121,18 @@ public abstract class BaseMainActivity extends BaseActivity {
     private void initListener() {
         bottomTabView.setOnTabSelectedListener(new BottomTabView.OnTabSelectedListener() {
             @Override
+            public boolean onTabIsInterceptBeforeSelected(View v, int position) {
+                return isInterceptBeforeSkip(position);
+            }
+
+            @Override
             public void onTabSelected(View v, int position) {
-                if (isInterceptBeforeSkip()) {
-                    setTabSelectListener(v, position);
-                } else {
-                    showFragment(position);
-                }
+                showFragment(position);
+            }
+
+            @Override
+            public void onTabInterceptBeforeSelected(View v, int position) {
+                setTabInterceptSkip(v, position);
             }
         });
     }
