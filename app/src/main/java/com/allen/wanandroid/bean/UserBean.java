@@ -102,5 +102,5 @@ public class UserBean {
     public void setCollectIds(List<String> collectIds) {
         this.collectIds = collectIds;
     }
-    
+
 }

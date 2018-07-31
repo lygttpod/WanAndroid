@@ -128,6 +128,7 @@ public class HomeBean {
         private String link;
         private String niceDate;
         private String origin;
+        private int originId = -1;
         private String projectLink;
         private long publishTime;
         private int superChapterId;
@@ -241,6 +242,14 @@ public class HomeBean {
 
         public void setOrigin(String origin) {
             this.origin = origin;
+        }
+
+        public int getOriginId() {
+            return originId;
+        }
+
+        public void setOriginId(int originId) {
+            this.originId = originId;
         }
 
         public String getProjectLink() {

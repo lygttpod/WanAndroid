@@ -8,14 +8,11 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.adapter.HomeAdapter;
-import com.allen.wanandroid.bean.BannerBean;
-import com.allen.wanandroid.bean.HomeBean;
+import com.allen.wanandroid.adapter.CollectAdapter;
+import com.allen.wanandroid.bean.CollectBean;
 import com.allen.wanandroid.constant.ARouterPath;
 import com.allen.wanandroid.constant.BundleKey;
-import com.allen.wanandroid.ui.article.ArticlePresenter;
 import com.allen.wanandroid.ui.webview.WebViewActivity;
-import com.allen.wanandroid.ui.article.ArticleView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.library.base.mvp.BaseMvpActivity;
 import com.library.base.widget.TopBar;
@@ -35,20 +32,20 @@ import butterknife.BindView;
  * </pre>
  */
 @Route(path = ARouterPath.userCollectAcPath)
-public class UserCollectActivity extends BaseMvpActivity<ArticlePresenter> implements ArticleView, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.RequestLoadMoreListener {
+public class UserCollectActivity extends BaseMvpActivity<CollectPresenter> implements CollectView, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemChildClickListener {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    private HomeAdapter adapter;
+    private CollectAdapter adapter;
 
-    private List<HomeBean.DatasEntity> datasEntities = new ArrayList<>();
+    private List<CollectBean.DatasBean> datasBeans = new ArrayList<>();
 
     private int page = 0;
 
     @Override
-    protected ArticlePresenter createPresenter() {
-        return new ArticlePresenter();
+    protected CollectPresenter createPresenter() {
+        return new CollectPresenter();
     }
 
     @Override
@@ -81,8 +78,9 @@ public class UserCollectActivity extends BaseMvpActivity<ArticlePresenter> imple
     @Override
     public void doBusiness(Context context) {
 
-        adapter = new HomeAdapter(datasEntities);
+        adapter = new CollectAdapter(datasBeans);
         adapter.setOnItemClickListener(this);
+        adapter.setOnItemChildClickListener(this);
         adapter.setOnLoadMoreListener(this, recyclerView);
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -98,27 +96,27 @@ public class UserCollectActivity extends BaseMvpActivity<ArticlePresenter> imple
     }
 
     @Override
-    public void hideLoading() {
-        hideRefreshView();
-    }
-
-
-    @Override
-    public void showBanner(List<BannerBean> list) {
-    }
-
-    @Override
-    public void showNewArticleList(List<HomeBean.DatasEntity> list) {
-        datasEntities.clear();
-        datasEntities.addAll(list);
+    public void showNewArticleList(List<CollectBean.DatasBean> list) {
+        datasBeans.clear();
+        datasBeans.addAll(list);
         adapter.notifyDataSetChanged();
     }
 
     @Override
-    public void showMoreArticleList(List<HomeBean.DatasEntity> list) {
-        datasEntities.addAll(list);
+    public void showMoreArticleList(List<CollectBean.DatasBean> list) {
+        datasBeans.addAll(list);
         adapter.notifyDataSetChanged();
     }
+
+
+    @Override
+    public void cancelCollectSuccess(int position, String msg) {
+        datasBeans.remove(position);
+        adapter.notifyItemRemoved(position);
+        adapter.notifyItemRangeChanged(position, datasBeans.size());
+        showToast(msg);
+    }
+
 
     @Override
     public void loadMoreComplete() {
@@ -140,8 +138,13 @@ public class UserCollectActivity extends BaseMvpActivity<ArticlePresenter> imple
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         Bundle bundle = new Bundle();
-        bundle.putString(BundleKey.TITLE, datasEntities.get(position).getTitle());
-        bundle.putString(BundleKey.URL, datasEntities.get(position).getLink());
+        bundle.putString(BundleKey.TITLE, datasBeans.get(position).getTitle());
+        bundle.putString(BundleKey.URL, datasBeans.get(position).getLink());
         startActivity(WebViewActivity.class, bundle);
+    }
+
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        mPresenter.cancelUserCollectArticleById(datasBeans.get(position).getId(), datasBeans.get(position).getOriginId(), position);
     }
 }

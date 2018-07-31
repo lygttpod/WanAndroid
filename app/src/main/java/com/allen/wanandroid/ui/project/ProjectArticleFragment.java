@@ -9,13 +9,10 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.ProjectArticleAdapter;
-import com.allen.wanandroid.bean.BannerBean;
 import com.allen.wanandroid.bean.HomeBean;
 import com.allen.wanandroid.constant.ARouterPath;
 import com.allen.wanandroid.constant.BundleKey;
-import com.allen.wanandroid.ui.article.ArticlePresenter;
 import com.allen.wanandroid.ui.webview.WebViewActivity;
-import com.allen.wanandroid.ui.article.ArticleView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.library.base.mvp.BaseMvpFragment;
 import com.library.base.widget.TopBar;
@@ -35,7 +32,7 @@ import butterknife.BindView;
  * </pre>
  */
 @Route(path = ARouterPath.articleListFrPath)
-public class ProjectArticleFragment extends BaseMvpFragment<ArticlePresenter> implements ArticleView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+public class ProjectArticleFragment extends BaseMvpFragment<ProjectArticlePresenter> implements ProjectArticleView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -57,8 +54,8 @@ public class ProjectArticleFragment extends BaseMvpFragment<ArticlePresenter> im
     }
 
     @Override
-    protected ArticlePresenter createPresenter() {
-        return new ArticlePresenter();
+    protected ProjectArticlePresenter createPresenter() {
+        return new ProjectArticlePresenter();
     }
 
     @Override
@@ -100,18 +97,16 @@ public class ProjectArticleFragment extends BaseMvpFragment<ArticlePresenter> im
     @Override
     public void doBusiness(Context context) {
 
-        adapter = new ProjectArticleAdapter(datasEntities);
+        adapter = new ProjectArticleAdapter(context, datasEntities);
+        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         adapter.setOnItemClickListener(this);
+        adapter.setOnItemChildClickListener(this);
         adapter.setOnLoadMoreListener(this, recyclerView);
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public void showBanner(List<BannerBean> list) {
-
-    }
 
     @Override
     public void showNewArticleList(List<HomeBean.DatasEntity> list) {
@@ -124,6 +119,20 @@ public class ProjectArticleFragment extends BaseMvpFragment<ArticlePresenter> im
     public void showMoreArticleList(List<HomeBean.DatasEntity> list) {
         datasEntities.addAll(list);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void collectSuccess(int position, String msg) {
+        datasEntities.get(position).setCollect(true);
+        adapter.notifyItemChanged(position,1);
+        showToast(msg);
+    }
+
+    @Override
+    public void cancelCollectSuccess(int position, String msg) {
+        datasEntities.get(position).setCollect(false);
+        adapter.notifyItemChanged(position,1);
+        showToast(msg);
     }
 
     @Override
@@ -149,5 +158,14 @@ public class ProjectArticleFragment extends BaseMvpFragment<ArticlePresenter> im
         bundle.putString(BundleKey.TITLE, datasEntities.get(position).getTitle());
         bundle.putString(BundleKey.URL, datasEntities.get(position).getLink());
         startActivity(WebViewActivity.class, bundle);
+    }
+
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        if (datasEntities.get(position).isCollect()) {
+            mPresenter.cancelCollectArticleById(datasEntities.get(position).getId(), position);
+        } else {
+            mPresenter.collectArticleById(datasEntities.get(position).getId(), position);
+        }
     }
 }

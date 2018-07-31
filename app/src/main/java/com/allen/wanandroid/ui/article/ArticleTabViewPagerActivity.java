@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.CommonFragmentWithTitleAdapter;
@@ -24,7 +25,7 @@ import butterknife.BindView;
  *      @author : xiaoyao
  *      e-mail  : xiaoyao@51vest.com
  *      date    : 2018/07/24
- *      desc    :
+ *      desc    : 知识体系下边的Tab列表
  *      version : 1.0
  * </pre>
  */
@@ -41,8 +42,10 @@ public class ArticleTabViewPagerActivity extends BaseActivity {
 
     private CommonFragmentWithTitleAdapter adapter;
 
-    private CategoryBean categoryBean;
-    private int index = 0;
+    @Autowired
+    CategoryBean categoryBean;
+    @Autowired
+    int index = 0;
 
     @Override
     protected void getBundleData(Bundle params) {

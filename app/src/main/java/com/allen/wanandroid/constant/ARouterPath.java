@@ -19,4 +19,5 @@ public interface ARouterPath {
     String articleTabViewPagerAcPath = "/article/tab_viewpager/activity";
     String articleListFrPath = "/article/list/fragment";
     String userCollectAcPath = "/user/collect/activity";
+    String articleSearchAcPath = "/article/search/activity";
 }

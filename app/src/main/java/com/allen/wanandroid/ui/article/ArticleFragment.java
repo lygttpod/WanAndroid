@@ -28,12 +28,12 @@ import butterknife.BindView;
  *      @author : Allen
  *      e-mail  : lygttpod@163.com
  *      date    : 2018/07/21
- *      desc    :
+ *      desc    : 知识体系下边的文章列表
  *      version : 1.0
  * </pre>
  */
 @Route(path = ARouterPath.articleListFrPath)
-public class ArticleFragment extends BaseMvpFragment<ArticlePresenter> implements ArticleView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener {
+public class ArticleFragment extends BaseMvpFragment<ArticlePresenter> implements ArticleView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -99,7 +99,9 @@ public class ArticleFragment extends BaseMvpFragment<ArticlePresenter> implement
     public void doBusiness(Context context) {
 
         adapter = new HomeAdapter(datasEntities);
+        adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_BOTTOM);
         adapter.setOnItemClickListener(this);
+        adapter.setOnItemChildClickListener(this);
         adapter.setOnLoadMoreListener(this, recyclerView);
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -127,6 +129,20 @@ public class ArticleFragment extends BaseMvpFragment<ArticlePresenter> implement
     }
 
     @Override
+    public void collectSuccess(int position, String msg) {
+        datasEntities.get(position).setCollect(true);
+        adapter.notifyItemChanged(position,1);
+        showToast(msg);
+    }
+
+    @Override
+    public void cancelCollectSuccess(int position, String msg) {
+        datasEntities.get(position).setCollect(false);
+        adapter.notifyItemChanged(position,1);
+        showToast(msg);
+    }
+
+    @Override
     public void loadMoreComplete() {
         adapter.loadMoreComplete();
     }
@@ -149,5 +165,14 @@ public class ArticleFragment extends BaseMvpFragment<ArticlePresenter> implement
         bundle.putString(BundleKey.TITLE, datasEntities.get(position).getTitle());
         bundle.putString(BundleKey.URL, datasEntities.get(position).getLink());
         startActivity(WebViewActivity.class, bundle);
+    }
+
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        if (datasEntities.get(position).isCollect()) {
+            mPresenter.cancelCollectArticleById(datasEntities.get(position).getId(), position);
+        } else {
+            mPresenter.collectArticleById(datasEntities.get(position).getId(), position);
+        }
     }
 }

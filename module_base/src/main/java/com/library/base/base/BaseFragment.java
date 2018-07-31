@@ -318,19 +318,23 @@ public abstract class BaseFragment extends Fragment {
      * 显示刷新
      */
     public void showRefreshView() {
-        swipeRefreshLayout.setRefreshing(true);
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.setRefreshing(true);
+        }
     }
 
     /**
      * 刷新完成
      */
     public void hideRefreshView() {
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
+        if (swipeRefreshLayout != null) {
+            swipeRefreshLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    swipeRefreshLayout.setRefreshing(false);
+                }
+            });
+        }
     }
 
     public void showLoadingDialog() {

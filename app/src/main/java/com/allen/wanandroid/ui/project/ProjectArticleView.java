@@ -1,6 +1,5 @@
-package com.allen.wanandroid.ui.article;
+package com.allen.wanandroid.ui.project;
 
-import com.allen.wanandroid.bean.BannerBean;
 import com.allen.wanandroid.bean.HomeBean;
 import com.library.base.mvp.IBaseMvpView;
 
@@ -15,12 +14,10 @@ import java.util.List;
  *      version : 1.0
  * </pre>
  */
-public interface ArticleView extends IBaseMvpView {
+public interface ProjectArticleView extends IBaseMvpView {
 
-     void showBanner(List<BannerBean> list);
      void showNewArticleList(List<HomeBean.DatasEntity> list);
      void showMoreArticleList(List<HomeBean.DatasEntity> list);
-
      void collectSuccess(int position, String msg);
      void cancelCollectSuccess(int position, String msg);
 

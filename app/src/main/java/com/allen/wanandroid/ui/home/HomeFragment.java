@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.HomeAdapter;
 import com.allen.wanandroid.bean.BannerBean;
@@ -39,7 +40,7 @@ import cn.bingoogolapple.bgabanner.BGABanner;
  * </pre>
  */
 @Route(path = ARouterPath.mainHomePath)
-public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements ArticleView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BGABanner.Delegate {
+public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements ArticleView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BGABanner.Delegate, BaseQuickAdapter.OnItemChildClickListener {
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -76,7 +77,20 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
 
     @Override
     public void initTopBar(TopBar topBar) {
-        topBar.isShowLeftImg(false).setCenterText("首页");
+        topBar.isShowLeftImg(false)
+                .setCenterText("首页")
+                .setRightIcon(getResources().getDrawable(R.mipmap.icon_search_white))
+                .setTopBarClickListener(new TopBar.OnTopBarClickListener() {
+                    @Override
+                    public void onLeftIconClick() {
+
+                    }
+
+                    @Override
+                    public void onRightIconClick() {
+                        ARouter.getInstance().build(ARouterPath.articleSearchAcPath).navigation();
+                    }
+                });
     }
 
     @Override
@@ -99,8 +113,10 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
     public void doBusiness(Context context) {
 
         adapter = new HomeAdapter(datasEntities);
+        adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         adapter.addHeaderView(getBannerView());
         adapter.setOnItemClickListener(this);
+        adapter.setOnItemChildClickListener(this);
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
         adapter.setOnLoadMoreListener(this, recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -143,6 +159,21 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
     }
 
     @Override
+    public void collectSuccess(int position, String msg) {
+        datasEntities.get(position).setCollect(true);
+        adapter.notifyItemChanged(position + 1,1);
+        showToast(msg);
+    }
+
+    @Override
+    public void cancelCollectSuccess(int position, String msg) {
+        datasEntities.get(position).setCollect(false);
+        adapter.notifyItemChanged(position + 1,1);
+        showToast(msg);
+    }
+
+
+    @Override
     public void loadMoreComplete() {
         adapter.loadMoreComplete();
     }
@@ -177,4 +208,12 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
     }
 
 
+    @Override
+    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        if (datasEntities.get(position).isCollect()) {
+            mPresenter.cancelCollectArticleById(datasEntities.get(position).getId(), position);
+        } else {
+            mPresenter.collectArticleById(datasEntities.get(position).getId(), position);
+        }
+    }
 }

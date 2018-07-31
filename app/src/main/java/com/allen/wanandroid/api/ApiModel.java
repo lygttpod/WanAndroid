@@ -6,6 +6,7 @@ import com.allen.library.interceptor.Transformer;
 import com.allen.library.observer.DataObserver;
 import com.allen.wanandroid.bean.BannerBean;
 import com.allen.wanandroid.bean.CategoryBean;
+import com.allen.wanandroid.bean.CollectBean;
 import com.allen.wanandroid.bean.HomeBean;
 import com.allen.wanandroid.bean.HotBean;
 import com.allen.wanandroid.bean.UserBean;
@@ -68,10 +69,30 @@ public class ApiModel {
 
     }
 
-    public void getUserCollectList(int page, DataObserver<HomeBean> observer) {
+    public void getUserCollectList(int page, DataObserver<CollectBean> observer) {
         RxHttpUtils.createApi(ApiService.class)
                 .getUserCollectList(page)
-                .compose(Transformer.<BaseData<HomeBean>>switchSchedulers(observer.getProgressDialog()))
+                .compose(Transformer.<BaseData<CollectBean>>switchSchedulers(observer.getProgressDialog()))
+                .subscribe(observer);
+    }
+
+    public void collectArticleById(int id, DataObserver<String> observer) {
+        RxHttpUtils.createApi(ApiService.class)
+                .collectArticleById(id)
+                .compose(Transformer.<BaseData<String>>switchSchedulers(observer.getProgressDialog()))
+                .subscribe(observer);
+    }
+
+    public void cancelCollectArticleById(int id, DataObserver<String> observer) {
+        RxHttpUtils.createApi(ApiService.class)
+                .cancelCollectArticleById(id)
+                .compose(Transformer.<BaseData<String>>switchSchedulers(observer.getProgressDialog()))
+                .subscribe(observer);
+    }
+    public void cancelUserCollectArticleById(int id,int originId, DataObserver<String> observer) {
+        RxHttpUtils.createApi(ApiService.class)
+                .cancelUserCollectArticleById(id,originId)
+                .compose(Transformer.<BaseData<String>>switchSchedulers(observer.getProgressDialog()))
                 .subscribe(observer);
     }
 

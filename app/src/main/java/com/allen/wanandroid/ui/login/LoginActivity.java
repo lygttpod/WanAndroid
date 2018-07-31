@@ -79,7 +79,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
 
     @Override
     public void setTopBar(TopBar topBar) {
-        topBar.setLeftText("登录注册");
+        topBar.setLeftText("登录/注册");
     }
 
     @Override

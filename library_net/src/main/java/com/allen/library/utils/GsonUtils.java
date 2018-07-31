@@ -31,6 +31,16 @@ public class GsonUtils {
         return t;
     }
 
+    public static String getString(Object o) {
+        String jsonString = null;
+        try {
+            Gson gson = new Gson();
+            jsonString = gson.toJson(o);
+        } catch (Exception e) {
+        }
+        return jsonString;
+    }
+
     /**
      * 将Json数据转化成List<Object>集合;
      *

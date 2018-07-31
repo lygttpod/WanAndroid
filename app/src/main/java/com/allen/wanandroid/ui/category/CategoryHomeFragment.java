@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.CategoryHomeAdapter;
 import com.allen.wanandroid.bean.CategoryBean;
@@ -111,14 +112,15 @@ public class CategoryHomeFragment extends BaseMvpFragment<CategoryHomePresenter>
     }
 
     private void startArticleTabViewPagerAct(CategoryBean bean, int index) {
-//        ARouter
-//                .getInstance()
-//                .build(ARouterPath.articleTabViewPagerAcPath)
-//                .withParcelable("category",bean)
-//                .navigation();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("category", bean);
-        bundle.putInt("index", index);
-        startActivity(ArticleTabViewPagerActivity.class, bundle);
+        ARouter
+                .getInstance()
+                .build(ARouterPath.articleTabViewPagerAcPath)
+                .withInt("index",index)
+                .withParcelable("category",bean)
+                .navigation();
+//        Bundle bundle = new Bundle();
+//        bundle.putParcelable("category", bean);
+//        bundle.putInt("index", index);
+//        startActivity(ArticleTabViewPagerActivity.class, bundle);
     }
 }

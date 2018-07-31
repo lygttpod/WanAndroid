@@ -3,6 +3,7 @@ package com.allen.wanandroid.api;
 import com.allen.library.bean.BaseData;
 import com.allen.wanandroid.bean.BannerBean;
 import com.allen.wanandroid.bean.CategoryBean;
+import com.allen.wanandroid.bean.CollectBean;
 import com.allen.wanandroid.bean.HomeBean;
 import com.allen.wanandroid.bean.HotBean;
 import com.allen.wanandroid.bean.UserBean;
@@ -10,6 +11,8 @@ import com.allen.wanandroid.bean.UserBean;
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -38,8 +41,44 @@ public interface ApiService {
     @GET("article/list/{page}/json")
     Observable<BaseData<HomeBean>> getHomeArticleListWithId(@Path("page") int page, @Query("cid") int id);
 
+    /**
+     * 收藏列表
+     *
+     * @param page 页码
+     * @return 列表
+     */
     @GET("lg/collect/list/{page}/json")
-    Observable<BaseData<HomeBean>> getUserCollectList(@Path("page") int page);
+    Observable<BaseData<CollectBean>> getUserCollectList(@Path("page") int page);
+
+    /**
+     * 收藏站内文章
+     *
+     * @param id 文章id
+     * @return 结果
+     */
+    @POST("lg/collect/{id}/json")
+    Observable<BaseData<String>> collectArticleById(@Path("id") int id);
+
+
+    /**
+     * 取消文章列表的收藏
+     *
+     * @param id
+     * @return
+     */
+    @POST("lg/uncollect_originId/{id}/json")
+    Observable<BaseData<String>> cancelCollectArticleById(@Path("id") int id);
+
+    /**
+     * 取消用户收藏页面的收藏
+     *
+     * @param id 文章id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("lg/uncollect/{id}/json")
+    Observable<BaseData<String>> cancelUserCollectArticleById(@Path("id") int id,@Field("originId") int originId);
+
 
     @GET("banner/json")
     Observable<BaseData<List<BannerBean>>> getBanner();
@@ -71,6 +110,7 @@ public interface ApiService {
 
     /**
      * 项目分类
+     *
      * @return 列表
      */
     @GET("project/tree/json")

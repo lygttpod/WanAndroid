@@ -34,7 +34,7 @@ public class MainActivity extends BaseMainActivity {
         tabs.add(new Tab("首页", R.mipmap.icon_home_unselected, R.mipmap.icon_home_selected, R.color.colorTabNormal, R.color.colorTabSelected));
         tabs.add(new Tab("项目", R.mipmap.icon_home_unselected, R.mipmap.icon_home_selected, R.color.colorTabNormal, R.color.colorTabSelected));
         tabs.add(new Tab("体系", R.mipmap.icon_home_unselected, R.mipmap.icon_home_selected, R.color.colorTabNormal, R.color.colorTabSelected));
-        tabs.add(new Tab("我的", R.mipmap.icon_home_unselected, R.mipmap.icon_home_selected, R.color.colorTabNormal, R.color.colorTabSelected));
+        tabs.add(new Tab("我的", R.mipmap.icon_mine_unselected, R.mipmap.icon_mine_selected, R.color.colorTabNormal, R.color.colorTabSelected));
         return tabs;
     }
 
@@ -55,11 +55,6 @@ public class MainActivity extends BaseMainActivity {
 
     @Override
     public void setTabInterceptSkip(View v, final int position) {
-        ARouter.getInstance().build(ARouterPath.loginPath).navigation(this, new NavCallback() {
-            @Override
-            public void onArrival(Postcard postcard) {
-                Log.e(TAG, postcard.getPath() + "");
-            }
-        });
+        ARouter.getInstance().build(ARouterPath.loginPath).navigation();
     }
 }

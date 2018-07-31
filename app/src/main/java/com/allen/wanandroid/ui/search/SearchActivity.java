@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.TagFlowAdapter;
 import com.allen.wanandroid.bean.HotBean;
+import com.allen.wanandroid.constant.ARouterPath;
 import com.library.base.mvp.BaseMvpActivity;
 import com.library.base.widget.TopBar;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -28,6 +30,7 @@ import butterknife.BindView;
  *      version : 1.0
  * </pre>
  */
+@Route(path = ARouterPath.articleSearchAcPath)
 public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements SearchView, TagFlowLayout.OnTagClickListener {
 
     @BindView(R.id.hot_tv)
@@ -64,7 +67,7 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
 
     @Override
     public void setTopBar(TopBar topBar) {
-        topBar.isShowLeftImg(false).setCenterText("搜索");
+        topBar.setCenterText("搜索");
     }
 
     @Override

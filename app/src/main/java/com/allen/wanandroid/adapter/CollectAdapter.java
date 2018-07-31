@@ -3,6 +3,7 @@ package com.allen.wanandroid.adapter;
 import android.support.annotation.Nullable;
 
 import com.allen.wanandroid.R;
+import com.allen.wanandroid.bean.CollectBean;
 import com.allen.wanandroid.bean.HomeBean;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -18,19 +19,18 @@ import java.util.List;
  *      version : 1.0
  * </pre>
  */
-public class HomeAdapter extends BaseQuickAdapter<HomeBean.DatasEntity, BaseViewHolder> {
+public class CollectAdapter extends BaseQuickAdapter<CollectBean.DatasBean, BaseViewHolder> {
 
-    public HomeAdapter(@Nullable List<HomeBean.DatasEntity> data) {
-        super(R.layout.adapter_item_home, data);
+    public CollectAdapter(@Nullable List<CollectBean.DatasBean> data) {
+        super(R.layout.adapter_item_collect, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, HomeBean.DatasEntity item) {
-        helper.setText(R.id.author_tv, "作者："+item.getAuthor());
+    protected void convert(BaseViewHolder helper, CollectBean.DatasBean item) {
+        helper.setText(R.id.author_tv, "作者：" + item.getAuthor());
         helper.setText(R.id.time_tv, item.getNiceDate());
         helper.setText(R.id.title_tv, item.getTitle());
-        helper.setText(R.id.chapter_name_tv, "分类：" + item.getSuperChapterName() + "/" + item.getChapterName());
-        helper.setImageResource(R.id.collect_iv,item.isCollect()?R.mipmap.icon_collected:R.mipmap.icon_uncollect);
+        helper.setText(R.id.chapter_name_tv, "分类：" + item.getChapterName());
         helper.addOnClickListener(R.id.collect_iv);
     }
 }
