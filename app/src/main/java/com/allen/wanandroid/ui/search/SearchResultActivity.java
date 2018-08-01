@@ -1,4 +1,4 @@
-package com.allen.wanandroid.ui.project;
+package com.allen.wanandroid.ui.search;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,14 +8,16 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.adapter.ProjectArticleAdapter;
-import com.allen.wanandroid.arouter.ARouterHelper;
-import com.allen.wanandroid.bean.HomeBean;
+import com.allen.wanandroid.adapter.HomeAdapter;
 import com.allen.wanandroid.arouter.ARouterPath;
+import com.allen.wanandroid.arouter.ARouterHelper;
+import com.allen.wanandroid.bean.BannerBean;
+import com.allen.wanandroid.bean.HomeBean;
 import com.allen.wanandroid.constant.BundleKey;
-import com.allen.wanandroid.ui.webview.WebViewActivity;
+import com.allen.wanandroid.ui.article.ArticlePresenter;
+import com.allen.wanandroid.ui.article.ArticleView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.library.base.mvp.BaseMvpFragment;
+import com.library.base.mvp.BaseMvpActivity;
 import com.library.base.widget.TopBar;
 
 import java.util.ArrayList;
@@ -25,89 +27,76 @@ import butterknife.BindView;
 
 /**
  * <pre>
- *      @author : Allen
- *      e-mail  : lygttpod@163.com
- *      date    : 2018/07/21
- *      desc    : 项目文章列表
+ *      @author : xiaoyao
+ *      e-mail  : xiaoyao@51vest.com
+ *      date    : 2018/08/01
+ *      desc    :
  *      version : 1.0
  * </pre>
  */
-@Route(path = ARouterPath.articleListFrPath)
-public class ProjectArticleFragment extends BaseMvpFragment<ProjectArticlePresenter> implements ProjectArticleView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener {
-
+@Route(path = ARouterPath.searchResultAcPath)
+public class SearchResultActivity extends BaseMvpActivity<ArticlePresenter> implements ArticleView, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.RequestLoadMoreListener {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    private ProjectArticleAdapter adapter;
+    private HomeAdapter adapter;
 
     private List<HomeBean.DatasEntity> datasEntities = new ArrayList<>();
 
-    private int page = 1;
+    private int page = 0;
 
-    private int id;
+    private String keyWord;
 
-    public static ProjectArticleFragment newInstance(int id) {
-        ProjectArticleFragment fragment = new ProjectArticleFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt(BundleKey.ID, id);
-        fragment.setArguments(bundle);
-        return fragment;
+    @Override
+    protected ArticlePresenter createPresenter() {
+        return new ArticlePresenter();
     }
 
     @Override
-    protected ProjectArticlePresenter createPresenter() {
-        return new ProjectArticlePresenter();
-    }
-
-    @Override
-    protected void lazyLoad() {
-        showRefreshView();
-        mPresenter.getProjectArticleListWithId(page, id);
+    protected void getBundleData(Bundle params) {
+        keyWord = params.getString(BundleKey.TITLE);
     }
 
     @Override
     public int bindLayout() {
-        return R.layout.fragment_home;
+        return R.layout.recycler_view;
     }
 
     @Override
-    public void initParams() {
-        id = getArguments().getInt(BundleKey.ID);
-    }
-
-    @Override
-    public void initTopBar(TopBar topBar) {
-        hideTopBar();
-    }
-
-    @Override
-    public void initView(View view) {
+    public void setTopBar(TopBar topBar) {
+        topBar.setCenterText(keyWord);
     }
 
     @Override
     public boolean isCanRefresh() {
-        return true;
+        return false;
     }
 
     @Override
     public void doOnRefresh() {
-        page = 1;
-        mPresenter.getProjectArticleListWithId(page, id);
+
     }
 
     @Override
     public void doBusiness(Context context) {
 
-        adapter = new ProjectArticleAdapter(context, datasEntities);
-        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        adapter = new HomeAdapter(datasEntities);
+        adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
         adapter.setOnItemClickListener(this);
         adapter.setOnItemChildClickListener(this);
         adapter.setOnLoadMoreListener(this, recyclerView);
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
+
+        mPresenter.getSearchListByKeyWord(page, keyWord);
+
     }
 
+    @Override
+    public void showBanner(List<BannerBean> list) {
+
+    }
 
     @Override
     public void showNewArticleList(List<HomeBean.DatasEntity> list) {
@@ -148,12 +137,6 @@ public class ProjectArticleFragment extends BaseMvpFragment<ProjectArticlePresen
 
 
     @Override
-    public void onLoadMoreRequested() {
-        page++;
-        mPresenter.getProjectArticleListWithId(page, id);
-    }
-
-    @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ARouterHelper.gotoWebViewActivity(datasEntities.get(position).getTitle(), datasEntities.get(position).getLink());
     }
@@ -165,5 +148,11 @@ public class ProjectArticleFragment extends BaseMvpFragment<ProjectArticlePresen
         } else {
             mPresenter.collectArticleById(datasEntities.get(position).getId(), position);
         }
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        page++;
+        mPresenter.getSearchListByKeyWord(page, keyWord);
     }
 }

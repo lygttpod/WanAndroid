@@ -1,15 +1,12 @@
 package com.allen.wanandroid.ui;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 
-import com.alibaba.android.arouter.facade.Postcard;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.facade.callback.NavCallback;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.constant.ARouterPath;
+import com.allen.wanandroid.arouter.ARouterPath;
+import com.allen.wanandroid.arouter.ARouterHelper;
 import com.allen.wanandroid.ui.category.CategoryHomeFragment;
 import com.allen.wanandroid.ui.home.HomeFragment;
 import com.allen.wanandroid.ui.mine.MineHomeFragment;
@@ -22,6 +19,12 @@ import java.util.List;
 
 @Route(path = ARouterPath.mainPath)
 public class MainActivity extends BaseMainActivity {
+
+
+    @Override
+    public boolean isFullScreen() {
+        return true;
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -55,6 +58,6 @@ public class MainActivity extends BaseMainActivity {
 
     @Override
     public void setTabInterceptSkip(View v, final int position) {
-        ARouter.getInstance().build(ARouterPath.loginPath).navigation();
+        ARouterHelper.login();
     }
 }

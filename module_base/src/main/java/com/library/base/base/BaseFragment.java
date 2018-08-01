@@ -1,8 +1,10 @@
 package com.library.base.base;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -109,6 +111,15 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
+     * 设置自定义状态栏颜色（用于全屏的activity中给fragment添加状态栏）
+     *
+     * @return 颜色的资源id
+     */
+    protected int setStatusBarColor() {
+        return 0;
+    }
+
+    /**
      * 设置是否允许刷新
      */
     public abstract boolean isCanRefresh();
@@ -167,6 +178,8 @@ public abstract class BaseFragment extends Fragment {
         setView();
 
         initView(rootView);
+
+        setCustomStatusBar(setStatusBarColor());
 
         initButterKnife(this, rootView);
 
@@ -256,7 +269,38 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
+    /**
+     * 设置自定义状态栏颜色（用于全屏的activity中给fragment添加状态栏）
+     *
+     * @param color 颜色id
+     */
+    private void setCustomStatusBar(int color) {
+        if (color != 0) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                statusBarHeightView.getLayoutParams().height = getStatusBarHeight(getActivity());
+                statusBarHeightView.setBackgroundColor(getResources().getColor(color));
+            }
+        }
+    }
+
+
     /**********************常用方法***********************/
+
+
+    /**
+     * 获取状态栏高度
+     *
+     * @return 高度
+     */
+    public int getStatusBarHeight(Activity activity) {
+        int result = 0;
+        int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = activity.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
 
     /**
      * 页面跳转

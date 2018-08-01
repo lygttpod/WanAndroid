@@ -5,13 +5,15 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.CommonFragmentWithTitleAdapter;
 import com.allen.wanandroid.bean.CategoryBean;
-import com.allen.wanandroid.constant.ARouterPath;
+import com.allen.wanandroid.arouter.ARouterPath;
 import com.library.base.base.BaseActivity;
 import com.library.base.widget.TopBar;
 
@@ -32,6 +34,8 @@ import butterknife.BindView;
 @Route(path = ARouterPath.articleTabViewPagerAcPath)
 public class ArticleTabViewPagerActivity extends BaseActivity {
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
     @BindView(R.id.view_pager)
@@ -60,9 +64,7 @@ public class ArticleTabViewPagerActivity extends BaseActivity {
 
     @Override
     public void setTopBar(TopBar topBar) {
-        if (categoryBean != null) {
-            topBar.setLeftText(categoryBean.getName());
-        }
+        hideTopBar();
     }
 
     @Override
@@ -78,7 +80,21 @@ public class ArticleTabViewPagerActivity extends BaseActivity {
     @Override
     public void doBusiness(Context context) {
 
+        initToolBar();
         initViewPager();
+    }
+
+    private void initToolBar() {
+        if (categoryBean != null) {
+            toolbar.setTitle(categoryBean.getName());
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
+
     }
 
 

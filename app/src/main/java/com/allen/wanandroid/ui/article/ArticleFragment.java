@@ -9,11 +9,11 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.HomeAdapter;
+import com.allen.wanandroid.arouter.ARouterHelper;
+import com.allen.wanandroid.arouter.ARouterPath;
 import com.allen.wanandroid.bean.BannerBean;
 import com.allen.wanandroid.bean.HomeBean;
-import com.allen.wanandroid.constant.ARouterPath;
 import com.allen.wanandroid.constant.BundleKey;
-import com.allen.wanandroid.ui.webview.WebViewActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.library.base.mvp.BaseMvpFragment;
 import com.library.base.widget.TopBar;
@@ -131,14 +131,14 @@ public class ArticleFragment extends BaseMvpFragment<ArticlePresenter> implement
     @Override
     public void collectSuccess(int position, String msg) {
         datasEntities.get(position).setCollect(true);
-        adapter.notifyItemChanged(position,1);
+        adapter.notifyItemChanged(position, 1);
         showToast(msg);
     }
 
     @Override
     public void cancelCollectSuccess(int position, String msg) {
         datasEntities.get(position).setCollect(false);
-        adapter.notifyItemChanged(position,1);
+        adapter.notifyItemChanged(position, 1);
         showToast(msg);
     }
 
@@ -161,10 +161,7 @@ public class ArticleFragment extends BaseMvpFragment<ArticlePresenter> implement
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        Bundle bundle = new Bundle();
-        bundle.putString(BundleKey.TITLE, datasEntities.get(position).getTitle());
-        bundle.putString(BundleKey.URL, datasEntities.get(position).getLink());
-        startActivity(WebViewActivity.class, bundle);
+        ARouterHelper.gotoWebViewActivity(datasEntities.get(position).getTitle(), datasEntities.get(position).getLink());
     }
 
     @Override

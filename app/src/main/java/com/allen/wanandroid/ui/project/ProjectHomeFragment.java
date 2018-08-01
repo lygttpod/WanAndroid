@@ -39,6 +39,12 @@ public class ProjectHomeFragment extends BaseMvpFragment<ProjectHomePresenter> i
 
     private CommonFragmentWithTitleAdapter adapter;
 
+
+    @Override
+    protected int setStatusBarColor() {
+        return R.color.colorPrimary;
+    }
+
     @Override
     protected ProjectHomePresenter createPresenter() {
         return new ProjectHomePresenter();
@@ -97,7 +103,7 @@ public class ProjectHomeFragment extends BaseMvpFragment<ProjectHomePresenter> i
     public void hideLoading() {
 
     }
-    
+
 
     @Override
     public void setTabData(List<CategoryBean> tabs) {

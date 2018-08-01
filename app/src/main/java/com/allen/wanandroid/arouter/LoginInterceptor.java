@@ -1,4 +1,4 @@
-package com.allen.wanandroid.interceptor;
+package com.allen.wanandroid.arouter;
 
 import android.content.Context;
 
@@ -7,7 +7,6 @@ import com.alibaba.android.arouter.facade.annotation.Interceptor;
 import com.alibaba.android.arouter.facade.callback.InterceptorCallback;
 import com.alibaba.android.arouter.facade.template.IInterceptor;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.allen.wanandroid.constant.ARouterPath;
 import com.allen.wanandroid.utils.DbUtils;
 
 /**

@@ -9,10 +9,9 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.CollectAdapter;
+import com.allen.wanandroid.arouter.ARouterHelper;
+import com.allen.wanandroid.arouter.ARouterPath;
 import com.allen.wanandroid.bean.CollectBean;
-import com.allen.wanandroid.constant.ARouterPath;
-import com.allen.wanandroid.constant.BundleKey;
-import com.allen.wanandroid.ui.webview.WebViewActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.library.base.mvp.BaseMvpActivity;
 import com.library.base.widget.TopBar;
@@ -137,10 +136,7 @@ public class UserCollectActivity extends BaseMvpActivity<CollectPresenter> imple
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        Bundle bundle = new Bundle();
-        bundle.putString(BundleKey.TITLE, datasBeans.get(position).getTitle());
-        bundle.putString(BundleKey.URL, datasBeans.get(position).getLink());
-        startActivity(WebViewActivity.class, bundle);
+        ARouterHelper.gotoWebViewActivity(datasBeans.get(position).getTitle(), datasBeans.get(position).getLink());
     }
 
     @Override

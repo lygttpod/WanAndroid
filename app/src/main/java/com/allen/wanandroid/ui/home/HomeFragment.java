@@ -1,24 +1,26 @@
 package com.allen.wanandroid.ui.home;
 
 import android.content.Context;
-import android.os.Bundle;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.HomeAdapter;
+import com.allen.wanandroid.arouter.ARouterHelper;
+import com.allen.wanandroid.arouter.ARouterPath;
 import com.allen.wanandroid.bean.BannerBean;
 import com.allen.wanandroid.bean.HomeBean;
-import com.allen.wanandroid.constant.ARouterPath;
-import com.allen.wanandroid.constant.BundleKey;
 import com.allen.wanandroid.ui.article.ArticlePresenter;
-import com.allen.wanandroid.ui.webview.WebViewActivity;
 import com.allen.wanandroid.ui.article.ArticleView;
+import com.allen.wanandroid.utils.DisplayUtils;
 import com.allen.wanandroid.utils.GlideUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.library.base.mvp.BaseMvpFragment;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
 /**
@@ -42,6 +45,18 @@ import cn.bingoogolapple.bgabanner.BGABanner;
 @Route(path = ARouterPath.mainHomePath)
 public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements ArticleView, BaseQuickAdapter.RequestLoadMoreListener, BaseQuickAdapter.OnItemClickListener, BGABanner.Delegate, BaseQuickAdapter.OnItemChildClickListener {
 
+    @BindView(R.id.status_bar_view)
+    View statusBarView;
+
+    @BindView(R.id.title_bg_rl)
+    RelativeLayout topBarBgRl;
+
+    @BindView(R.id.search_iv)
+    ImageView searchIv;
+
+    @BindView(R.id.title_tv)
+    TextView titleTv;
+
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
@@ -52,6 +67,8 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
     private int page = 0;
 
     private BGABanner bgaBanner;
+
+    private LinearLayoutManager layoutManager;
 
     @Override
     protected ArticlePresenter createPresenter() {
@@ -77,20 +94,7 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
 
     @Override
     public void initTopBar(TopBar topBar) {
-        topBar.isShowLeftImg(false)
-                .setCenterText("首页")
-                .setRightIcon(getResources().getDrawable(R.mipmap.icon_search_white))
-                .setTopBarClickListener(new TopBar.OnTopBarClickListener() {
-                    @Override
-                    public void onLeftIconClick() {
-
-                    }
-
-                    @Override
-                    public void onRightIconClick() {
-                        ARouter.getInstance().build(ARouterPath.articleSearchAcPath).navigation();
-                    }
-                });
+        hideTopBar();
     }
 
     @Override
@@ -112,6 +116,10 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
     @Override
     public void doBusiness(Context context) {
 
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.height = getStatusBarHeight(getActivity());
+        statusBarView.setLayoutParams(layoutParams);
+
         adapter = new HomeAdapter(datasEntities);
         adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
         adapter.addHeaderView(getBannerView());
@@ -119,8 +127,54 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
         adapter.setOnItemChildClickListener(this);
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
         adapter.setOnLoadMoreListener(this, recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            int imageHeight = DisplayUtils.dp2px(150);
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                float scale = getScaleDistance(0, imageHeight);
+
+                if (scale <= 0) {
+                    setColorChange(0);
+                } else if (scale >= 1) {
+                    setColorChange(1);
+                } else {
+                    setColorChange(scale);
+                }
+            }
+        });
+    }
+
+    /**
+     * 动态改变状态栏的颜色
+     *
+     * @param alpha 透明度
+     */
+    private void setColorChange(float alpha) {
+        titleTv.setTextColor(Color.argb((int) (alpha * 255), 255, 255, 255));
+        topBarBgRl.setBackgroundColor(Color.argb((int) (alpha * 255), 55, 154, 246));
+        statusBarView.setBackgroundColor(Color.argb((int) (alpha * 255), 55, 154, 246));
+        searchIv.setAlpha(alpha);
+    }
+
+    /**
+     * 计算高度差 获取透明度
+     *
+     * @param min
+     * @param max
+     * @return
+     */
+    public float getScaleDistance(float min, float max) {
+        int position = 0;
+        View firstVisibleChildView = layoutManager.findViewByPosition(position);
+        if (firstVisibleChildView == null) return 1;
+        return (firstVisibleChildView.getHeight() - firstVisibleChildView.getBottom() - min) / (max - min);
     }
 
     private View getBannerView() {
@@ -161,14 +215,14 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
     @Override
     public void collectSuccess(int position, String msg) {
         datasEntities.get(position).setCollect(true);
-        adapter.notifyItemChanged(position + 1,1);
+        adapter.notifyItemChanged(position + 1, 1);
         showToast(msg);
     }
 
     @Override
     public void cancelCollectSuccess(int position, String msg) {
         datasEntities.get(position).setCollect(false);
-        adapter.notifyItemChanged(position + 1,1);
+        adapter.notifyItemChanged(position + 1, 1);
         showToast(msg);
     }
 
@@ -192,19 +246,13 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        Bundle bundle = new Bundle();
-        bundle.putString(BundleKey.TITLE, datasEntities.get(position).getTitle());
-        bundle.putString(BundleKey.URL, datasEntities.get(position).getLink());
-        startActivity(WebViewActivity.class, bundle);
+        ARouterHelper.gotoWebViewActivity(datasEntities.get(position).getTitle(), datasEntities.get(position).getLink());
     }
 
     @Override
     public void onBannerItemClick(BGABanner banner, View itemView, @Nullable Object model, int position) {
         BannerBean bannerBean = (BannerBean) model;
-        Bundle bundle = new Bundle();
-        bundle.putString(BundleKey.TITLE, bannerBean.getTitle());
-        bundle.putString(BundleKey.URL, bannerBean.getUrl());
-        startActivity(WebViewActivity.class, bundle);
+        ARouterHelper.gotoWebViewActivity(bannerBean.getTitle(), bannerBean.getUrl());
     }
 
 
@@ -215,5 +263,11 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
         } else {
             mPresenter.collectArticleById(datasEntities.get(position).getId(), position);
         }
+    }
+
+
+    @OnClick(R.id.search_iv)
+    public void onViewClicked() {
+        ARouterHelper.gotoSearchActivity();
     }
 }

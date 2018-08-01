@@ -9,7 +9,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.TagFlowAdapter;
 import com.allen.wanandroid.bean.HotBean;
-import com.allen.wanandroid.constant.ARouterPath;
+import com.allen.wanandroid.arouter.ARouterPath;
 import com.library.base.mvp.BaseMvpActivity;
 import com.library.base.widget.TopBar;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -115,7 +115,7 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
     public boolean onTagClick(View view, int position, FlowLayout parent) {
         switch (parent.getId()) {
             case R.id.flow_hot_layout:
-                mPresenter.gotoHotDetail(hotBeans.get(position).getName(), hotBeans.get(position).getId());
+                mPresenter.gotoSearchResult(hotBeans.get(position).getName(), hotBeans.get(position).getId());
                 break;
             case R.id.flow_web_site_layout:
                 mPresenter.gotoWebSiteDetail(webSiteBeans.get(position).getName(), webSiteBeans.get(position).getLink());

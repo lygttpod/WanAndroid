@@ -1,6 +1,7 @@
 package com.allen.library.observer;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.text.TextUtils;
 
 import com.allen.library.RxHttpUtils;
@@ -79,6 +80,10 @@ public abstract class DataObserver<T> extends BaseDataObserver<T> {
             onSuccess(data.getData());
         }else {
             doOnError(data.getErrorMsg());
+            if (data.getErrorMsg().contains("登录")){
+                Intent intent = new Intent("com.allen.wan_android.need_login_action");
+                RxHttpUtils.getContext().sendBroadcast(intent);
+            }
         }
     }
 

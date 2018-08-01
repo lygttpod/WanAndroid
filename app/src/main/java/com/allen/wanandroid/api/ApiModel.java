@@ -103,6 +103,13 @@ public class ApiModel {
                 .subscribe(observer);
     }
 
+    public void getSearchListByKeyWord(int page,String k,DataObserver<HomeBean> observer) {
+        RxHttpUtils.createApi(ApiService.class)
+                .getSearchListByKeyWord(page,k)
+                .compose(Transformer.<BaseData<HomeBean>>switchSchedulers(observer.getProgressDialog()))
+                .subscribe(observer);
+    }
+
     public void getWebSiteData(DataObserver<List<HotBean>> observer) {
         RxHttpUtils.createApi(ApiService.class)
                 .getWebSiteData()

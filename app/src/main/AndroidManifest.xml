@@ -31,6 +31,19 @@
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.collect.UserCollectActivity" />
         <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.search.SearchResultActivity" />
+
+        <receiver
+            android:name=".broadcast.LoginBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <!-- 静态注册广播 -->
+            <!-- intent过滤器,指定可以匹配哪些intent, 一般需要定义action 可以是自定义的也可是系统的 -->
+            <intent-filter>
+                <!--action-->
+                <action android:name="com.allen.wan_android.need_login_action" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

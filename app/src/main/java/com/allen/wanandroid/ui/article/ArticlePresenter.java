@@ -123,5 +123,32 @@ public class ArticlePresenter extends BaseMvpPresenter<ArticleView> {
         });
     }
 
+    public void getSearchListByKeyWord(int page, String k) {
+        apiModel.getSearchListByKeyWord(page, k, new DataObserver<HomeBean>() {
+            @Override
+            protected void onError(String errorMsg) {
+                mView.hideLoading();
+            }
+
+            @Override
+            protected void onSuccess(HomeBean data) {
+                mView.hideLoading();
+                if (data.getCurPage() == 1) {
+                    mView.showNewArticleList(data.getDatas());
+                    if (data.isOver()) {
+                        mView.loadMoreEnd();
+                    }
+                } else {
+                    if (data.isOver()) {
+                        mView.loadMoreEnd();
+                    } else {
+                        mView.loadMoreComplete();
+                    }
+                    mView.showMoreArticleList(data.getDatas());
+                }
+            }
+        });
+    }
+
 
 }

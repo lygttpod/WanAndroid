@@ -105,7 +105,7 @@ public interface ApiService {
      * @param keyword 关键字
      * @return 列表
      */
-    @GET("article/query/{page}/json")
+    @POST("article/query/{page}/json")
     Observable<BaseData<HomeBean>> getSearchListByKeyWord(@Path("page") int page, @Query("k") String keyword);
 
     /**

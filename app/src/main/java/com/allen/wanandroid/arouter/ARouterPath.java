@@ -1,4 +1,4 @@
-package com.allen.wanandroid.constant;
+package com.allen.wanandroid.arouter;
 
 /**
  * <pre>
@@ -20,4 +20,5 @@ public interface ARouterPath {
     String articleListFrPath = "/article/list/fragment";
     String userCollectAcPath = "/user/collect/activity";
     String articleSearchAcPath = "/article/search/activity";
+    String searchResultAcPath = "/search/result/activity";
 }

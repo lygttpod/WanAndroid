@@ -1,9 +1,8 @@
 package com.allen.wanandroid.ui.mine;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.allen.library.utils.SPUtils;
+import com.allen.wanandroid.arouter.ARouterHelper;
 import com.allen.wanandroid.bean.UserBean;
-import com.allen.wanandroid.constant.ARouterPath;
 import com.allen.wanandroid.utils.DbUtils;
 import com.library.base.mvp.BaseMvpPresenter;
 
@@ -27,7 +26,7 @@ public class MineHomePresenter extends BaseMvpPresenter<MineHomeView> {
     }
 
     public void gotoCollectList(){
-        ARouter.getInstance().build(ARouterPath.userCollectAcPath).navigation();
+        ARouterHelper.gotoCollectList();
     }
 
     public void gotoHistory(){

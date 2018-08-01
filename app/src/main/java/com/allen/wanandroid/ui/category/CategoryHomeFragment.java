@@ -1,18 +1,16 @@
 package com.allen.wanandroid.ui.category;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.CategoryHomeAdapter;
+import com.allen.wanandroid.arouter.ARouterPath;
+import com.allen.wanandroid.arouter.ARouterHelper;
 import com.allen.wanandroid.bean.CategoryBean;
-import com.allen.wanandroid.constant.ARouterPath;
-import com.allen.wanandroid.ui.article.ArticleTabViewPagerActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.library.base.mvp.BaseMvpFragment;
 import com.library.base.widget.TopBar;
@@ -39,6 +37,11 @@ public class CategoryHomeFragment extends BaseMvpFragment<CategoryHomePresenter>
     private CategoryHomeAdapter adapter;
 
     private List<CategoryBean> listBeans = new ArrayList<>();
+
+    @Override
+    protected int setStatusBarColor() {
+        return R.color.colorPrimary;
+    }
 
     @Override
     protected CategoryHomePresenter createPresenter() {
@@ -112,15 +115,6 @@ public class CategoryHomeFragment extends BaseMvpFragment<CategoryHomePresenter>
     }
 
     private void startArticleTabViewPagerAct(CategoryBean bean, int index) {
-        ARouter
-                .getInstance()
-                .build(ARouterPath.articleTabViewPagerAcPath)
-                .withInt("index",index)
-                .withParcelable("category",bean)
-                .navigation();
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable("category", bean);
-//        bundle.putInt("index", index);
-//        startActivity(ArticleTabViewPagerActivity.class, bundle);
+        ARouterHelper.startArticleTabViewPagerAct(bean, index);
     }
 }

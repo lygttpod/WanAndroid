@@ -5,9 +5,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.allen.wanandroid.ui.MainActivity;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.constant.ARouterPath;
+import com.allen.wanandroid.arouter.ARouterHelper;
+import com.allen.wanandroid.arouter.ARouterPath;
+import com.allen.wanandroid.ui.MainActivity;
 import com.library.base.mvp.BaseMvpFragment;
 import com.library.base.widget.TopBar;
 
@@ -27,6 +28,11 @@ import butterknife.OnClick;
 public class MineHomeFragment extends BaseMvpFragment<MineHomePresenter> implements MineHomeView {
     @BindView(R.id.user_name_tv)
     TextView userNameTv;
+
+    @Override
+    protected int setStatusBarColor() {
+        return R.color.colorPrimary;
+    }
 
     @Override
     protected MineHomePresenter createPresenter() {
@@ -100,7 +106,7 @@ public class MineHomeFragment extends BaseMvpFragment<MineHomePresenter> impleme
 
     @Override
     public void logout() {
-        startActivity(MainActivity.class);
+        ARouterHelper.gotoMain();
     }
 
     @OnClick({R.id.collect_stv, R.id.history_stv, R.id.about_stv, R.id.logout_sbt})
