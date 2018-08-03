@@ -119,7 +119,7 @@ public class ArticleFragment extends BaseMvpFragment<ArticlePresenter> implement
     public void showNewArticleList(List<HomeBean.DatasEntity> list) {
         datasEntities.clear();
         datasEntities.addAll(list);
-        adapter.notifyDataSetChanged();
+        adapter.setNewData(datasEntities);
     }
 
     @Override

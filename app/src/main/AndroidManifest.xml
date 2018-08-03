@@ -31,7 +31,7 @@
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.collect.UserCollectActivity" />
         <activity android:name=".ui.search.SearchActivity" />
-        <activity android:name=".ui.search.SearchResultActivity" />
+        <activity android:name=".ui.mine.AboutActivity" />
 
         <receiver
             android:name=".broadcast.LoginBroadcastReceiver"

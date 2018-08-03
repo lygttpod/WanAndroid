@@ -61,10 +61,10 @@ public class ProjectArticlePresenter extends BaseMvpPresenter<ProjectArticleView
             protected void onSuccess(HomeBean data) {
                 mView.hideLoading();
                 if (data.getCurPage() == 1) {
+                    mView.showNewArticleList(data.getDatas());
                     if (data.isOver()) {
                         mView.loadMoreEnd();
                     }
-                    mView.showNewArticleList(data.getDatas());
                 } else {
                     if (data.isOver()) {
                         mView.loadMoreEnd();

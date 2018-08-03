@@ -7,10 +7,10 @@
     <color name="base_top_bar_title">#212629</color>
 
     <color name="base_transparent">#00000000</color>
-    <color name="base_text_select">#0049c7</color>
+    <color name="base_text_select">#379af6</color>
     <color name="base_text_no_select">#4a4a4a</color>
 
-    <color name="base_refresh_color">#158075</color>
+    <color name="base_refresh_color">#379af6</color>
     <color name="base_top_bar_bg">#379af6</color>
     <color name="search_bar_bg">#F5F6F7</color>
 

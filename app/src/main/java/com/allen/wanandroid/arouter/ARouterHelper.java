@@ -17,7 +17,7 @@ public class ARouterHelper {
     public static void gotoSearchActivity() {
         ARouter
                 .getInstance()
-                .build(ARouterPath.articleSearchAcPath)
+                .build(ARouterPath.searchActPath)
                 .navigation();
     }
 
@@ -31,12 +31,11 @@ public class ARouterHelper {
     }
 
 
-    public static void gotoSearchResult(String title, int id) {
+    public static void gotoSearchResult(String title) {
         ARouter
                 .getInstance()
-                .build(ARouterPath.searchResultAcPath)
+                .build(ARouterPath.searchResultFrgPath)
                 .withString(BundleKey.TITLE, title)
-                .withInt(BundleKey.ID, id)
                 .navigation();
     }
 
@@ -68,6 +67,13 @@ public class ARouterHelper {
         ARouter
                 .getInstance()
                 .build(ARouterPath.mainPath)
+                .navigation();
+
+    }
+    public static void about() {
+        ARouter
+                .getInstance()
+                .build(ARouterPath.aboutActPath)
                 .navigation();
 
     }

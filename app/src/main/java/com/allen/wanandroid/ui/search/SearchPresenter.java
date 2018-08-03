@@ -17,7 +17,7 @@ import java.util.List;
  *      version : 1.0
  * </pre>
  */
-public class SearchPresenter extends BaseMvpPresenter<SearchView> {
+public class SearchPresenter extends BaseMvpPresenter<SearchViewView> {
 
     private ApiModel apiModel;
 
@@ -29,9 +29,6 @@ public class SearchPresenter extends BaseMvpPresenter<SearchView> {
         ARouterHelper.gotoWebViewActivity(title, url);
     }
 
-    public void gotoSearchResult(String title, int id) {
-        ARouterHelper.gotoSearchResult(title, id);
-    }
 
     public void getHotSearchData() {
         apiModel.getHotSearchData(new DataObserver<List<HotBean>>() {

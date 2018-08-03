@@ -34,7 +34,7 @@ public class MineHomePresenter extends BaseMvpPresenter<MineHomeView> {
     }
 
     public void aboutMe(){
-
+        ARouterHelper.about();
     }
 
     public void logout(){

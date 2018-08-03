@@ -1,6 +1,8 @@
 package com.allen.wanandroid.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.Html;
+import android.text.TextUtils;
 
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.bean.HomeBean;
@@ -28,8 +30,20 @@ public class HomeAdapter extends BaseQuickAdapter<HomeBean.DatasEntity, BaseView
     protected void convert(BaseViewHolder helper, HomeBean.DatasEntity item) {
         helper.setText(R.id.author_tv, "作者："+item.getAuthor());
         helper.setText(R.id.time_tv, item.getNiceDate());
-        helper.setText(R.id.title_tv, item.getTitle());
-        helper.setText(R.id.chapter_name_tv, "分类：" + item.getSuperChapterName() + "/" + item.getChapterName());
+        helper.setText(R.id.title_tv, Html.fromHtml(item.getTitle()));
+        StringBuilder stringBuilder = new StringBuilder();
+        String superChapterName = item.getSuperChapterName();
+        String chapterName = item.getChapterName();
+        if (!TextUtils.isEmpty(superChapterName)){
+            stringBuilder.append(superChapterName);
+        }
+        if (!TextUtils.isEmpty(chapterName)){
+            if (!TextUtils.isEmpty(superChapterName)){
+                stringBuilder.append("/");
+            }
+            stringBuilder.append(chapterName);
+        }
+        helper.setText(R.id.chapter_name_tv, stringBuilder.toString());
         helper.setImageResource(R.id.collect_iv,item.isCollect()?R.mipmap.icon_collected:R.mipmap.icon_uncollect);
         helper.addOnClickListener(R.id.collect_iv);
     }

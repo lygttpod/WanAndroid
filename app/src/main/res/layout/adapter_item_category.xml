@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/item_selector_white"
+        android:background="@drawable/item_touch_bg"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="10dp">

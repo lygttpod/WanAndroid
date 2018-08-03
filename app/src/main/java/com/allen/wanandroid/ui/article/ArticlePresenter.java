@@ -53,10 +53,10 @@ public class ArticlePresenter extends BaseMvpPresenter<ArticleView> {
             protected void onSuccess(HomeBean data) {
                 mView.hideLoading();
                 if (data.getCurPage() == 1) {
+                    mView.showNewArticleList(data.getDatas());
                     if (data.isOver()) {
                         mView.loadMoreEnd();
                     }
-                    mView.showNewArticleList(data.getDatas());
                 } else {
                     if (data.isOver()) {
                         mView.loadMoreEnd();
@@ -124,6 +124,7 @@ public class ArticlePresenter extends BaseMvpPresenter<ArticleView> {
     }
 
     public void getSearchListByKeyWord(int page, String k) {
+        mView.showLoading();
         apiModel.getSearchListByKeyWord(page, k, new DataObserver<HomeBean>() {
             @Override
             protected void onError(String errorMsg) {

@@ -14,7 +14,7 @@ import java.util.List;
  *      version : 1.0
  * </pre>
  */
-public interface SearchView extends IBaseMvpView {
+public interface SearchViewView extends IBaseMvpView {
 
     void setHotSearchData(List<HotBean> hotSearchData);
     void setWebSiteData(List<HotBean> webSiteData);

@@ -35,8 +35,8 @@ public class MainActivity extends BaseMainActivity {
     @Override
     public List<Tab> setBottomTabs(List<Tab> tabs) {
         tabs.add(new Tab("首页", R.mipmap.icon_home_unselected, R.mipmap.icon_home_selected, R.color.colorTabNormal, R.color.colorTabSelected));
-        tabs.add(new Tab("项目", R.mipmap.icon_home_unselected, R.mipmap.icon_home_selected, R.color.colorTabNormal, R.color.colorTabSelected));
-        tabs.add(new Tab("体系", R.mipmap.icon_home_unselected, R.mipmap.icon_home_selected, R.color.colorTabNormal, R.color.colorTabSelected));
+        tabs.add(new Tab("项目", R.mipmap.icon_project_unselected, R.mipmap.icon_project_selected, R.color.colorTabNormal, R.color.colorTabSelected));
+        tabs.add(new Tab("体系", R.mipmap.icon_category_unselected, R.mipmap.icon_category_selected, R.color.colorTabNormal, R.color.colorTabSelected));
         tabs.add(new Tab("我的", R.mipmap.icon_mine_unselected, R.mipmap.icon_mine_selected, R.color.colorTabNormal, R.color.colorTabSelected));
         return tabs;
     }

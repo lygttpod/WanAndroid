@@ -113,7 +113,7 @@ public class ProjectArticleFragment extends BaseMvpFragment<ProjectArticlePresen
     public void showNewArticleList(List<HomeBean.DatasEntity> list) {
         datasEntities.clear();
         datasEntities.addAll(list);
-        adapter.notifyDataSetChanged();
+        adapter.setNewData(datasEntities);
     }
 
     @Override

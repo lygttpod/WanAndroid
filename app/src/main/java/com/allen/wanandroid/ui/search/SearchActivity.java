@@ -2,24 +2,25 @@ package com.allen.wanandroid.ui.search;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
+import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.adapter.TagFlowAdapter;
-import com.allen.wanandroid.bean.HotBean;
+import com.allen.wanandroid.adapter.CommonFragmentAdapter;
+import com.allen.wanandroid.adapter.CommonFragmentWithTitleAdapter;
 import com.allen.wanandroid.arouter.ARouterPath;
-import com.library.base.mvp.BaseMvpActivity;
+import com.library.base.base.BaseActivity;
 import com.library.base.widget.TopBar;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
-import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * <pre>
@@ -30,30 +31,20 @@ import butterknife.BindView;
  *      version : 1.0
  * </pre>
  */
-@Route(path = ARouterPath.articleSearchAcPath)
-public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements SearchView, TagFlowLayout.OnTagClickListener {
+@Route(path = ARouterPath.searchActPath)
+public class SearchActivity extends BaseActivity implements ViewPager.OnPageChangeListener {
 
-    @BindView(R.id.hot_tv)
-    TextView hotTv;
-    @BindView(R.id.web_site_tv)
-    TextView webSiteTv;
-    @BindView(R.id.flow_hot_layout)
-    TagFlowLayout flowHotLayout;
-    @BindView(R.id.flow_web_site_layout)
-    TagFlowLayout flowWebSiteLayout;
+    @BindView(R.id.back_iv)
+    ImageView backIv;
+    @BindView(R.id.search_view)
+    SearchView searchView;
+    @BindView(R.id.view_pager)
+    ViewPager viewPager;
 
+    private CommonFragmentWithTitleAdapter adapter;
+    private List<Fragment> fragments = new ArrayList<>();
 
-    private TagAdapter<HotBean> hotSearchTagAdapter;
-    private TagAdapter<HotBean> webSiteTagAdapter;
-
-    private List<HotBean> hotBeans = new ArrayList<>();
-    private List<HotBean> webSiteBeans = new ArrayList<>();
-
-
-    @Override
-    protected SearchPresenter createPresenter() {
-        return new SearchPresenter();
-    }
+    private String keyWord;
 
     @Override
     protected void getBundleData(Bundle params) {
@@ -62,12 +53,12 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
 
     @Override
     public int bindLayout() {
-        return R.layout.fragment_hot;
+        return R.layout.fragment_search;
     }
 
     @Override
     public void setTopBar(TopBar topBar) {
-        topBar.setCenterText("搜索");
+        hideTopBar();
     }
 
     @Override
@@ -77,59 +68,87 @@ public class SearchActivity extends BaseMvpActivity<SearchPresenter> implements 
 
     @Override
     public void doOnRefresh() {
-        mPresenter.getHotSearchData();
-        mPresenter.getWebSiteData();
     }
 
     @Override
     public void doBusiness(Context context) {
-        initTagFlow();
-        mPresenter.getHotSearchData();
-        mPresenter.getWebSiteData();
+        initSearchView();
+        initAdapter();
     }
 
-
-    private void initTagFlow() {
-        flowHotLayout.setOnTagClickListener(this);
-        flowWebSiteLayout.setOnTagClickListener(this);
-
-        hotSearchTagAdapter = new TagFlowAdapter(this, hotBeans);
-        webSiteTagAdapter = new TagFlowAdapter(this, webSiteBeans);
-
-        flowHotLayout.setAdapter(hotSearchTagAdapter);
-        flowWebSiteLayout.setAdapter(webSiteTagAdapter);
+    private void initAdapter() {
+        fragments.add(new HotSearchFragment());
+        fragments.add(SearchResultFragment.newInstance(""));
+        adapter = new CommonFragmentWithTitleAdapter(getSupportFragmentManager(), fragments, null);
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(this);
+        viewPager.setCurrentItem(0);
     }
 
+    private void initSearchView() {
+        //搜索按钮取消关闭图标的问题
+        searchView.onActionViewExpanded();
+        //设置搜索输入框是否展开，false展开 true关闭
+        searchView.setIconified(false);
+        //设置默认搜索内容
+        SearchView.SearchAutoComplete searchAutoComplete = searchView.findViewById(R.id.search_src_text);
+        searchAutoComplete.setHintTextColor(getResources().getColor(R.color.white));
+        searchAutoComplete.setTextColor(getResources().getColor(R.color.white));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (query.length() > 0) {
+                    keyWord = query;
+                    viewPager.setCurrentItem(1);
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (TextUtils.isEmpty(newText)) {
+                    viewPager.setCurrentItem(0);
+                }
+                return false;
+            }
+        });
+
+    }
+
+    @OnClick(R.id.back_iv)
+    public void onViewClicked() {
+        finish();
+    }
 
     @Override
-    public void setHotSearchData(List<HotBean> hotSearchData) {
-        setTagData(hotSearchData, hotTv, hotBeans, hotSearchTagAdapter);
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
     }
 
     @Override
-    public void setWebSiteData(List<HotBean> webSiteData) {
-        setTagData(webSiteData, webSiteTv, webSiteBeans, webSiteTagAdapter);
-    }
-
-    @Override
-    public boolean onTagClick(View view, int position, FlowLayout parent) {
-        switch (parent.getId()) {
-            case R.id.flow_hot_layout:
-                mPresenter.gotoSearchResult(hotBeans.get(position).getName(), hotBeans.get(position).getId());
+    public void onPageSelected(int position) {
+        switch (position) {
+            case 0:
+                keyWord = "";
+                ((SearchResultFragment) fragments.get(1)).clearData();
                 break;
-            case R.id.flow_web_site_layout:
-                mPresenter.gotoWebSiteDetail(webSiteBeans.get(position).getName(), webSiteBeans.get(position).getLink());
+            case 1:
+                ((SearchResultFragment) fragments.get(1)).setKeyWord(keyWord);
                 break;
         }
-        return true;
     }
 
-    private void setTagData(List<HotBean> data, TextView textView, List<HotBean> beans, TagAdapter<HotBean> adapter) {
-        if (data.size() > 0) {
-            textView.setVisibility(View.VISIBLE);
-            beans.clear();
-            beans.addAll(data);
-            adapter.notifyDataChanged();
-        }
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    /**
+     * 热搜页面调取activity的方法传值给搜索结果页面
+     * @param keyWord 关键字
+     */
+    public void gotoSearchResult(String keyWord){
+        this.keyWord = keyWord;
+        searchView.setQuery(keyWord,true);
     }
 }

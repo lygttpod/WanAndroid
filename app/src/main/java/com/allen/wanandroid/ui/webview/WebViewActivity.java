@@ -2,6 +2,7 @@ package com.allen.wanandroid.ui.webview;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
@@ -47,7 +48,7 @@ public class WebViewActivity extends BaseMvpActivity<WebViewPresenter> implement
 
     @Override
     public void setTopBar(TopBar topBar) {
-        topBar.setLeftText(title);
+        topBar.setLeftText(Html.fromHtml(title).toString());
     }
 
     @Override

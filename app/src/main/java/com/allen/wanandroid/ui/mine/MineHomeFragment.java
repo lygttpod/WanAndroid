@@ -90,21 +90,6 @@ public class MineHomeFragment extends BaseMvpFragment<MineHomePresenter> impleme
     }
 
     @Override
-    public void gotoCollectList() {
-
-    }
-
-    @Override
-    public void gotoHistory() {
-
-    }
-
-    @Override
-    public void aboutMe() {
-
-    }
-
-    @Override
     public void logout() {
         ARouterHelper.gotoMain();
     }

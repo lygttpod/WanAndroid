@@ -47,7 +47,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="20dp"
                 android:alpha="0"
-                android:src="@mipmap/icon_search_white" />
+                android:src="@drawable/ic_search_white_24dp" />
         </RelativeLayout>
 
 

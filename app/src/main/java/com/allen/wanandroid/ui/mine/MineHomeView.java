@@ -14,12 +14,6 @@ import com.library.base.mvp.IBaseMvpView;
 public interface MineHomeView extends IBaseMvpView {
     void setUserName(String userName);
 
-    void gotoCollectList();
-
-    void gotoHistory();
-
-    void aboutMe();
-
     void logout();
 
 }
