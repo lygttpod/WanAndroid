@@ -32,7 +32,7 @@
             app:searchIcon="@drawable/ic_search_white_24dp" />
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
+    <com.allen.wanandroid.widget.CustomViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

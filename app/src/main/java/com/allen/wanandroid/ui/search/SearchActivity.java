@@ -10,9 +10,9 @@ import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.adapter.CommonFragmentAdapter;
 import com.allen.wanandroid.adapter.CommonFragmentWithTitleAdapter;
 import com.allen.wanandroid.arouter.ARouterPath;
+import com.allen.wanandroid.widget.CustomViewPager;
 import com.library.base.base.BaseActivity;
 import com.library.base.widget.TopBar;
 
@@ -39,7 +39,7 @@ public class SearchActivity extends BaseActivity implements ViewPager.OnPageChan
     @BindView(R.id.search_view)
     SearchView searchView;
     @BindView(R.id.view_pager)
-    ViewPager viewPager;
+    CustomViewPager viewPager;
 
     private CommonFragmentWithTitleAdapter adapter;
     private List<Fragment> fragments = new ArrayList<>();
@@ -145,10 +145,11 @@ public class SearchActivity extends BaseActivity implements ViewPager.OnPageChan
 
     /**
      * 热搜页面调取activity的方法传值给搜索结果页面
+     *
      * @param keyWord 关键字
      */
-    public void gotoSearchResult(String keyWord){
+    public void gotoSearchResult(String keyWord) {
         this.keyWord = keyWord;
-        searchView.setQuery(keyWord,true);
+        searchView.setQuery(keyWord, true);
     }
 }

@@ -2,7 +2,12 @@ package com.allen.library.config;
 
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.allen.library.RxHttpUtils;
+import com.allen.library.cookie.CookieJarImpl;
+import com.allen.library.cookie.store.CookieStore;
+import com.allen.library.cookie.store.SPCookieStore;
 import com.allen.library.http.HttpClient;
 import com.allen.library.http.SSLUtils;
 import com.allen.library.interceptor.AddCookiesInterceptor;
@@ -14,10 +19,16 @@ import com.allen.library.interceptor.RxHttpLogger;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -44,6 +55,8 @@ public class OkHttpConfig {
     private static OkHttpClient.Builder okHttpClientBuilder;
 
     private static OkHttpClient okHttpClient;
+
+    private static final HashMap<String, List<Cookie>> cookieStore = new HashMap<String, List<Cookie>>();
 
     public OkHttpConfig() {
         okHttpClientBuilder = new OkHttpClient.Builder();
@@ -72,7 +85,7 @@ public class OkHttpConfig {
         private boolean isCache;
         private String cachePath;
         private long cacheMaxSize;
-        private boolean isSaveCookie;
+        private CookieStore cookieStore;
         private long readTimeout;
         private long writeTimeout;
         private long connectTimeout;
@@ -106,8 +119,9 @@ public class OkHttpConfig {
             return this;
         }
 
-        public Builder setSaveCookie(boolean isSaveCookie) {
-            this.isSaveCookie = isSaveCookie;
+
+        public Builder setCookieType(CookieStore cookieStore) {
+            this.cookieStore = cookieStore;
             return this;
         }
 
@@ -191,10 +205,8 @@ public class OkHttpConfig {
          * 配饰cookie保存到sp文件中
          */
         private void setCookieConfig() {
-            if (isSaveCookie) {
-                okHttpClientBuilder
-                        .addInterceptor(new AddCookiesInterceptor())
-                        .addInterceptor(new ReceivedCookiesInterceptor());
+            if (null != cookieStore) {
+                okHttpClientBuilder.cookieJar(new CookieJarImpl(cookieStore));
             }
         }
 

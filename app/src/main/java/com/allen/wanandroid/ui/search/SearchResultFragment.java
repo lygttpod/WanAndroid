@@ -106,6 +106,8 @@ public class SearchResultFragment extends BaseMvpFragment<ArticlePresenter> impl
         adapter.setOnLoadMoreListener(this, recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
+        adapter.setEmptyView(R.layout.recycler_view_empty_layout,recyclerView);
+
     }
 
     @Override

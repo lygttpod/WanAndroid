@@ -6,9 +6,12 @@ import android.content.Context;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.allen.library.RxHttpUtils;
 import com.allen.library.config.OkHttpConfig;
+import com.allen.library.cookie.store.MemoryCookieStore;
+import com.allen.library.cookie.store.SPCookieStore;
 import com.allen.wanandroid.BuildConfig;
 import com.allen.wanandroid.db.DaoMaster;
 import com.allen.wanandroid.db.DaoSession;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import okhttp3.OkHttpClient;
 
@@ -40,7 +43,9 @@ public class App extends Application {
         initARouter();
         initHttp();
         initGreenDao();
+        initBugly();
     }
+
 
     private void initARouter() {
         // 这两行必须写在init之前，否则这些配置在init过程中将无效
@@ -63,8 +68,9 @@ public class App extends Application {
                 //1、在有网络的时候，先去读缓存，缓存时间到了，再去访问网络获取数据；
                 //2、在没有网络的时候，去读缓存中的数据。
                 .setCache(false)
-                //全局持久话cookie,保存本地每次都会携带在header中（默认false）
-                .setSaveCookie(true)
+                //全局持久话cookie,保存到内存（new MemoryCookieStore()）或者保存到本地（new SPCookieStore(this)）
+                //不设置的话，默认不对cookie做处理
+                .setCookieType(new SPCookieStore(this))
                 //可以添加自己的拦截器(比如使用自己熟悉三方的缓存库等等)
                 //.setAddInterceptor(null)
                 //全局ssl证书认证
@@ -102,4 +108,10 @@ public class App extends Application {
         daoSession = new DaoMaster(helper.getWritableDb()).newSession();
     }
 
+    /**
+     * 初始化bugly异常检测sdk
+     */
+    private void initBugly() {
+        CrashReport.initCrashReport(getApplicationContext(), "a1fb27eea0", true);
+    }
 }
