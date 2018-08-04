@@ -11,6 +11,7 @@ import com.allen.library.cookie.store.SPCookieStore;
 import com.allen.wanandroid.BuildConfig;
 import com.allen.wanandroid.db.DaoMaster;
 import com.allen.wanandroid.db.DaoSession;
+import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 
 import okhttp3.OkHttpClient;
@@ -44,8 +45,8 @@ public class App extends Application {
         initHttp();
         initGreenDao();
         initBugly();
+        initLeakCanary();
     }
-
 
     private void initARouter() {
         // 这两行必须写在init之前，否则这些配置在init过程中将无效
@@ -113,5 +114,17 @@ public class App extends Application {
      */
     private void initBugly() {
         CrashReport.initCrashReport(getApplicationContext(), "a1fb27eea0", true);
+    }
+
+    /**
+     * 检测内存泄露
+     */
+    private void initLeakCanary() {
+        if (LeakCanary.isInAnalyzerProcess(this)) {//1
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
     }
 }

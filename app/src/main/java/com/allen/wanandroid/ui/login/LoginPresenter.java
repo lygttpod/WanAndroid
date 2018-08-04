@@ -53,6 +53,7 @@ public class LoginPresenter extends BaseMvpPresenter<LoginView> {
 
             @Override
             protected void onSuccess(UserBean data) {
+                DbUtils.insertUserInfo(data);
                 mView.optionSuccess(data);
             }
         });
