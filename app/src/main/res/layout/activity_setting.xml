@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:stv="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.allen.library.SuperTextView
+        android:id="@+id/night_stv"
+        style="@style/mine_setting_stv_style"
+        stv:sLeftTextString="夜间模式"
+        stv:sRightViewType="switchBtn" />
+
+    <com.allen.library.SuperTextView
+        android:id="@+id/slide_back_stv"
+        style="@style/mine_setting_stv_style"
+        stv:sLeftTextString="侧滑关闭" />
+
+    <com.allen.library.SuperButton
+        android:id="@+id/logout_sbt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="40dp"
+        android:text="退出登录"
+        android:textColor="@color/white"
+        stv:sCornersRadius="4dp"
+        stv:sSolidColor="@color/colorPrimary" />
+</LinearLayout>

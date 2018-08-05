@@ -1,13 +1,18 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
 android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.allen.wanandroid"
         minSdkVersion 17
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode 100
+        versionName "1.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
@@ -21,6 +26,37 @@ android {
             abiFilters 'armeabi' , 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
     }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName=rootProject.getName()+"_v"+defaultConfig.versionName+"_"+releaseTime()+"_"+variant.productFlavors[0].name+".apk"
+        }
+    }
+
+
+    flavorDimensions 'store'
+    productFlavors {
+
+        // 线上环境
+        pro {
+            dimension 'store'
+            buildConfigField "String", "BASE_URL", "\"http://www.wanandroid.com/\""
+            buildConfigField "String", "BUGLY_APP_ID", "\"a1fb27eea0\""
+        }
+
+        // 开发阶段
+        dev {
+            dimension 'store'
+            buildConfigField "String", "BASE_URL", "\"http://www.wanandroid.com/\""
+            buildConfigField "String", "BUGLY_APP_ID", "\"a1fb27eea0\""
+        }
+
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [CHANNELID: name]
+    }
+
     buildTypes {
         release {
             minifyEnabled false

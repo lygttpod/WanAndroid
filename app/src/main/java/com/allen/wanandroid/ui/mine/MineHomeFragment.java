@@ -6,9 +6,7 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.arouter.ARouterHelper;
 import com.allen.wanandroid.arouter.ARouterPath;
-import com.allen.wanandroid.ui.MainActivity;
 import com.library.base.mvp.BaseMvpFragment;
 import com.library.base.widget.TopBar;
 
@@ -20,7 +18,7 @@ import butterknife.OnClick;
  *      @author : xiaoyao
  *      e-mail  : xiaoyao@51vest.com
  *      date    : 2018/07/26
- *      desc    :
+ *      desc    : 我的页面
  *      version : 1.0
  * </pre>
  */
@@ -74,14 +72,10 @@ public class MineHomeFragment extends BaseMvpFragment<MineHomePresenter> impleme
 
     }
 
+
     @Override
     public void doBusiness(Context context) {
         mPresenter.setUserName();
-    }
-
-    @Override
-    public void hideLoading() {
-
     }
 
     @Override
@@ -89,25 +83,17 @@ public class MineHomeFragment extends BaseMvpFragment<MineHomePresenter> impleme
         userNameTv.setText(userName);
     }
 
-    @Override
-    public void logout() {
-        ARouterHelper.gotoMain();
-    }
-
-    @OnClick({R.id.collect_stv, R.id.history_stv, R.id.about_stv, R.id.logout_sbt})
+    @OnClick({R.id.collect_stv, R.id.setting_stv, R.id.about_stv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.collect_stv:
                 mPresenter.gotoCollectList();
                 break;
-            case R.id.history_stv:
-                mPresenter.gotoHistory();
+            case R.id.setting_stv:
+                mPresenter.gotoSetting();
                 break;
             case R.id.about_stv:
                 mPresenter.aboutMe();
-                break;
-            case R.id.logout_sbt:
-                mPresenter.logout();
                 break;
         }
     }

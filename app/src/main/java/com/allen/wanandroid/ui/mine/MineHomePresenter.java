@@ -1,6 +1,5 @@
 package com.allen.wanandroid.ui.mine;
 
-import com.allen.library.RxHttpUtils;
 import com.allen.wanandroid.arouter.ARouterHelper;
 import com.allen.wanandroid.bean.UserBean;
 import com.allen.wanandroid.utils.DbUtils;
@@ -29,21 +28,13 @@ public class MineHomePresenter extends BaseMvpPresenter<MineHomeView> {
         ARouterHelper.gotoCollectList();
     }
 
-    public void gotoHistory() {
-
+    public void gotoSetting() {
+        ARouterHelper.setting();
     }
 
     public void aboutMe() {
         ARouterHelper.about();
     }
 
-    public void logout() {
-        RxHttpUtils.removeAllCookie();
-        UserBean userBean = DbUtils.queryUserInfo();
-        if (null != userBean) {
-            DbUtils.deleteUserInfo(userBean);
-        }
-        mView.logout();
-    }
 
 }

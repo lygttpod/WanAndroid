@@ -3,7 +3,6 @@ package com.allen.wanandroid.ui.collect;
 import com.allen.library.observer.DataObserver;
 import com.allen.wanandroid.api.ApiModel;
 import com.allen.wanandroid.bean.CollectBean;
-import com.allen.wanandroid.bean.HomeBean;
 import com.library.base.mvp.BaseMvpPresenter;
 
 

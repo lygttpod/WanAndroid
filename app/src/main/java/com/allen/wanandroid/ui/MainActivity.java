@@ -7,8 +7,8 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.arouter.ARouterPath;
 import com.allen.wanandroid.arouter.ARouterHelper;
+import com.allen.wanandroid.arouter.ARouterPath;
 import com.allen.wanandroid.ui.category.CategoryHomeFragment;
 import com.allen.wanandroid.ui.home.HomeFragment;
 import com.allen.wanandroid.ui.mine.MineHomeFragment;
@@ -67,7 +67,7 @@ public class MainActivity extends BaseMainActivity {
     @Override
     public void doBusiness(Context context) {
         super.doBusiness(context);
-        requestRuntimePermission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionListener() {
+        requestRuntimePermission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionListener() {
             @Override
             public void onGranted() {
 

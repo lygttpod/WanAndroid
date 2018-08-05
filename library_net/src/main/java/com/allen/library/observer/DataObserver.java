@@ -61,7 +61,7 @@ public abstract class DataObserver<T> extends BaseDataObserver<T> {
     @Override
     public void doOnSubscribe(Disposable d) {
         //RxHttpUtils.addDisposable(d);
-        RxHttpUtils.addToCompositeDisposable(d);
+//        RxHttpUtils.addToCompositeDisposable(d);
     }
 
     @Override

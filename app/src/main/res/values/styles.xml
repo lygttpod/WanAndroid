@@ -74,4 +74,11 @@
         <item name="sRightIconMarginRight">20dp</item>
         <item name="sRightIconRes">@mipmap/icon_more</item>
     </style>
+    <style name="mine_setting_stv_style">
+        <item name="android:layout_width">match_parent</item>　　
+        <item name="android:layout_height">50dp</item>
+        <item name="sLeftViewMarginLeft">20dp</item>
+        <item name="sRightSwitchMarginRight">20dp</item>
+        <item name="sRightViewType">switchBtn</item>
+    </style>
 </resources>

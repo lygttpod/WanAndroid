@@ -37,7 +37,6 @@ public class RxHttpUtils {
     private static Application context;
 
     private static List<Disposable> disposables;
-    private static String networkData;
     private static CompositeDisposable mCompositeDisposable;
 
     public static RxHttpUtils getInstance() {

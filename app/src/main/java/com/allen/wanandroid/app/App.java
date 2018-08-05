@@ -6,7 +6,6 @@ import android.content.Context;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.allen.library.RxHttpUtils;
 import com.allen.library.config.OkHttpConfig;
-import com.allen.library.cookie.store.MemoryCookieStore;
 import com.allen.library.cookie.store.SPCookieStore;
 import com.allen.wanandroid.BuildConfig;
 import com.allen.wanandroid.db.DaoMaster;
@@ -96,7 +95,7 @@ public class App extends Application {
                 .init(this)
                 .config()
                 //配置全局baseUrl
-                .setBaseUrl("http://www.wanandroid.com/")
+                .setBaseUrl(BuildConfig.BASE_URL)
                 //开启全局配置
                 .setOkClient(okHttpClient);
     }
@@ -113,7 +112,7 @@ public class App extends Application {
      * 初始化bugly异常检测sdk
      */
     private void initBugly() {
-        CrashReport.initCrashReport(getApplicationContext(), "a1fb27eea0", true);
+        CrashReport.initCrashReport(getApplicationContext(), BuildConfig.BUGLY_APP_ID, true);
     }
 
     /**

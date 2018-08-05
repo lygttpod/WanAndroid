@@ -25,7 +25,7 @@ public class BasePermissionActivity extends AppCompatActivity {
     /**
      * 权限管理回调方法
      */
-    private static PermissionListener mListener;
+    private  PermissionListener mListener;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class BasePermissionActivity extends AppCompatActivity {
      * @param permissions
      * @param listener
      */
-    public static void requestRuntimePermission(String[] permissions, PermissionListener listener) {
+    public void requestRuntimePermission(String[] permissions, PermissionListener listener) {
 
         Activity topActivity = ActivityCollector.getTopActivity();
         if (topActivity == null) {

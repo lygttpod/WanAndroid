@@ -22,4 +22,5 @@ public interface ARouterPath {
     String searchActPath = "/search/activity";
     String searchResultFrgPath = "/search/result/fragment";
     String aboutActPath = "/mine/about/activity";
+    String settingActPath = "/mine/setting/activity";
 }

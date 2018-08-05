@@ -28,28 +28,28 @@ public class ApiModel {
     public void getHomeArticleList(int page, DataObserver<HomeBean> observer) {
         RxHttpUtils.createApi(ApiService.class)
                 .getHomeArticleList(page)
-                .compose(Transformer.<BaseData<HomeBean>>switchSchedulers(observer.getProgressDialog()))
+                .compose(Transformer.<BaseData<HomeBean>>switchSchedulers())
                 .subscribe(observer);
     }
 
     public void getCategoryArticleListWithId(int page, int id, DataObserver<HomeBean> observer) {
         RxHttpUtils.createApi(ApiService.class)
                 .getHomeArticleListWithId(page, id)
-                .compose(Transformer.<BaseData<HomeBean>>switchSchedulers(observer.getProgressDialog()))
+                .compose(Transformer.<BaseData<HomeBean>>switchSchedulers())
                 .subscribe(observer);
     }
 
     public void getBanner(DataObserver<List<BannerBean>> observer) {
         RxHttpUtils.createApi(ApiService.class)
                 .getBanner()
-                .compose(Transformer.<BaseData<List<BannerBean>>>switchSchedulers(observer.getProgressDialog()))
+                .compose(Transformer.<BaseData<List<BannerBean>>>switchSchedulers())
                 .subscribe(observer);
     }
 
     public void getCategoryList(DataObserver<List<CategoryBean>> observer) {
         RxHttpUtils.createApi(ApiService.class)
                 .getCategoryList()
-                .compose(Transformer.<BaseData<List<CategoryBean>>>switchSchedulers(observer.getProgressDialog()))
+                .compose(Transformer.<BaseData<List<CategoryBean>>>switchSchedulers())
                 .subscribe(observer);
     }
 
@@ -72,7 +72,7 @@ public class ApiModel {
     public void getUserCollectList(int page, DataObserver<CollectBean> observer) {
         RxHttpUtils.createApi(ApiService.class)
                 .getUserCollectList(page)
-                .compose(Transformer.<BaseData<CollectBean>>switchSchedulers(observer.getProgressDialog()))
+                .compose(Transformer.<BaseData<CollectBean>>switchSchedulers())
                 .subscribe(observer);
     }
 
@@ -89,9 +89,10 @@ public class ApiModel {
                 .compose(Transformer.<BaseData<String>>switchSchedulers(observer.getProgressDialog()))
                 .subscribe(observer);
     }
-    public void cancelUserCollectArticleById(int id,int originId, DataObserver<String> observer) {
+
+    public void cancelUserCollectArticleById(int id, int originId, DataObserver<String> observer) {
         RxHttpUtils.createApi(ApiService.class)
-                .cancelUserCollectArticleById(id,originId)
+                .cancelUserCollectArticleById(id, originId)
                 .compose(Transformer.<BaseData<String>>switchSchedulers(observer.getProgressDialog()))
                 .subscribe(observer);
     }
@@ -99,28 +100,28 @@ public class ApiModel {
     public void getHotSearchData(DataObserver<List<HotBean>> observer) {
         RxHttpUtils.createApi(ApiService.class)
                 .getHotSearchData()
-                .compose(Transformer.<BaseData<List<HotBean>>>switchSchedulers(observer.getProgressDialog()))
+                .compose(Transformer.<BaseData<List<HotBean>>>switchSchedulers())
                 .subscribe(observer);
     }
 
-    public void getSearchListByKeyWord(int page,String k,DataObserver<HomeBean> observer) {
+    public void getSearchListByKeyWord(int page, String k, DataObserver<HomeBean> observer) {
         RxHttpUtils.createApi(ApiService.class)
-                .getSearchListByKeyWord(page,k)
-                .compose(Transformer.<BaseData<HomeBean>>switchSchedulers(observer.getProgressDialog()))
+                .getSearchListByKeyWord(page, k)
+                .compose(Transformer.<BaseData<HomeBean>>switchSchedulers())
                 .subscribe(observer);
     }
 
     public void getWebSiteData(DataObserver<List<HotBean>> observer) {
         RxHttpUtils.createApi(ApiService.class)
                 .getWebSiteData()
-                .compose(Transformer.<BaseData<List<HotBean>>>switchSchedulers(observer.getProgressDialog()))
+                .compose(Transformer.<BaseData<List<HotBean>>>switchSchedulers())
                 .subscribe(observer);
     }
 
     public void getProjectTabData(DataObserver<List<CategoryBean>> observer) {
         RxHttpUtils.createApi(ApiService.class)
                 .getProjectTabData()
-                .compose(Transformer.<BaseData<List<CategoryBean>>>switchSchedulers(observer.getProgressDialog()))
+                .compose(Transformer.<BaseData<List<CategoryBean>>>switchSchedulers())
                 .subscribe(observer);
     }
 

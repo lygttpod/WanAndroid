@@ -180,6 +180,7 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
     private View getBannerView() {
         View view = View.inflate(getActivity(), R.layout.adapter_item_header_banner, null);
         bgaBanner = view.findViewById(R.id.banner);
+        bgaBanner.setVisibility(View.INVISIBLE);
         bgaBanner.setAdapter(new BGABanner.Adapter<ImageView, BannerBean>() {
             @Override
             public void fillBannerItem(BGABanner banner, ImageView itemView, @Nullable BannerBean model, int position) {
@@ -192,6 +193,7 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
 
     @Override
     public void showBanner(List<BannerBean> list) {
+        bgaBanner.setVisibility(View.VISIBLE);
         List<String> tips = new ArrayList<>();
         for (BannerBean bannerBean : list) {
             tips.add(bannerBean.getTitle());

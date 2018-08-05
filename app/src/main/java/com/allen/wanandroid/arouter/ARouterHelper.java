@@ -70,10 +70,19 @@ public class ARouterHelper {
                 .navigation();
 
     }
+
     public static void about() {
         ARouter
                 .getInstance()
                 .build(ARouterPath.aboutActPath)
+                .navigation();
+
+    }
+
+    public static void setting() {
+        ARouter
+                .getInstance()
+                .build(ARouterPath.settingActPath)
                 .navigation();
 
     }

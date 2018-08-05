@@ -34,6 +34,7 @@
         <activity android:name=".ui.collect.UserCollectActivity" />
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.mine.AboutActivity" />
+        <activity android:name=".ui.mine.SettingActivity" />
 
         <receiver
             android:name=".broadcast.LoginBroadcastReceiver"
