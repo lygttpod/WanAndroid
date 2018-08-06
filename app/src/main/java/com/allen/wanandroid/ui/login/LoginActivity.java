@@ -29,7 +29,7 @@ import io.reactivex.functions.Consumer;
  *      @author : xiaoyao
  *      e-mail  : xiaoyao@51vest.com
  *      date    : 2018/07/25
- *      desc    :
+ *      desc    : 登录页面
  *      version : 1.0
  * </pre>
  */

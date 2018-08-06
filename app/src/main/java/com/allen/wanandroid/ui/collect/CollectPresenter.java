@@ -36,10 +36,8 @@ public class CollectPresenter extends BaseMvpPresenter<CollectView> {
             protected void onSuccess(CollectBean data) {
                 mView.hideLoading();
                 if (data.getCurPage() == 1) {
-                    if (data.isOver()) {
-                        mView.loadMoreEnd();
-                    }
                     mView.showNewArticleList(data.getDatas());
+                    mView.enableLoadMore(!data.isOver());
                 } else {
                     if (data.isOver()) {
                         mView.loadMoreEnd();
@@ -53,8 +51,8 @@ public class CollectPresenter extends BaseMvpPresenter<CollectView> {
     }
 
 
-    public void cancelUserCollectArticleById(int id, int originId,final int position) {
-        apiModel.cancelUserCollectArticleById(id, originId,new DataObserver<String>(mView.getLoadingDialog()) {
+    public void cancelUserCollectArticleById(int id, int originId, final int position) {
+        apiModel.cancelUserCollectArticleById(id, originId, new DataObserver<String>(mView.getLoadingDialog()) {
             @Override
             protected void onError(String errorMsg) {
             }

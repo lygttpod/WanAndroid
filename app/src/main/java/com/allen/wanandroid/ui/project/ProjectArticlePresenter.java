@@ -62,9 +62,7 @@ public class ProjectArticlePresenter extends BaseMvpPresenter<ProjectArticleView
                 mView.hideLoading();
                 if (data.getCurPage() == 1) {
                     mView.showNewArticleList(data.getDatas());
-                    if (data.isOver()) {
-                        mView.loadMoreEnd();
-                    }
+                    mView.enableLoadMore(!data.isOver());
                 } else {
                     if (data.isOver()) {
                         mView.loadMoreEnd();

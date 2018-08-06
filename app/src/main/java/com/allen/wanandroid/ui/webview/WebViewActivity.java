@@ -21,7 +21,7 @@ import butterknife.BindView;
  *      @author : Allen
  *      e-mail  : lygttpod@163.com
  *      date    : 2018/07/22
- *      desc    :
+ *      desc    : 通用的webView页面
  *      version : 1.0
  * </pre>
  */
@@ -63,7 +63,7 @@ public class WebViewActivity extends BaseMvpActivity<WebViewPresenter> implement
 
     @Override
     public void doBusiness(Context context) {
-        mPresenter.loadUrl(webView,url);
+        mPresenter.loadUrl(webView, url);
     }
 
     @Override

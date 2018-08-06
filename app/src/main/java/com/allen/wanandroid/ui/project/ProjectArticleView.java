@@ -23,5 +23,6 @@ public interface ProjectArticleView extends IBaseMvpView {
 
      void loadMoreComplete();
      void loadMoreEnd();
+     void enableLoadMore(boolean enable);
 
 }

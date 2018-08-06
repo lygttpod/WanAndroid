@@ -146,6 +146,11 @@ public class ProjectArticleFragment extends BaseMvpFragment<ProjectArticlePresen
         adapter.loadMoreEnd();
     }
 
+    @Override
+    public void enableLoadMore(boolean enable) {
+        adapter.setEnableLoadMore(enable);
+    }
+
 
     @Override
     public void onLoadMoreRequested() {

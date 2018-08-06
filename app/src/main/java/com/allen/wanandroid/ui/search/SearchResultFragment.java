@@ -31,7 +31,7 @@ import butterknife.BindView;
  *      @author : xiaoyao
  *      e-mail  : xiaoyao@51vest.com
  *      date    : 2018/08/01
- *      desc    :
+ *      desc    : 搜索结果
  *      version : 1.0
  * </pre>
  */
@@ -150,6 +150,11 @@ public class SearchResultFragment extends BaseMvpFragment<ArticlePresenter> impl
     @Override
     public void loadMoreEnd() {
         adapter.loadMoreEnd();
+    }
+
+    @Override
+    public void enableLoadMore(boolean enable) {
+        adapter.setEnableLoadMore(enable);
     }
 
 

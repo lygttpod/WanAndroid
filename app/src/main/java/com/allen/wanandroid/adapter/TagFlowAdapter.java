@@ -1,6 +1,7 @@
 package com.allen.wanandroid.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * <pre>
@@ -33,6 +35,19 @@ public class TagFlowAdapter extends TagAdapter<HotBean> {
     public View getView(FlowLayout parent, int position, HotBean hotBean) {
         TextView view = (TextView) LayoutInflater.from(context).inflate(R.layout.item_tag, parent, false);
         view.setText(hotBean.getName());
+        view.setTextColor(getRandomColor());
         return view;
+    }
+
+    /**
+     * 随机颜色
+     * @return 随机颜色值
+     */
+    private int getRandomColor() {
+        Random random = new Random();
+        int r = random.nextInt(256);
+        int g = random.nextInt(256);
+        int b = random.nextInt(256);
+        return Color.rgb(r, g, b);
     }
 }

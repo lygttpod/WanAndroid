@@ -152,6 +152,11 @@ public class ArticleFragment extends BaseMvpFragment<ArticlePresenter> implement
         adapter.loadMoreEnd();
     }
 
+    @Override
+    public void enableLoadMore(boolean enable) {
+        adapter.setEnableLoadMore(enable);
+    }
+
 
     @Override
     public void onLoadMoreRequested() {

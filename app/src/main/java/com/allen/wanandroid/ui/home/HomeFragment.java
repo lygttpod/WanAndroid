@@ -239,6 +239,11 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
         adapter.loadMoreEnd();
     }
 
+    @Override
+    public void enableLoadMore(boolean enable) {
+        adapter.setEnableLoadMore(enable);
+    }
+
 
     @Override
     public void onLoadMoreRequested() {

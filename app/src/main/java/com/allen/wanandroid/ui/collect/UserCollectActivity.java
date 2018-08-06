@@ -26,7 +26,7 @@ import butterknife.BindView;
  *      @author : xiaoyao
  *      e-mail  : xiaoyao@51vest.com
  *      date    : 2018/07/26
- *      desc    :
+ *      desc    : 用户收藏
  *      version : 1.0
  * </pre>
  */
@@ -125,6 +125,11 @@ public class UserCollectActivity extends BaseMvpActivity<CollectPresenter> imple
     @Override
     public void loadMoreEnd() {
         adapter.loadMoreEnd();
+    }
+
+    @Override
+    public void enableLoadMore(boolean enable) {
+        adapter.setEnableLoadMore(enable);
     }
 
 

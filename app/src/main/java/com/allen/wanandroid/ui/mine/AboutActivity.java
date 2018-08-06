@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  *      @author : xiaoyao
  *      e-mail  : xiaoyao@51vest.com
  *      date    : 2018/08/03
- *      desc    :
+ *      desc    : 关于我们
  *      version : 1.0
  * </pre>
  */

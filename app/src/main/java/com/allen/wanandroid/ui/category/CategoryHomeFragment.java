@@ -25,7 +25,7 @@ import butterknife.BindView;
  *      @author : xiaoyao
  *      e-mail  : xiaoyao@51vest.com
  *      date    : 2018/07/23
- *      desc    :
+ *      desc    : 知识体系（分类）
  *      version : 1.0
  * </pre>
  */
