@@ -1,0 +1,27 @@
+ext {
+    android = [
+            compileSdkVersion: 27,
+            applicationId    : "com.allen.wanandroid",
+            minSdkVersion    : 17,
+            targetSdkVersion : 27,
+            versionCode      : 100,
+            versionName      : "1.0.0"
+    ]
+    greendao = [
+            schemaVersion: 1,
+            daoPackage   : 'com.allen.wanandroid.db',
+            targetGenDir : 'src/main/java'
+    ]
+    url = [
+            debug      : "http://www.wanandroid.com/",
+            release    : "http://www.wanandroid.com/"
+    ]
+    appkey = [
+            bugly_appid  : "a1fb27eea0"
+    ]
+    keystore = [
+            storePassword: "lygttpod",
+            keyAlias     : "wan_android",
+            keyPassword  : "lygttpod"
+    ]
+}

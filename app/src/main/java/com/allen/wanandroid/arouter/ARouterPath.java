@@ -5,7 +5,7 @@ package com.allen.wanandroid.arouter;
  *      @author : xiaoyao
  *      e-mail  : xiaoyao@51vest.com
  *      date    : 2018/07/26
- *      desc    :
+ *      desc    : 页面路径
  *      version : 1.0
  * </pre>
  */

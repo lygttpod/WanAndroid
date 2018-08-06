@@ -9,7 +9,7 @@ import com.allen.wanandroid.constant.BundleKey;
  *      @author : xiaoyao
  *      e-mail  : xiaoyao@51vest.com
  *      date    : 2018/08/01
- *      desc    :
+ *      desc    : 页面跳转
  *      version : 1.0
  * </pre>
  */

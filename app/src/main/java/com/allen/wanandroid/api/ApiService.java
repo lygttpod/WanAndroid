@@ -23,7 +23,7 @@ import retrofit2.http.Query;
  *      @author : Allen
  *      e-mail  : lygttpod@163.com
  *      date    : 2018/07/21
- *      desc    :
+ *      desc    : 请求接口
  *      version : 1.0
  * </pre>
  */
@@ -32,12 +32,19 @@ public interface ApiService {
     /**
      * 获取首页文章列表
      *
-     * @param page
+     * @param page 页码
      * @return
      */
     @GET("article/list/{page}/json")
     Observable<BaseData<HomeBean>> getHomeArticleList(@Path("page") int page);
 
+    /**
+     * 根据ID获取文章列表
+     *
+     * @param page 页码
+     * @param id   id
+     * @return
+     */
     @GET("article/list/{page}/json")
     Observable<BaseData<HomeBean>> getHomeArticleListWithId(@Path("page") int page, @Query("cid") int id);
 
@@ -77,24 +84,59 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("lg/uncollect/{id}/json")
-    Observable<BaseData<String>> cancelUserCollectArticleById(@Path("id") int id,@Field("originId") int originId);
+    Observable<BaseData<String>> cancelUserCollectArticleById(@Path("id") int id, @Field("originId") int originId);
 
 
+    /**
+     * 获取banner数据
+     *
+     * @return
+     */
     @GET("banner/json")
     Observable<BaseData<List<BannerBean>>> getBanner();
 
+    /**
+     * 获取知识体系分类数据
+     *
+     * @return
+     */
     @GET("tree/json")
     Observable<BaseData<List<CategoryBean>>> getCategoryList();
 
+    /**
+     * 登录
+     *
+     * @param userName 用户名
+     * @param passWord 密码
+     * @return
+     */
     @POST("user/login")
     Observable<BaseData<UserBean>> login(@Query("username") String userName, @Query("password") String passWord);
 
+    /**
+     * 用户注册
+     *
+     * @param userName    用户名
+     * @param passWord    密码
+     * @param repPassWord 核对密码
+     * @return
+     */
     @POST("user/register")
     Observable<BaseData<UserBean>> register(@Query("username") String userName, @Query("password") String passWord, @Query("repassword") String repPassWord);
 
+    /**
+     * 热搜
+     *
+     * @return
+     */
     @GET("hotkey/json")
     Observable<BaseData<List<HotBean>>> getHotSearchData();
 
+    /**
+     * 常用站点
+     *
+     * @return
+     */
     @GET("friend/json")
     Observable<BaseData<List<HotBean>>> getWebSiteData();
 
@@ -116,6 +158,13 @@ public interface ApiService {
     @GET("project/tree/json")
     Observable<BaseData<List<CategoryBean>>> getProjectTabData();
 
+    /**
+     * 根据项目分类id获取项目列表
+     *
+     * @param page
+     * @param id
+     * @return
+     */
     @GET("project/list/{page}/json")
     Observable<BaseData<HomeBean>> getProjectArticleListWithId(@Path("page") int page, @Query("cid") int id);
 

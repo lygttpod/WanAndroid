@@ -121,7 +121,7 @@ public class HomeFragment extends BaseMvpFragment<ArticlePresenter> implements A
         statusBarView.setLayoutParams(layoutParams);
 
         adapter = new HomeAdapter(datasEntities);
-        adapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
+        adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
         adapter.addHeaderView(getBannerView());
         adapter.setOnItemClickListener(this);
         adapter.setOnItemChildClickListener(this);

@@ -5,14 +5,21 @@ def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
 
+def config = rootProject.ext.android
+def greenDaoConfig = rootProject.ext.greendao
+def url = rootProject.ext.url
+def appId = rootProject.ext.appkey
+def keystore = rootProject.ext.keystore
+
+
 android {
-    compileSdkVersion 27
+    compileSdkVersion config.compileSdkVersion
     defaultConfig {
-        applicationId "com.allen.wanandroid"
-        minSdkVersion 17
-        targetSdkVersion 27
-        versionCode 100
-        versionName "1.0.0"
+        applicationId config.applicationId
+        minSdkVersion config.minSdkVersion
+        targetSdkVersion config.targetSdkVersion
+        versionCode config.versionCode
+        versionName config.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         javaCompileOptions {
@@ -40,15 +47,15 @@ android {
         // 线上环境
         pro {
             dimension 'store'
-            buildConfigField "String", "BASE_URL", "\"http://www.wanandroid.com/\""
-            buildConfigField "String", "BUGLY_APP_ID", "\"a1fb27eea0\""
+            buildConfigField "String", "BASE_URL", "\"${url.release}\""
+            buildConfigField "String", "BUGLY_APP_ID", "\"${appId.bugly_appid}\""
         }
 
         // 开发阶段
         dev {
             dimension 'store'
-            buildConfigField "String", "BASE_URL", "\"http://www.wanandroid.com/\""
-            buildConfigField "String", "BUGLY_APP_ID", "\"a1fb27eea0\""
+            buildConfigField "String", "BASE_URL", "\"${url.debug}\""
+            buildConfigField "String", "BUGLY_APP_ID", "\"${appId.bugly_appid}\""
         }
 
     }
@@ -57,19 +64,41 @@ android {
         flavor -> flavor.manifestPlaceholders = [CHANNELID: name]
     }
 
-    buildTypes {
+
+    signingConfigs {
+        debug {
+            storeFile file('../wan_android_keystore.jks')
+            storePassword keystore.storePassword
+            keyAlias keystore.keyAlias
+            keyPassword keystore.keyPassword
+        }
         release {
+            storeFile file('../wan_android_keystore.jks')
+            storePassword keystore.storePassword
+            keyAlias keystore.keyAlias
+            keyPassword keystore.keyPassword
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
             minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            zipAlignEnabled true     //Zipalign优化
+            shrinkResources true    // 移除无用的resource文件
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
     greendao {
-        schemaVersion 1//数据库版本号
-        daoPackage 'com.allen.wanandroid.db'//设置DaoMaster、DaoSession、Dao包名
-        targetGenDir 'src/main/java'//设置DaoMaster、DaoSession、Dao目录
-        //targetGenDirTest：设置生成单元测试目录
-        //generateTests：设置自动生成单元测试用例
+        schemaVersion greenDaoConfig.schemaVersion
+        daoPackage greenDaoConfig.daoPackage
+        targetGenDir greenDaoConfig.targetGenDir
     }
 }
 

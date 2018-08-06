@@ -14,7 +14,7 @@ import com.allen.library.RxHttpUtils;
  *      @author : xiaoyao
  *      e-mail  : xiaoyao@51vest.com
  *      date    : 2018/07/26
- *      desc    :
+ *      desc    : 登录拦截器
  *      version : 1.0
  * </pre>
  */
