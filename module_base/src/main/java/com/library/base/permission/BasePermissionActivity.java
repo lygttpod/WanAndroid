@@ -7,12 +7,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 
 import com.library.base.utils.ActivityCollector;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
 /**
  * Created by Allen on 2017/4/18.
@@ -20,7 +21,7 @@ import java.util.List;
  * 权限管理基类
  */
 
-public class BasePermissionActivity extends AppCompatActivity {
+public class BasePermissionActivity extends SwipeBackActivity {
 
     /**
      * 权限管理回调方法

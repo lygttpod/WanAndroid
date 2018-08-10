@@ -20,14 +20,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".ui.MainActivity"
-            android:launchMode="singleTask">
+            android:name=".ui.SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar.WindowIsTranslucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.MainActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar.WindowIsTranslucent" />
         <activity android:name=".ui.webview.WebViewActivity" />
         <activity android:name=".ui.article.ArticleTabViewPagerActivity" />
         <activity android:name=".ui.login.LoginActivity" />

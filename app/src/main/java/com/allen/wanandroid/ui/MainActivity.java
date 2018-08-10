@@ -1,7 +1,5 @@
 package com.allen.wanandroid.ui;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
@@ -16,7 +14,6 @@ import com.allen.wanandroid.ui.project.ProjectHomeFragment;
 import com.allen.wanandroid.utils.DbUtils;
 import com.library.base.base.BaseMainActivity;
 import com.library.base.bean.Tab;
-import com.library.base.permission.PermissionListener;
 
 import java.util.List;
 
@@ -64,19 +61,4 @@ public class MainActivity extends BaseMainActivity {
         ARouterHelper.login();
     }
 
-    @Override
-    public void doBusiness(Context context) {
-        super.doBusiness(context);
-        requestRuntimePermission(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, new PermissionListener() {
-            @Override
-            public void onGranted() {
-
-            }
-
-            @Override
-            public void onDenied(List<String> deniedPermission) {
-
-            }
-        });
-    }
 }

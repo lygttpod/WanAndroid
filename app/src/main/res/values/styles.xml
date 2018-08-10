@@ -11,6 +11,13 @@
     <style name="AppTheme.NoActionBar" parent="AppTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar.WindowIsTranslucent" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">false</item>
     </style>
 
     <style name="TextInputLayoutStyle">
@@ -22,6 +29,7 @@
         <item name="errorTextAppearance">@style/TextErrorAppearance</item>
         <item name="hintTextAppearance">@style/HintAppearance</item>
     </style>
+
     <style name="TextInputLayout_psd_Style">
         <item name="android:theme">@style/TextInputLayoutLineColor</item>
         <item name="android:layout_width">match_parent</item>
@@ -67,6 +75,7 @@
         <item name="android:textColor">@color/colorAccent</item>
         <item name="textColorError">@color/colorAccent</item>
     </style>
+
     <style name="mine_stv_style">
         <item name="android:layout_width">match_parent</item>　　
         <item name="android:layout_height">50dp</item>
@@ -74,6 +83,7 @@
         <item name="sRightIconMarginRight">20dp</item>
         <item name="sRightIconRes">@mipmap/icon_more</item>
     </style>
+
     <style name="mine_setting_stv_style">
         <item name="android:layout_width">match_parent</item>　　
         <item name="android:layout_height">50dp</item>

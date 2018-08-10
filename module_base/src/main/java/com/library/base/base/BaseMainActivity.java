@@ -96,6 +96,11 @@ public abstract class BaseMainActivity extends BaseActivity {
     }
 
     @Override
+    public boolean isSwipeBack() {
+        return false;
+    }
+
+    @Override
     public void doBusiness(Context context) {
         fm = getSupportFragmentManager();
         fragmentNames = setFragmentClassNames(new ArrayList<String>());
@@ -106,7 +111,7 @@ public abstract class BaseMainActivity extends BaseActivity {
      * 初始化底部导航
      */
     private void initTab() {
-        bottomTabView = findViewById(R.id.bottom_tab_view);
+        bottomTabView = (BottomTabView) findViewById(R.id.bottom_tab_view);
         mTabs = setBottomTabs(new ArrayList<Tab>());
         for (int i = 0; i < mTabs.size(); i++) {
             bottomTabView.addTab(mTabs.get(i));

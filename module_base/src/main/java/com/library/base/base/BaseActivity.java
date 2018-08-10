@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +24,7 @@ import com.library.base.widget.LoadingDialog;
 import com.library.base.widget.TopBar;
 
 import butterknife.ButterKnife;
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 /**
  * <pre>
@@ -56,6 +56,7 @@ public abstract class BaseActivity extends BasePermissionActivity {
      */
     private Toast mToast;
 
+    private SwipeBackLayout swipeBackLayout;
 
     /**
      * 获取传递的Bundle参数
@@ -116,6 +117,15 @@ public abstract class BaseActivity extends BasePermissionActivity {
     }
 
     /**
+     * 是否开启侧滑返回
+     *
+     * @return 默认开启
+     */
+    public boolean isSwipeBack() {
+        return true;
+    }
+
+    /**
      * 是否全屏
      *
      * @return 默认false
@@ -164,7 +174,7 @@ public abstract class BaseActivity extends BasePermissionActivity {
 
         setContentView(R.layout.activity_base);
 
-        rootLayout = findViewById(R.id.root_layout);
+        rootLayout = (LinearLayout) findViewById(R.id.root_layout);
         rootLayout.setFitsSystemWindows(isFitsSystemWindows());
         if (isFullScreen()) {
             steepStatusBar();
@@ -175,6 +185,8 @@ public abstract class BaseActivity extends BasePermissionActivity {
         initTopBar();
 
         initView();
+
+        initSwipeBack();
 
         initButterKnife(this);
 
@@ -199,8 +211,8 @@ public abstract class BaseActivity extends BasePermissionActivity {
      * 初始化SwipeRefreshLayout
      */
     private void initRefresh() {
-        statusBarHeightView = findViewById(R.id.statusBarHeight);
-        swipeRefreshLayout = findViewById(R.id.swipe_refresh_layout);
+        statusBarHeightView = (LinearLayout) findViewById(R.id.statusBarHeight);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
 
         swipeRefreshLayout.setColorSchemeResources(R.color.base_refresh_color,
                 R.color.base_refresh_color);
@@ -218,10 +230,10 @@ public abstract class BaseActivity extends BasePermissionActivity {
      * 设置统一的toolbar
      */
     private void initTopBar() {
-        topBar = findViewById(R.id.topBar);
+        topBar = (TopBar) findViewById(R.id.topBar);
         setTopBar(topBar);
         if (customTopBarLayout() != null) {
-            customTopBar = findViewById(R.id.custom_top_bar);
+            customTopBar = (FrameLayout) findViewById(R.id.custom_top_bar);
             customTopBar.addView(customTopBarLayout());
         }
     }
@@ -231,8 +243,16 @@ public abstract class BaseActivity extends BasePermissionActivity {
      * 设置view
      */
     private void initView() {
-        viewContent = findViewById(R.id.viewContent);
+        viewContent = (FrameLayout) findViewById(R.id.viewContent);
         LayoutInflater.from(this).inflate(bindLayout(), viewContent);
+    }
+
+    /**
+     * 设置侧滑返回
+     */
+    private void initSwipeBack() {
+        swipeBackLayout = getSwipeBackLayout();
+        swipeBackLayout.setEnableGesture(isSwipeBack());
     }
 
 
@@ -250,9 +270,6 @@ public abstract class BaseActivity extends BasePermissionActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
     }
-
-
-
 
 
     /**

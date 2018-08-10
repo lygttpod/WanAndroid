@@ -251,4 +251,38 @@ public class DateUtils {
         return calendar.get(Calendar.MONTH);
     }
 
+    public static String getCurrentYearToDayToWeek() {
+        Calendar calendar = Calendar.getInstance();
+        long millis = calendar.getTimeInMillis();
+        calendar.setTimeInMillis(millis);
+        return calendar.get(Calendar.YEAR) + "年"
+                + getNumberStr((calendar.get(Calendar.MONTH) + 1)) + "月"
+                + getNumberStr(calendar.get(Calendar.DAY_OF_MONTH)) + "日"
+                +"，"
+                +getWeek();
+    }
+
+    public static String getWeek() {
+        Calendar cal = Calendar.getInstance();
+        int i = cal.get(Calendar.DAY_OF_WEEK);
+        switch (i) {
+            case 1:
+                return "星期日";
+            case 2:
+                return "星期一";
+            case 3:
+                return "星期二";
+            case 4:
+                return "星期三";
+            case 5:
+                return "星期四";
+            case 6:
+                return "星期五";
+            case 7:
+                return "星期六";
+            default:
+                return "";
+        }
+    }
+
 }
