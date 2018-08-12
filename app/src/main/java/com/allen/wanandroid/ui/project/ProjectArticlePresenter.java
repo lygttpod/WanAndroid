@@ -25,7 +25,7 @@ public class ProjectArticlePresenter extends BaseMvpPresenter<ProjectArticleView
 
 
     public void collectArticleById(int id, final int position) {
-        apiModel.collectArticleById(id, new DataObserver<String>(mView.getLoadingDialog()) {
+        apiModel.collectArticleById(id, mView.getLoadingDialog(), new DataObserver<String>() {
             @Override
             protected void onError(String errorMsg) {
             }
@@ -38,7 +38,7 @@ public class ProjectArticlePresenter extends BaseMvpPresenter<ProjectArticleView
     }
 
     public void cancelCollectArticleById(int id, final int position) {
-        apiModel.cancelCollectArticleById(id, new DataObserver<String>(mView.getLoadingDialog()) {
+        apiModel.cancelCollectArticleById(id, mView.getLoadingDialog(), new DataObserver<String>() {
             @Override
             protected void onError(String errorMsg) {
             }

@@ -10,14 +10,12 @@ import com.allen.library.cookie.store.CookieStore;
 import com.allen.library.download.DownloadRetrofit;
 import com.allen.library.http.GlobalRxHttp;
 import com.allen.library.http.SingleRxHttp;
+import com.allen.library.manage.RxHttpManager;
 import com.allen.library.upload.UploadRetrofit;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
 import okhttp3.ResponseBody;
@@ -36,15 +34,11 @@ public class RxHttpUtils {
     @SuppressLint("StaticFieldLeak")
     private static Application context;
 
-    private static List<Disposable> disposables;
-    private static CompositeDisposable mCompositeDisposable;
-
     public static RxHttpUtils getInstance() {
         if (instance == null) {
             synchronized (RxHttpUtils.class) {
                 if (instance == null) {
                     instance = new RxHttpUtils();
-                    disposables = new ArrayList<>();
                 }
             }
 
@@ -141,7 +135,6 @@ public class RxHttpUtils {
         return UploadRetrofit.uploadImgs(uploadUrl, filePaths);
     }
 
-
     /**
      * 获取全局的CookieJarImpl实例
      */
@@ -193,55 +186,17 @@ public class RxHttpUtils {
         cookieStore.removeCookie(httpUrl);
     }
 
-
-    /**
-     * 获取disposable 在onDestroy方法中取消订阅disposable.dispose()
-     *
-     * @param disposable disposable
-     */
-    public static void addDisposable(Disposable disposable) {
-        if (disposables != null) {
-            disposables.add(disposable);
-        }
-    }
-
-    /**
-     * 添加订阅
-     */
-    public static void addToCompositeDisposable(Disposable mDisposable) {
-        if (mCompositeDisposable == null) {
-            mCompositeDisposable = new CompositeDisposable();
-        }
-        mCompositeDisposable.add(mDisposable);
-    }
-
     /**
      * 取消所有请求
      */
-    public static void cancelAllRequest() {
-        if (disposables != null) {
-            for (Disposable disposable : disposables) {
-                disposable.dispose();
-            }
-            disposables.clear();
-        }
+    public static void cancelAll() {
+        RxHttpManager.get().cancelAll();
     }
 
     /**
-     * 取消所有订阅
+     * 取消某个或某些请求
      */
-    public static void clearAllCompositeDisposable() {
-        if (mCompositeDisposable != null) {
-            mCompositeDisposable.clear();
-        }
-    }
-
-    /**
-     * 取消单个请求
-     */
-    public static void cancelSingleRequest(Disposable disposable) {
-        if (disposable != null && !disposable.isDisposed()) {
-            disposable.dispose();
-        }
+    public static void cancel(Object... tag) {
+        RxHttpManager.get().cancel(tag);
     }
 }

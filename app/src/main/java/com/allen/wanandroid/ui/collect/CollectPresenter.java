@@ -52,7 +52,7 @@ public class CollectPresenter extends BaseMvpPresenter<CollectView> {
 
 
     public void cancelUserCollectArticleById(int id, int originId, final int position) {
-        apiModel.cancelUserCollectArticleById(id, originId, new DataObserver<String>(mView.getLoadingDialog()) {
+        apiModel.cancelUserCollectArticleById(id, originId, mView.getLoadingDialog(), new DataObserver<String>() {
             @Override
             protected void onError(String errorMsg) {
             }

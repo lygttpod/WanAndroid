@@ -1,5 +1,7 @@
 package com.allen.wanandroid.api;
 
+import android.app.Dialog;
+
 import com.allen.library.RxHttpUtils;
 import com.allen.library.bean.BaseData;
 import com.allen.library.interceptor.Transformer;
@@ -76,24 +78,24 @@ public class ApiModel {
                 .subscribe(observer);
     }
 
-    public void collectArticleById(int id, DataObserver<String> observer) {
+    public void collectArticleById(int id, Dialog loading,DataObserver<String> observer) {
         RxHttpUtils.createApi(ApiService.class)
                 .collectArticleById(id)
-                .compose(Transformer.<BaseData<String>>switchSchedulers(observer.getProgressDialog()))
+                .compose(Transformer.<BaseData<String>>switchSchedulers(loading))
                 .subscribe(observer);
     }
 
-    public void cancelCollectArticleById(int id, DataObserver<String> observer) {
+    public void cancelCollectArticleById(int id, Dialog loading,DataObserver<String> observer) {
         RxHttpUtils.createApi(ApiService.class)
                 .cancelCollectArticleById(id)
-                .compose(Transformer.<BaseData<String>>switchSchedulers(observer.getProgressDialog()))
+                .compose(Transformer.<BaseData<String>>switchSchedulers(loading))
                 .subscribe(observer);
     }
 
-    public void cancelUserCollectArticleById(int id, int originId, DataObserver<String> observer) {
+    public void cancelUserCollectArticleById(int id, int originId,Dialog loading, DataObserver<String> observer) {
         RxHttpUtils.createApi(ApiService.class)
                 .cancelUserCollectArticleById(id, originId)
-                .compose(Transformer.<BaseData<String>>switchSchedulers(observer.getProgressDialog()))
+                .compose(Transformer.<BaseData<String>>switchSchedulers(loading))
                 .subscribe(observer);
     }
 

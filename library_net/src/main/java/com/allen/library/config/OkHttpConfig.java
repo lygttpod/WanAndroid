@@ -1,34 +1,23 @@
 package com.allen.library.config;
 
-import android.os.Environment;
+import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 
-import com.allen.library.RxHttpUtils;
 import com.allen.library.cookie.CookieJarImpl;
 import com.allen.library.cookie.store.CookieStore;
-import com.allen.library.cookie.store.SPCookieStore;
 import com.allen.library.http.HttpClient;
 import com.allen.library.http.SSLUtils;
-import com.allen.library.interceptor.AddCookiesInterceptor;
 import com.allen.library.interceptor.HeaderInterceptor;
 import com.allen.library.interceptor.NetCacheInterceptor;
 import com.allen.library.interceptor.NoNetCacheInterceptor;
-import com.allen.library.interceptor.ReceivedCookiesInterceptor;
 import com.allen.library.interceptor.RxHttpLogger;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -45,7 +34,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class OkHttpConfig {
 
 
-    private static final String defaultCachePath = Environment.getExternalStorageDirectory().getPath() + "/rxHttpCacheData";
+    private static String defaultCachePath;
     private static final long defaultCacheSize = 1024 * 1024 * 100;
     private static final long defaultTimeout = 10;
 
@@ -55,8 +44,6 @@ public class OkHttpConfig {
     private static OkHttpClient.Builder okHttpClientBuilder;
 
     private static OkHttpClient okHttpClient;
-
-    private static final HashMap<String, List<Cookie>> cookieStore = new HashMap<String, List<Cookie>>();
 
     public OkHttpConfig() {
         okHttpClientBuilder = new OkHttpClient.Builder();
@@ -80,6 +67,7 @@ public class OkHttpConfig {
     }
 
     public static class Builder {
+        public Context context;
         private Map<String, Object> headerMaps;
         private boolean isDebug;
         private boolean isCache;
@@ -93,6 +81,10 @@ public class OkHttpConfig {
         private String password;
         private InputStream[] certificates;
         private Interceptor[] interceptors;
+
+        public Builder(Context context) {
+            this.context = context;
+        }
 
         public Builder setHeaders(Map<String, Object> headerMaps) {
             this.headerMaps = headerMaps;
@@ -118,7 +110,6 @@ public class OkHttpConfig {
             this.cacheMaxSize = cacheMaxSize;
             return this;
         }
-
 
         public Builder setCookieType(CookieStore cookieStore) {
             this.cookieStore = cookieStore;
@@ -214,6 +205,7 @@ public class OkHttpConfig {
          * 配置缓存
          */
         private void setCacheConfig() {
+            defaultCachePath = context.getExternalCacheDir().getPath() + "/RxHttpCacheData";
             if (isCache) {
                 Cache cache;
                 if (!TextUtils.isEmpty(cachePath) && cacheMaxSize > 0) {
