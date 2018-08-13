@@ -1,6 +1,6 @@
 package com.allen.wanandroid.ui.category;
 
-import com.allen.wanandroid.bean.CategoryBean;
+import com.allen.common.bean.CategoryBean;
 import com.library.base.mvp.IBaseMvpView;
 
 import java.util.List;

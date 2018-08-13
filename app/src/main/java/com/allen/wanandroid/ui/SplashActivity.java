@@ -6,8 +6,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.allen.common.arouter.ARouterHelper;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.arouter.ARouterHelper;
 import com.library.base.base.BaseActivity;
 import com.library.base.permission.PermissionListener;
 import com.library.base.utils.DateUtils;

@@ -9,9 +9,9 @@ import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.allen.common.arouter.ARouterPath;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.CommonFragmentWithTitleAdapter;
-import com.allen.wanandroid.arouter.ARouterPath;
 import com.allen.wanandroid.widget.CustomViewPager;
 import com.library.base.base.BaseActivity;
 import com.library.base.widget.TopBar;

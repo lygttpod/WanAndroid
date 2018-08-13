@@ -2,9 +2,8 @@ package com.allen.wanandroid.adapter;
 
 import android.support.annotation.Nullable;
 
+import com.allen.common.bean.CollectBean;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.bean.CollectBean;
-import com.allen.wanandroid.bean.HomeBean;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 

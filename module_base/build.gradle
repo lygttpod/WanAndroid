@@ -45,4 +45,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
     api 'jp.wasabeef:glide-transformations:3.0.1'
     api 'me.imid.swipebacklayout.lib:library:1.3.0'
+    api 'org.greenrobot:greendao:3.2.2'
+
 }

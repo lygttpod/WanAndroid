@@ -1,0 +1,52 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.greenrobot.greendao'
+
+def greenDaoConfig = rootProject.ext.greendao
+def url = rootProject.ext.url
+
+android {
+    compileSdkVersion 27
+
+
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "BASE_URL", "\"${url.release}\""
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    greendao {
+        schemaVersion greenDaoConfig.schemaVersion
+        daoPackage greenDaoConfig.daoPackage
+        targetGenDir greenDaoConfig.targetGenDir
+    }
+
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':module_base')
+    api 'org.greenrobot:greendao:3.2.2'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
+
+}

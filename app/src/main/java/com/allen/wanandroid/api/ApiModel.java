@@ -2,16 +2,17 @@ package com.allen.wanandroid.api;
 
 import android.app.Dialog;
 
+import com.allen.common.bean.BannerBean;
+import com.allen.common.bean.CategoryBean;
+import com.allen.common.bean.CollectBean;
+import com.allen.common.bean.HomeBean;
+import com.allen.common.bean.HotBean;
+import com.allen.common.bean.UserBean;
 import com.allen.library.RxHttpUtils;
 import com.allen.library.bean.BaseData;
 import com.allen.library.interceptor.Transformer;
 import com.allen.library.observer.DataObserver;
-import com.allen.wanandroid.bean.BannerBean;
-import com.allen.wanandroid.bean.CategoryBean;
-import com.allen.wanandroid.bean.CollectBean;
-import com.allen.wanandroid.bean.HomeBean;
-import com.allen.wanandroid.bean.HotBean;
-import com.allen.wanandroid.bean.UserBean;
+
 
 import java.util.List;
 

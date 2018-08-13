@@ -8,9 +8,9 @@ import android.webkit.WebView;
 import android.widget.ProgressBar;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.allen.common.arouter.ARouterPath;
+import com.allen.common.constant.BundleKey;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.arouter.ARouterPath;
-import com.allen.wanandroid.constant.BundleKey;
 import com.library.base.mvp.BaseMvpActivity;
 import com.library.base.widget.TopBar;
 

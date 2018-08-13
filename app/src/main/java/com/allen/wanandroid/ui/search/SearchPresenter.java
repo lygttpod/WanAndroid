@@ -1,9 +1,9 @@
 package com.allen.wanandroid.ui.search;
 
+import com.allen.common.arouter.ARouterHelper;
+import com.allen.common.bean.HotBean;
 import com.allen.library.observer.DataObserver;
 import com.allen.wanandroid.api.ApiModel;
-import com.allen.wanandroid.arouter.ARouterHelper;
-import com.allen.wanandroid.bean.HotBean;
 import com.library.base.mvp.BaseMvpPresenter;
 
 import java.util.List;

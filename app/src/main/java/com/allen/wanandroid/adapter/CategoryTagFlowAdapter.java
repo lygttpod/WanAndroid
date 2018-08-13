@@ -5,8 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.allen.common.bean.CategoryBean;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.bean.CategoryBean;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 

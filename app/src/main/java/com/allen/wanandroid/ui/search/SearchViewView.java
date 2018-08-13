@@ -1,6 +1,6 @@
 package com.allen.wanandroid.ui.search;
 
-import com.allen.wanandroid.bean.HotBean;
+import com.allen.common.bean.HotBean;
 import com.library.base.mvp.IBaseMvpView;
 
 import java.util.List;

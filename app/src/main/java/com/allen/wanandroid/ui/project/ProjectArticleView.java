@@ -1,6 +1,6 @@
 package com.allen.wanandroid.ui.project;
 
-import com.allen.wanandroid.bean.HomeBean;
+import com.allen.common.bean.HomeBean;
 import com.library.base.mvp.IBaseMvpView;
 
 import java.util.List;

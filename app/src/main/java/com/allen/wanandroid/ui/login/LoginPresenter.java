@@ -1,9 +1,9 @@
 package com.allen.wanandroid.ui.login;
 
+import com.allen.common.bean.UserBean;
+import com.allen.common.utils.DbUtils;
 import com.allen.library.observer.DataObserver;
 import com.allen.wanandroid.api.ApiModel;
-import com.allen.wanandroid.bean.UserBean;
-import com.allen.wanandroid.utils.DbUtils;
 import com.library.base.mvp.BaseMvpPresenter;
 
 /**

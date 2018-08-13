@@ -1,6 +1,6 @@
 package com.allen.wanandroid.ui.login;
 
-import com.allen.wanandroid.bean.UserBean;
+import com.allen.common.bean.UserBean;
 import com.library.base.mvp.IBaseMvpView;
 
 /**
@@ -15,9 +15,12 @@ import com.library.base.mvp.IBaseMvpView;
 public interface LoginView extends IBaseMvpView {
 
     String getUserName();
+
     String getPassWord();
+
     String getRePassWord();
 
     void optionSuccess(UserBean userBean);
+
     void optionError(String error);
 }

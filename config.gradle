@@ -9,7 +9,7 @@ ext {
     ]
     greendao = [
             schemaVersion: 1,
-            daoPackage   : 'com.allen.wanandroid.db',
+            daoPackage   : 'com.allen.common.db',
             targetGenDir : 'src/main/java'
     ]
     url = [

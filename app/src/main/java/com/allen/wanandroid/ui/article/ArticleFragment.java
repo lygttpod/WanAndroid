@@ -7,13 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.allen.common.arouter.ARouterHelper;
+import com.allen.common.arouter.ARouterPath;
+import com.allen.common.bean.BannerBean;
+import com.allen.common.bean.HomeBean;
+import com.allen.common.constant.BundleKey;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.HomeAdapter;
-import com.allen.wanandroid.arouter.ARouterHelper;
-import com.allen.wanandroid.arouter.ARouterPath;
-import com.allen.wanandroid.bean.BannerBean;
-import com.allen.wanandroid.bean.HomeBean;
-import com.allen.wanandroid.constant.BundleKey;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.library.base.mvp.BaseMvpFragment;
 import com.library.base.widget.TopBar;

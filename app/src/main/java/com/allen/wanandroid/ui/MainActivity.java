@@ -4,14 +4,14 @@ import android.content.Intent;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.allen.common.arouter.ARouterHelper;
+import com.allen.common.arouter.ARouterPath;
+import com.allen.common.utils.DbUtils;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.arouter.ARouterHelper;
-import com.allen.wanandroid.arouter.ARouterPath;
 import com.allen.wanandroid.ui.category.CategoryHomeFragment;
 import com.allen.wanandroid.ui.home.HomeFragment;
 import com.allen.wanandroid.ui.mine.MineHomeFragment;
 import com.allen.wanandroid.ui.project.ProjectHomeFragment;
-import com.allen.wanandroid.utils.DbUtils;
 import com.library.base.base.BaseMainActivity;
 import com.library.base.bean.Tab;
 

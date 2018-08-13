@@ -10,10 +10,10 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.allen.common.arouter.ARouterPath;
+import com.allen.common.bean.CategoryBean;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.CommonFragmentWithTitleAdapter;
-import com.allen.wanandroid.bean.CategoryBean;
-import com.allen.wanandroid.arouter.ARouterPath;
 import com.library.base.base.BaseActivity;
 import com.library.base.widget.TopBar;
 

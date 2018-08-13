@@ -1,8 +1,8 @@
 package com.allen.wanandroid.ui.mine;
 
-import com.allen.wanandroid.arouter.ARouterHelper;
-import com.allen.wanandroid.bean.UserBean;
-import com.allen.wanandroid.utils.DbUtils;
+import com.allen.common.arouter.ARouterHelper;
+import com.allen.common.bean.UserBean;
+import com.allen.common.utils.DbUtils;
 import com.library.base.mvp.BaseMvpPresenter;
 
 /**

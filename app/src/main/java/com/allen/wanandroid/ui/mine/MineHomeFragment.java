@@ -5,8 +5,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.allen.common.arouter.ARouterPath;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.arouter.ARouterPath;
 import com.library.base.mvp.BaseMvpFragment;
 import com.library.base.widget.TopBar;
 

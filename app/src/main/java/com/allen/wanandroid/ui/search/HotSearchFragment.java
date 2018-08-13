@@ -4,9 +4,9 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import com.allen.common.bean.HotBean;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.TagFlowAdapter;
-import com.allen.wanandroid.bean.HotBean;
 import com.library.base.mvp.BaseMvpFragment;
 import com.library.base.widget.TopBar;
 import com.zhy.view.flowlayout.FlowLayout;

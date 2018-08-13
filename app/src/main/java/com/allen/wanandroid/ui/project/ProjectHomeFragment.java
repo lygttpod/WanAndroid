@@ -6,9 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import com.allen.common.bean.CategoryBean;
 import com.allen.wanandroid.R;
 import com.allen.wanandroid.adapter.CommonFragmentWithTitleAdapter;
-import com.allen.wanandroid.bean.CategoryBean;
 import com.library.base.mvp.BaseMvpFragment;
 import com.library.base.widget.TopBar;
 

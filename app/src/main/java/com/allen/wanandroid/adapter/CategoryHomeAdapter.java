@@ -5,8 +5,8 @@ import android.support.annotation.Nullable;
 import android.util.SparseArray;
 import android.view.View;
 
+import com.allen.common.bean.CategoryBean;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.bean.CategoryBean;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.zhy.view.flowlayout.FlowLayout;

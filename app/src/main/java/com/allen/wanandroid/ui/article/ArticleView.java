@@ -1,7 +1,7 @@
 package com.allen.wanandroid.ui.article;
 
-import com.allen.wanandroid.bean.BannerBean;
-import com.allen.wanandroid.bean.HomeBean;
+import com.allen.common.bean.BannerBean;
+import com.allen.common.bean.HomeBean;
 import com.library.base.mvp.IBaseMvpView;
 
 import java.util.List;

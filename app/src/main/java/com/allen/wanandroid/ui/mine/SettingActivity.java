@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.allen.common.arouter.ARouterHelper;
+import com.allen.common.arouter.ARouterPath;
+import com.allen.common.bean.UserBean;
+import com.allen.common.utils.DbUtils;
 import com.allen.library.RxHttpUtils;
 import com.allen.library.SuperTextView;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.arouter.ARouterHelper;
-import com.allen.wanandroid.arouter.ARouterPath;
-import com.allen.wanandroid.bean.UserBean;
-import com.allen.wanandroid.utils.DbUtils;
 import com.library.base.base.BaseActivity;
 import com.library.base.widget.TopBar;
 

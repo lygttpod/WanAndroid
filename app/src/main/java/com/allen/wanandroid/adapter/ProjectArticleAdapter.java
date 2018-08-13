@@ -4,9 +4,9 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
+import com.allen.common.bean.HomeBean;
+import com.allen.common.utils.GlideUtils;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.bean.HomeBean;
-import com.allen.wanandroid.utils.GlideUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 

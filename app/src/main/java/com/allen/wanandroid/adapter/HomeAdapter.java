@@ -4,8 +4,8 @@ import android.support.annotation.Nullable;
 import android.text.Html;
 import android.text.TextUtils;
 
+import com.allen.common.bean.HomeBean;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.bean.HomeBean;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 

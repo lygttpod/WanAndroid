@@ -1,7 +1,6 @@
 package com.allen.wanandroid.ui.collect;
 
-import com.allen.wanandroid.bean.CollectBean;
-import com.allen.wanandroid.bean.HomeBean;
+import com.allen.common.bean.CollectBean;
 import com.library.base.mvp.IBaseMvpView;
 
 import java.util.List;
@@ -17,12 +16,16 @@ import java.util.List;
  */
 public interface CollectView extends IBaseMvpView {
 
-     void showNewArticleList(List<CollectBean.DatasBean> list);
-     void showMoreArticleList(List<CollectBean.DatasBean> list);
-     void cancelCollectSuccess(int position, String msg);
+    void showNewArticleList(List<CollectBean.DatasBean> list);
 
-     void loadMoreComplete();
-     void loadMoreEnd();
-     void enableLoadMore(boolean enable);
+    void showMoreArticleList(List<CollectBean.DatasBean> list);
+
+    void cancelCollectSuccess(int position, String msg);
+
+    void loadMoreComplete();
+
+    void loadMoreEnd();
+
+    void enableLoadMore(boolean enable);
 
 }
