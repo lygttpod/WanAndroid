@@ -21,9 +21,6 @@ import com.library.base.R;
 import com.library.base.widget.LoadingDialog;
 import com.library.base.widget.TopBar;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-
 
 /**
  * Created by Allen on 2017/5/2.
@@ -35,7 +32,6 @@ public abstract class BaseFragment extends Fragment {
     protected final String TAG = this.getClass().getSimpleName();
     public Dialog loadingDialog;
 
-    private Unbinder unbinder;
     /**
      * 带TopBar的跟布局
      */
@@ -93,16 +89,6 @@ public abstract class BaseFragment extends Fragment {
      */
     public abstract void initView(View view);
 
-
-    /**
-     * 初始化ButterKnife
-     *
-     * @param target 当前页面
-     * @param view   view
-     */
-    public void initButterKnife(Object target, View view) {
-        unbinder = ButterKnife.bind(target, view);
-    }
 
     /**
      * 初始化MVP架构的P层
@@ -180,8 +166,6 @@ public abstract class BaseFragment extends Fragment {
         initView(rootView);
 
         setCustomStatusBar(setStatusBarColor());
-
-        initButterKnife(this, rootView);
 
         initPresenter();
 
@@ -419,7 +403,8 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         Log.d(TAG, "onDestroyView()");
-        isViewCreated = false;//视图销毁将变量置为false
+        //视图销毁将变量置为false
+        isViewCreated = false;
 
     }
 
@@ -427,8 +412,5 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroyView()");
-        if (null != unbinder) {
-            unbinder.unbind();
-        }
     }
 }

@@ -105,5 +105,16 @@ public class UserBean {
         this.collectIds = collectIds;
     }
 
-
+    @Override
+    public String toString() {
+        return "UserBean{" +
+                "email='" + email + '\'' +
+                ", icon='" + icon + '\'' +
+                ", id=" + id +
+                ", password='" + password + '\'' +
+                ", type=" + type +
+                ", username='" + username + '\'' +
+                ", collectIds=" + collectIds +
+                '}';
+    }
 }

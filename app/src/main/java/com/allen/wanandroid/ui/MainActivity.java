@@ -4,14 +4,14 @@ import android.content.Intent;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.allen.article.category.CategoryHomeFragment;
+import com.allen.article.main.ArticleHomeFragment;
+import com.allen.article.project.ProjectHomeFragment;
 import com.allen.common.arouter.ARouterHelper;
 import com.allen.common.arouter.ARouterPath;
 import com.allen.common.utils.DbUtils;
+import com.allen.user.mine.MineHomeFragment;
 import com.allen.wanandroid.R;
-import com.allen.wanandroid.ui.category.CategoryHomeFragment;
-import com.allen.wanandroid.ui.home.HomeFragment;
-import com.allen.wanandroid.ui.mine.MineHomeFragment;
-import com.allen.wanandroid.ui.project.ProjectHomeFragment;
 import com.library.base.base.BaseMainActivity;
 import com.library.base.bean.Tab;
 
@@ -43,7 +43,7 @@ public class MainActivity extends BaseMainActivity {
 
     @Override
     public List<String> setFragmentClassNames(List<String> fragmentClassNames) {
-        fragmentClassNames.add(HomeFragment.class.getName());
+        fragmentClassNames.add(ArticleHomeFragment.class.getName());
         fragmentClassNames.add(ProjectHomeFragment.class.getName());
         fragmentClassNames.add(CategoryHomeFragment.class.getName());
         fragmentClassNames.add(MineHomeFragment.class.getName());

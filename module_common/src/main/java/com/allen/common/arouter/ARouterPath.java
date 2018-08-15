@@ -10,17 +10,22 @@ package com.allen.common.arouter;
  * </pre>
  */
 public interface ARouterPath {
-    String mainPath = "/app/main/activity";
-    String mainHomePath = "/app/home/fragment";
-    String mainMinePath = "/app/home/mine";
-    String loginPath = "/app/login/activity";
-    String webViewPath = "/article/details/webView/activity";
-    String categoryPath = "/article/category/fragment";
-    String articleTabViewPagerAcPath = "/article/tab_viewpager/activity";
-    String articleListFrPath = "/article/list/fragment";
-    String userCollectAcPath = "/user/collect/activity";
-    String searchActPath = "/search/activity";
-    String searchResultFrgPath = "/search/result/fragment";
-    String aboutActPath = "/mine/about/activity";
-    String settingActPath = "/mine/setting/activity";
+    String mainPath = "/application/main/activity";
+
+    String moduleArticleHomeFragmentPath = "/module_article/home/fragment";
+
+    String moduleArticleWebViewActivityPath = "/module_article/details/webView/activity";
+    String moduleArticleCategoryFragmentPath = "/module_article/category/fragment";
+    String moduleArticleTabViewPagerActivityPath = "/module_article/tab_viewpager/activity";
+    String moduleArticleArticleListFrPath = "/module_article/list/fragment";
+
+    String moduleArticleUserCollectActivityPath = "/module_article/collect/activity";
+    String moduleArticleSearchActivityPath = "/module_article/search/activity";
+    String moduleArticleSearchResultFragmentPath = "/module_article/search/result/fragment";
+
+    String moduleLoginLoginActivityPath = "/module_login/login/activity";
+
+    String moduleUserMineFragmentPath = "/module_user/mine/fragment";
+    String moduleUserAboutActivityPath = "/module_user/about/activity";
+    String moduleUserSettingActivityPath = "/module_user/setting/activity";
 }

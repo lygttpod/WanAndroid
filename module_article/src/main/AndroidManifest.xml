@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.allen.article">
+
+    <application >
+        <activity android:name=".web.WebViewActivity" />
+        <activity android:name=".article.ArticleTabViewPagerActivity" />
+        <activity android:name=".collect.UserCollectActivity" />
+        <activity android:name=".search.SearchActivity" />
+    </application>
+</manifest>

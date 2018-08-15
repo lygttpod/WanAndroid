@@ -1,6 +1,5 @@
 package com.allen.wanandroid.app;
 
-import android.content.Context;
 
 import com.allen.common.app.CommonApplication;
 import com.allen.wanandroid.BuildConfig;
@@ -17,19 +16,14 @@ import com.tencent.bugly.crashreport.CrashReport;
  * </pre>
  */
 public class App extends CommonApplication {
-    public static Context getContext() {
-        return context;
-    }
-
-    public static Context context;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        context = this;
         initBugly();
         initLeakCanary();
     }
+
 
     /**
      * 初始化bugly异常检测sdk

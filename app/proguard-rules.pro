@@ -104,15 +104,14 @@
 #-------------------------------------------定制化区域----------------------------------------------
 #---------------------------------1.实体类---------------------------------
 
--keep class com.allen.wanandroid.bean.**{*;}
+-keep class com.allen.common.bean.**{*;}
 -keep class com.allen.library.bean.**{*;}
 -keep class com.library.base.bean.**{*;}
--keep class com.allen.wanandroid.arouter.**{*;}
 
 
 #---------------------------------adapter类---------------------------------
 
--keep class com.allen.wanandroid.adapter.**{*;}
+-keep class com.allen.article.adapter.**{*;}
 
 #-------------------------------------------------------------------------
 #---------------------------------2.第三方包-------------------------------
@@ -201,13 +200,8 @@ public static java.lang.String TABLENAME;
 -keep public class com.alibaba.android.arouter.routes.**{*;}
 -keep class * implements com.alibaba.android.arouter.facade.template.ISyringe{*;}
 
-# If you use the byType method to obtain Service, add the following rules to protect the interface:
+# 如果使用了 byType 的方式获取 Service，需添加下面规则，保护接口
 -keep interface * implements com.alibaba.android.arouter.facade.template.IProvider
 
-# If single-type injection is used, that is, no interface is defined to implement IProvider, the following rules need to be added to protect the implementation
+# 如果使用了 单类注入，即不定义接口实现 IProvider，需添加下面规则，保护实现
 -keep class * implements com.alibaba.android.arouter.facade.template.IProvider
-
-# If @Autowired is used for injection in non-Activity classes, add the following rules to prevent injection failures
--keepnames class * {
-    @com.alibaba.android.arouter.facade.annotation.Autowired <fields>;
-}

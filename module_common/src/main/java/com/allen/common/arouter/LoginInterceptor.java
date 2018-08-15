@@ -23,12 +23,12 @@ public class LoginInterceptor implements IInterceptor {
     @Override
     public void process(Postcard postcard, InterceptorCallback callback) {
 
-        if (postcard.getPath().equals(ARouterPath.userCollectAcPath)) {
+        if (postcard.getPath().equals(ARouterPath.moduleArticleUserCollectActivityPath)) {
             if (RxHttpUtils.getAllCookie().size() > 0) {
                 callback.onContinue(postcard);
             } else {
                 callback.onInterrupt(null);
-                ARouter.getInstance().build(ARouterPath.loginPath).navigation();
+                ARouter.getInstance().build(ARouterPath.moduleLoginLoginActivityPath).navigation();
             }
         } else {
             callback.onContinue(postcard);

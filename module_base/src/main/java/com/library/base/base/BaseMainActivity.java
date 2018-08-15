@@ -101,6 +101,11 @@ public abstract class BaseMainActivity extends BaseActivity {
     }
 
     @Override
+    public void initUI(Context context) {
+
+    }
+
+    @Override
     public void doBusiness(Context context) {
         fm = getSupportFragmentManager();
         fragmentNames = setFragmentClassNames(new ArrayList<String>());

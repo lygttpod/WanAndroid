@@ -1,0 +1,61 @@
+if (isModuleUserBuildAsApp.toBoolean()){
+    apply plugin: 'com.android.application'
+}else {
+    apply plugin: 'com.android.library'
+}
+android {
+    compileSdkVersion 27
+
+
+
+    defaultConfig {
+        if (isModuleUserBuildAsApp.toBoolean()){
+            applicationId "com.allen.user"
+        }
+        minSdkVersion 17
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main {
+            if(isModuleUserBuildAsApp.toBoolean()){
+                manifest.srcFile 'src/main/java/com/allen/user/debug/AndroidManifest.xml'
+            }else{
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                //集成开发模式下排除debug文件夹中的所有Java文件
+                java {
+                    exclude 'debug/**'
+                }
+            }
+        }
+    }
+
+    //添加后缀，防止资源命名重复
+    resourcePrefix "module_user_"
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    api project(':module_common')
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
+
+}

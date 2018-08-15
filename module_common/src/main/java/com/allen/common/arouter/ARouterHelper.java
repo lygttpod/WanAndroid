@@ -17,14 +17,14 @@ public class ARouterHelper {
     public static void gotoSearchActivity() {
         ARouter
                 .getInstance()
-                .build(ARouterPath.searchActPath)
+                .build(ARouterPath.moduleArticleSearchActivityPath)
                 .navigation();
     }
 
     public static void gotoWebViewActivity(String title, String url) {
         ARouter
                 .getInstance()
-                .build(ARouterPath.webViewPath)
+                .build(ARouterPath.moduleArticleWebViewActivityPath)
                 .withString(BundleKey.TITLE, title)
                 .withString(BundleKey.URL, url)
                 .navigation();
@@ -34,7 +34,7 @@ public class ARouterHelper {
     public static void gotoSearchResult(String title) {
         ARouter
                 .getInstance()
-                .build(ARouterPath.searchResultFrgPath)
+                .build(ARouterPath.moduleArticleSearchResultFragmentPath)
                 .withString(BundleKey.TITLE, title)
                 .navigation();
     }
@@ -42,14 +42,14 @@ public class ARouterHelper {
     public static void gotoCollectList() {
         ARouter
                 .getInstance()
-                .build(ARouterPath.userCollectAcPath)
+                .build(ARouterPath.moduleArticleUserCollectActivityPath)
                 .navigation();
     }
 
     public static void startArticleTabViewPagerAct(CategoryBean bean, int index) {
         ARouter
                 .getInstance()
-                .build(ARouterPath.articleTabViewPagerAcPath)
+                .build(ARouterPath.moduleArticleTabViewPagerActivityPath)
                 .withInt("index", index)
                 .withParcelable("category", bean)
                 .navigation();
@@ -58,7 +58,7 @@ public class ARouterHelper {
     public static void login() {
         ARouter
                 .getInstance()
-                .build(ARouterPath.loginPath)
+                .build(ARouterPath.moduleLoginLoginActivityPath)
                 .navigation();
 
     }
@@ -74,7 +74,7 @@ public class ARouterHelper {
     public static void about() {
         ARouter
                 .getInstance()
-                .build(ARouterPath.aboutActPath)
+                .build(ARouterPath.moduleUserAboutActivityPath)
                 .navigation();
 
     }
@@ -82,7 +82,7 @@ public class ARouterHelper {
     public static void setting() {
         ARouter
                 .getInstance()
-                .build(ARouterPath.settingActPath)
+                .build(ARouterPath.moduleUserSettingActivityPath)
                 .navigation();
 
     }

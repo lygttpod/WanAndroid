@@ -1,0 +1,8 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.allen.user">
+
+    <application >
+        <activity android:name=".mine.AboutActivity" />
+        <activity android:name=".mine.SettingActivity" />
+    </application>
+</manifest>

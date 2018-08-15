@@ -23,7 +23,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ moduleName : project.getName() ]
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
             }
         }
 
@@ -104,12 +104,17 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation project(':module_common')
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
-    implementation 'com.hyman:flowlayout-lib:1.1.2'
-    implementation 'cn.bingoogolapple:bga-banner:2.2.4@aar'
+    if (!isModuleUserBuildAsApp.toBoolean()){
+        implementation project(':module_user')
+    }
+    if (!isModuleArticleBuildAsApp.toBoolean()){
+        implementation project(':module_article')
+    }
+    if (!isModuleLoginBuildAsApp.toBoolean()){
+        implementation project(':module_login')
+    }
+
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
     implementation 'com.tencent.bugly:crashreport:2.6.6'
     implementation 'com.tencent.bugly:nativecrashreport:3.3.1'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.1'

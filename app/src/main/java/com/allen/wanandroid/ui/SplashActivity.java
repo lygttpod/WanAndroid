@@ -16,11 +16,9 @@ import com.library.base.widget.TopBar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import butterknife.BindView;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 /**
  * <pre>
@@ -32,8 +30,7 @@ import io.reactivex.functions.Consumer;
  * </pre>
  */
 public class SplashActivity extends BaseActivity {
-    @BindView(R.id.date_tv)
-    TextView dateTv;
+    private TextView dateTv;
 
     private Disposable disposable;
 
@@ -70,6 +67,11 @@ public class SplashActivity extends BaseActivity {
     @Override
     public void doOnRefresh() {
 
+    }
+
+    @Override
+    public void initUI(Context context) {
+        dateTv = (TextView) findViewById(R.id.date_tv);
     }
 
     @Override

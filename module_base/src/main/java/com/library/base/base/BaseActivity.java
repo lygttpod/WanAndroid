@@ -23,7 +23,6 @@ import com.library.base.permission.BasePermissionActivity;
 import com.library.base.widget.LoadingDialog;
 import com.library.base.widget.TopBar;
 
-import butterknife.ButterKnife;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 /**
@@ -87,14 +86,6 @@ public abstract class BaseActivity extends BasePermissionActivity {
         return null;
     }
 
-    /**
-     * 初始化ButterKnife
-     *
-     * @param context 上下文对象
-     */
-    public void initButterKnife(Context context) {
-        ButterKnife.bind(this);
-    }
 
     /**
      * 初始化MVP架构的P层
@@ -138,6 +129,13 @@ public abstract class BaseActivity extends BasePermissionActivity {
      * 设置刷新请求事件
      */
     public abstract void doOnRefresh();
+
+    /**
+     * 初始化UI
+     *
+     * @param context 上下文对象
+     */
+    public abstract void initUI(Context context);
 
     /**
      * 处理业务逻辑的方法
@@ -188,9 +186,9 @@ public abstract class BaseActivity extends BasePermissionActivity {
 
         initSwipeBack();
 
-        initButterKnife(this);
-
         initPresenter();
+
+        initUI(this);
 
         doBusiness(this);
 
