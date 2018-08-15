@@ -1,5 +1,7 @@
 # WanAndroid
 # MVP+RxJava+Retrofit+Arouter的练手项目（为模块化开发做准备）
+> # 模块化代码请查看[module分支](https://github.com/lygttpod/WanAndroid/tree/module)
+
 * 1、为何写这个项目：
 > 写此项目的目的是为了加深对MVP架构的理解，并把自己封装的一套快速开发框架（base封装）应用于真实的项目中看看是否会出现未知问题，
 同时尝试使用ARoute的方式对项目进行页面跳转管理，为以后模块化开发做准备。还可以把学到的新技术引入到此项目
@@ -14,6 +16,7 @@ g、待你自己去发现...
 
 * 3、接下来要怎么做  
 > 有了以上基础，接下来就可以继续学习模块化开发了,项目后续会新建module分支用于练习模块化开发，带你一步一步去实现传说中的模块化/组件化demo
+
 
 ## 如有问题可以提issue或加群讨论
 <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=33dacdd367ca0b5a9ba96a196a6658666b442b3ec528850e377d50f3d607f26b"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="STV&amp;RxHttp交流群" title="STV&amp;RxHttp交流群"></a>
