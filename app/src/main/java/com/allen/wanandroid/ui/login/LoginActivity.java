@@ -90,6 +90,11 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
 
     }
 
+    @Override
+    public void initUI(Context context) {
+
+    }
+
     @SuppressLint("CheckResult")
     @Override
     public void doBusiness(Context context) {

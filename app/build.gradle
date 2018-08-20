@@ -24,7 +24,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ moduleName : project.getName() ]
+                arguments = [ AROUTER_MODULE_NAME : project.getName() ]
             }
         }
 
@@ -113,7 +113,7 @@ dependencies {
     implementation project(':module_base')
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    annotationProcessor 'com.alibaba:arouter-compiler:1.1.4'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.2.1'
     implementation 'org.greenrobot:greendao:3.2.2'
     implementation 'com.hyman:flowlayout-lib:1.1.2'
     implementation 'cn.bingoogolapple:bga-banner:2.2.4@aar'

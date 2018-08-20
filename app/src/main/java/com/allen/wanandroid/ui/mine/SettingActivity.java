@@ -60,6 +60,11 @@ public class SettingActivity extends BaseActivity {
     }
 
     @Override
+    public void initUI(Context context) {
+
+    }
+
+    @Override
     public void doBusiness(Context context) {
         nightStv.setOnSuperTextViewClickListener(new SuperTextView.OnSuperTextViewClickListener() {
             @Override

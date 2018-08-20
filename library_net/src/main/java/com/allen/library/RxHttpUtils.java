@@ -94,9 +94,11 @@ public class RxHttpUtils {
 
     /**
      * 获取单个请求配置实例
-     *
+     * 即将移除此方法---推荐使用全局请求
      * @return SingleRxHttp
      */
+
+    @Deprecated
     public static SingleRxHttp getSInstance() {
 
         return SingleRxHttp.getInstance();

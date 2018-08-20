@@ -17,7 +17,6 @@ import com.library.base.base.BaseActivity;
 import com.library.base.widget.TopBar;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * <pre>
@@ -65,6 +64,11 @@ public class AboutActivity extends BaseActivity {
     }
 
     @Override
+    public void initUI(Context context) {
+
+    }
+
+    @Override
     public void doBusiness(Context context) {
         versionTv.setText(BuildConfig.VERSION_NAME);
         toolbarLayout.setExpandedTitleColor(Color.WHITE);//设置展开后标题的颜色
@@ -76,12 +80,5 @@ public class AboutActivity extends BaseActivity {
             }
         });
         aboutTv.setText(Html.fromHtml(getResources().getString(R.string.about_content)));
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

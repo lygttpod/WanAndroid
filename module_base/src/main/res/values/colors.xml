@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="base_common_pressed">#20000000</color>  <!--白色背景按下去的颜色-->
-    <color name="base_pressed">#32000000</color>
+    <color name="base_touch">@color/touch</color>  <!--白色背景按下去的颜色-->
+    <color name="base_pressed">@color/pressed</color>
 
-    <color name="base_white">#ffffff</color>
-    <color name="base_top_bar_title">#212629</color>
+    <color name="base_white">@color/white</color>
+    <color name="base_top_bar_title">@color/top_bar_title</color>
 
-    <color name="base_transparent">#00000000</color>
-    <color name="base_text_select">#379af6</color>
-    <color name="base_text_no_select">#4a4a4a</color>
+    <color name="base_transparent">@color/transparent</color>
+    <color name="base_text_select">@color/colorTabSelected</color>
+    <color name="base_text_no_select">@color/colorTabNormal</color>
 
-    <color name="base_refresh_color">#379af6</color>
-    <color name="base_top_bar_bg">#379af6</color>
+    <color name="base_refresh_color">@color/colorPrimary</color>
+    <color name="base_top_bar_bg">@color/colorPrimary</color>
     <color name="search_bar_bg">#F5F6F7</color>
 
 </resources>

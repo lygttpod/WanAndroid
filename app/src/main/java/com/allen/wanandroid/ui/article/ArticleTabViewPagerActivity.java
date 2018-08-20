@@ -2,25 +2,17 @@ package com.allen.wanandroid.ui.article;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.allen.wanandroid.R;
-import com.allen.wanandroid.adapter.CommonFragmentWithTitleAdapter;
-import com.allen.wanandroid.bean.CategoryBean;
 import com.allen.wanandroid.arouter.ARouterPath;
-import com.library.base.base.BaseActivity;
-import com.library.base.widget.TopBar;
+import com.allen.wanandroid.bean.CategoryBean;
+import com.library.base.base.BaseToolBarTabViewPagerActivity;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * <pre>
@@ -32,19 +24,7 @@ import butterknife.BindView;
  * </pre>
  */
 @Route(path = ARouterPath.articleTabViewPagerAcPath)
-public class ArticleTabViewPagerActivity extends BaseActivity {
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.tab_layout)
-    TabLayout tabLayout;
-    @BindView(R.id.view_pager)
-    ViewPager viewPager;
-
-    private List<String> tabIndicators = new ArrayList<>();
-    private List<Fragment> tabFragments = new ArrayList<>();
-
-    private CommonFragmentWithTitleAdapter adapter;
+public class ArticleTabViewPagerActivity extends BaseToolBarTabViewPagerActivity {
 
     @Autowired
     CategoryBean categoryBean;
@@ -56,63 +36,53 @@ public class ArticleTabViewPagerActivity extends BaseActivity {
         categoryBean = params.getParcelable("category");
         index = params.getInt("index");
     }
-
     @Override
-    public int bindLayout() {
-        return R.layout.activity_article;
-    }
-
-    @Override
-    public void setTopBar(TopBar topBar) {
-        hideTopBar();
-    }
-
-    @Override
-    public boolean isCanRefresh() {
-        return false;
-    }
-
-    @Override
-    public void doOnRefresh() {
-
-    }
-
-    @Override
-    public void doBusiness(Context context) {
-
-        initToolBar();
-        initViewPager();
-    }
-
-    private void initToolBar() {
+    public void initToolBar(Toolbar toolBar) {
         if (categoryBean != null) {
-            toolbar.setTitle(categoryBean.getName());
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            toolBar.setTitle(categoryBean.getName());
+            toolBar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     finish();
                 }
             });
         }
-
     }
 
-
-    private void initViewPager() {
-
+    @Override
+    public List<String> setTabIndicators(List<String> tabIndicators) {
         if (categoryBean != null) {
             for (int i = 0; i < categoryBean.getChildren().size(); i++) {
                 tabIndicators.add(categoryBean.getChildren().get(i).getName());
+            }
+        }
+        return tabIndicators;
+    }
+
+    @Override
+    public List<Fragment> setTabFragment(List<Fragment> tabFragments) {
+        if (categoryBean != null) {
+            for (int i = 0; i < categoryBean.getChildren().size(); i++) {
                 tabFragments.add(ArticleFragment.newInstance(categoryBean.getChildren().get(i).getId()));
             }
         }
+        return tabFragments;
+    }
 
-        adapter = new CommonFragmentWithTitleAdapter(getSupportFragmentManager(), tabFragments, tabIndicators);
-        viewPager.setAdapter(adapter);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.setCurrentItem(index);
-        viewPager.setOffscreenPageLimit(3);
+    @Override
+    public int setCurrentItemIndex() {
+        return index;
+    }
+
+    @Override
+    public int setOffscreenPageLimit() {
+        return 3;
+    }
+
+
+    @Override
+    public void doBusiness(Context context) {
+
     }
 
 }

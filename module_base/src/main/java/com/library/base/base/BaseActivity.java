@@ -140,6 +140,14 @@ public abstract class BaseActivity extends BasePermissionActivity {
     public abstract void doOnRefresh();
 
     /**
+     * 初始化UI
+     *
+     * @param context 上下文对象
+     */
+    public abstract void initUI(Context context);
+
+
+    /**
      * 处理业务逻辑的方法
      *
      * @param context 上下文对象
@@ -191,6 +199,8 @@ public abstract class BaseActivity extends BasePermissionActivity {
         initButterKnife(this);
 
         initPresenter();
+
+        initUI(this);
 
         doBusiness(this);
 

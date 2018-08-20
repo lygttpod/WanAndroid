@@ -71,9 +71,14 @@ public class SearchActivity extends BaseActivity implements ViewPager.OnPageChan
     }
 
     @Override
-    public void doBusiness(Context context) {
+    public void initUI(Context context) {
         initSearchView();
         initAdapter();
+    }
+
+    @Override
+    public void doBusiness(Context context) {
+
     }
 
     private void initAdapter() {

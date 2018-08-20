@@ -75,8 +75,7 @@ public class UserCollectActivity extends BaseMvpActivity<CollectPresenter> imple
     }
 
     @Override
-    public void doBusiness(Context context) {
-
+    public void initUI(Context context) {
         adapter = new CollectAdapter(datasBeans);
         adapter.setOnItemClickListener(this);
         adapter.setOnItemChildClickListener(this);
@@ -84,7 +83,10 @@ public class UserCollectActivity extends BaseMvpActivity<CollectPresenter> imple
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
+    }
 
+    @Override
+    public void doBusiness(Context context) {
         mPresenter.getUserCollectList(0);
     }
 

@@ -20,7 +20,6 @@ import butterknife.BindView;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 
 /**
  * <pre>
@@ -69,6 +68,11 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     public void doOnRefresh() {
+
+    }
+
+    @Override
+    public void initUI(Context context) {
 
     }
 

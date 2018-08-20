@@ -62,6 +62,11 @@ public class WebViewActivity extends BaseMvpActivity<WebViewPresenter> implement
     }
 
     @Override
+    public void initUI(Context context) {
+
+    }
+
+    @Override
     public void doBusiness(Context context) {
         mPresenter.loadUrl(webView, url);
     }

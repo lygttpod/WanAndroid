@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--以下几个字段在base中有用到，可以进行修改，但不能删除-->
+    <color name="colorPrimary">#379af6</color>
+    <color name="colorPrimaryDark">#379af6</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorTabSelected">#379af6</color>
+    <color name="colorTabNormal">#6E7279</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffff</color>
+    <color name="top_bar_title">#212629</color>
+    <color name="touch">#20000000</color>  <!--白色背景按下去的颜色-->
+    <color name="pressed">#32000000</color>
+    <!--以上几个字段在base中有用到，可以进行修改，但不能删除-->
+
+    <!--以下位置请求配置app用到的颜色-->
+    <color name="color_splash_text">#686868</color>
+
+
+</resources>
