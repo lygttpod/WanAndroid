@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="leftImg" type="id" />
-    <item name="rightImg" type="id" />
     <item name="topBar_leftImg_id" type="id" />
+    <item name="topBar_leftText_id" type="id" />
+    <item name="topBar_rightImg_id" type="id" />
+    <item name="topBar_rightText_id" type="id" />
     <item name="topBar_center_title_id" type="id" />
 </resources>

@@ -30,6 +30,10 @@ public class TopBar extends RelativeLayout {
      * 左边图片
      */
     private Drawable leftImg;
+    /**
+     * 左图左边距
+     */
+    private int leftImgMarginLeft;
 
     /**
      * 左边文字内容
@@ -47,9 +51,24 @@ public class TopBar extends RelativeLayout {
     private int leftTextColor;
 
     /**
+     * 左侧文字左边距
+     */
+    private int leftTextMarginLeft;
+
+    /**
+     * 左侧文字右边距
+     */
+    private int leftTextMarginRight;
+
+    /**
      * 右边图片
      */
     private Drawable rightImg;
+
+    /**
+     * 右图右边距
+     */
+    private int rightImgMarginRight;
 
     /**
      * 右边文字内容
@@ -65,6 +84,11 @@ public class TopBar extends RelativeLayout {
      * 右边文字字体颜色
      */
     private int rightTextColor;
+
+    /**
+     * 右文字的右边距
+     */
+    private int rightTextMarginRight;
 
     /**
      * 中间图片
@@ -99,8 +123,9 @@ public class TopBar extends RelativeLayout {
 
     private int bottomLineColor = 0xffe1e5e8;
 
-    private OnTopBarClickListener mTopBarClickListener;
-    private OnTopBarRightClickListener mTopBarRightClickListener;
+    private OnTopBarLeftIconClickListener mTopBarLeftIconClickListener;
+    private OnTopBarRightTextClickListener mTopBarRightTextClickListener;
+    private OnTopBarRightIconClickListener mTopBarRightIconClickListener;
 
     public TopBar(Context context) {
         super(context);
@@ -115,15 +140,19 @@ public class TopBar extends RelativeLayout {
         if (leftImg != null) {
             installLeftImg();
         }
-        if (leftText != null) {
-            installLeftTextView();
-        }
+
         if (rightImg != null) {
             installRightImg();
         }
+
         if (rightText != null) {
             installRightTextView();
         }
+
+        if (leftText != null) {
+            installLeftTextView();
+        }
+
         if (centerImg != null) {
             installCenterImg();
         }
@@ -140,22 +169,27 @@ public class TopBar extends RelativeLayout {
     /**
      * 获取自定义属性值
      *
-     * @param attrs
+     * @param attrs attrs
      */
     private void getAttr(AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TopBar);
 
         leftImg = typedArray.getDrawable(R.styleable.TopBar_topBar_leftIcon);
+        leftImgMarginLeft = typedArray.getDimensionPixelSize(R.styleable.TopBar_topBar_leftIconMarginLeft, dp2px(15));
 
         leftText = typedArray.getString(R.styleable.TopBar_topBar_leftText);
         leftTextSize = typedArray.getDimensionPixelSize(R.styleable.TopBar_topBar_leftTextSize, sp2px(15));
         leftTextColor = typedArray.getColor(R.styleable.TopBar_topBar_leftTextColor, 0xffffffff);
+        leftTextMarginLeft = typedArray.getDimensionPixelSize(R.styleable.TopBar_topBar_leftTextMarginLeft, dp2px(15));
+        leftTextMarginRight = typedArray.getDimensionPixelSize(R.styleable.TopBar_topBar_leftTextMarginRight, dp2px(15));
 
         rightImg = typedArray.getDrawable(R.styleable.TopBar_topBar_rightIcon);
+        rightImgMarginRight = typedArray.getDimensionPixelSize(R.styleable.TopBar_topBar_rightIconMarginRight, dp2px(15));
 
         rightText = typedArray.getString(R.styleable.TopBar_topBar_rightText);
         rightTextSize = typedArray.getDimensionPixelSize(R.styleable.TopBar_topBar_rightTextSize, sp2px(13));
         rightTextColor = typedArray.getColor(R.styleable.TopBar_topBar_rightTextColor, 0xffffffff);
+        rightTextMarginRight = typedArray.getDimensionPixelSize(R.styleable.TopBar_topBar_rightTextMarginRight, dp2px(15));
 
         centerImg = typedArray.getDrawable(R.styleable.TopBar_topBar_centerBackgroundIcon);
 
@@ -175,7 +209,7 @@ public class TopBar extends RelativeLayout {
         leftImageView.setId(R.id.topBar_leftImg_id);
         LayoutParams leftParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
         leftParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, TRUE);
-        leftImageView.setPadding(dp2px(15), dp2px(3), dp2px(5), dp2px(3));
+        leftImageView.setPadding(leftImgMarginLeft, dp2px(3), dp2px(5), dp2px(3));
         leftImageView.setScaleType(ImageView.ScaleType.CENTER);
         if (leftImg != null) {
             leftImageView.setImageDrawable(leftImg);
@@ -184,8 +218,8 @@ public class TopBar extends RelativeLayout {
         leftImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mTopBarClickListener != null) {
-                    mTopBarClickListener.onLeftIconClick();
+                if (mTopBarLeftIconClickListener != null) {
+                    mTopBarLeftIconClickListener.onLeftIconClick();
                 } else {
                     ((Activity) context).finish();
                 }
@@ -205,11 +239,17 @@ public class TopBar extends RelativeLayout {
         leftTextViewParams.addRule(RelativeLayout.CENTER_VERTICAL, TRUE);
         if (leftImageView != null) {
             leftTextViewParams.addRule(RelativeLayout.RIGHT_OF, R.id.topBar_leftImg_id);
-            leftTextViewParams.leftMargin = dp2px(16);
-
-        } else {
-            leftTextViewParams.leftMargin = dp2px(16);
         }
+        leftTextViewParams.leftMargin = leftTextMarginLeft;
+        leftTextViewParams.rightMargin = leftTextMarginRight;
+
+        if (rightImageView != null) {
+            leftTextViewParams.addRule(RelativeLayout.LEFT_OF, R.id.topBar_rightImg_id);
+        }
+        if (rightTextView != null) {
+            leftTextViewParams.addRule(RelativeLayout.RIGHT_OF, R.id.topBar_rightText_id);
+        }
+
         leftTextView.setGravity(Gravity.CENTER);
         leftTextView.setText(leftText);
         leftTextView.setTextColor(leftTextColor);
@@ -225,17 +265,19 @@ public class TopBar extends RelativeLayout {
      */
     private void installRightImg() {
         rightImageView = new ImageView(context);
+        rightImageView.setId(R.id.topBar_rightImg_id);
+
         LayoutParams rightParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
         rightParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, TRUE);
-        rightImageView.setPadding(dp2px(10), 0, dp2px(15), 0);
+        rightImageView.setPadding(0, 0, rightImgMarginRight, 0);
         rightImageView.setScaleType(ImageView.ScaleType.CENTER);
         rightImageView.setImageDrawable(rightImg);
         rightImageView.setBackgroundResource(R.drawable.selector_topbar_back);
         rightImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mTopBarClickListener != null) {
-                    mTopBarClickListener.onRightIconClick();
+                if (mTopBarRightIconClickListener != null) {
+                    mTopBarRightIconClickListener.onRightIconClick();
                 }
             }
         });
@@ -248,9 +290,11 @@ public class TopBar extends RelativeLayout {
      */
     private void installRightTextView() {
         rightTextView = new TextView(context);
+        rightTextView.setId(R.id.topBar_rightText_id);
+
         LayoutParams rightParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
         rightParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, TRUE);
-        rightTextView.setPadding(dp2px(10), 0, dp2px(20), 0);
+        rightTextView.setPadding(0, 0, rightTextMarginRight, 0);
         rightTextView.setGravity(Gravity.CENTER);
         rightTextView.setText(rightText);
         rightTextView.setTextColor(rightTextColor);
@@ -259,8 +303,8 @@ public class TopBar extends RelativeLayout {
         rightTextView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mTopBarRightClickListener != null) {
-                    mTopBarRightClickListener.onRightTextClick();
+                if (mTopBarRightTextClickListener != null) {
+                    mTopBarRightTextClickListener.onRightTextClick();
                 }
             }
         });
@@ -291,11 +335,15 @@ public class TopBar extends RelativeLayout {
         centerTextView.setId(R.id.topBar_center_title_id);
         LayoutParams titleParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
         titleParams.addRule(RelativeLayout.CENTER_IN_PARENT, TRUE);
+
         centerTextView.setGravity(Gravity.CENTER);
         centerTextView.setText(centerText);
         centerTextView.setTextColor(centerTextColor);
         centerTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, centerTextSize);
         centerTextView.getPaint().setFakeBoldText(true);
+
+        centerTextView.setSingleLine(true);
+        centerTextView.setEllipsize(TextUtils.TruncateAt.END);
 
         addView(centerTextView, titleParams);
 
@@ -326,8 +374,8 @@ public class TopBar extends RelativeLayout {
     /**
      * 设置左边图标的icon
      *
-     * @param leftImg
-     * @return
+     * @param leftImg leftImg
+     * @return TopBar
      */
     public TopBar setLeftIcon(Drawable leftImg) {
         this.leftImg = leftImg;
@@ -342,8 +390,8 @@ public class TopBar extends RelativeLayout {
     /**
      * 设置左边图标icon  传入资源id
      *
-     * @param leftImgId
-     * @return
+     * @param leftImgId leftImgId
+     * @return TopBar
      */
     public TopBar setLeftIcon(int leftImgId) {
         if (leftImageView == null) {
@@ -364,8 +412,8 @@ public class TopBar extends RelativeLayout {
     /**
      * 设置左边标题文字
      *
-     * @param text
-     * @return
+     * @param text text
+     * @return TopBar
      */
     public TopBar setLeftText(String text) {
         this.leftText = text;
@@ -388,8 +436,8 @@ public class TopBar extends RelativeLayout {
     /**
      * 设置左边文字的字体大小，以sp为单位
      *
-     * @param size
-     * @return
+     * @param size size
+     * @return TopBar
      */
     public TopBar setLeftTextSize(float size) {
         this.leftTextSize = sp2px(size);
@@ -402,8 +450,8 @@ public class TopBar extends RelativeLayout {
     /**
      * 设置左边文字的字体颜色
      *
-     * @param color
-     * @return
+     * @param color color
+     * @return TopBar
      */
     public TopBar setLeftTextColor(int color) {
         if (leftTextColor != color) {
@@ -418,8 +466,8 @@ public class TopBar extends RelativeLayout {
     /**
      * 设置右边图标的icon
      *
-     * @param rightImg
-     * @return
+     * @param rightImg rightImg
+     * @return TopBar
      */
     public TopBar setRightIcon(Drawable rightImg) {
         this.rightImg = rightImg;
@@ -434,8 +482,8 @@ public class TopBar extends RelativeLayout {
     /**
      * 设置右边标题文字
      *
-     * @param text
-     * @return
+     * @param text text
+     * @return TopBar
      */
     public TopBar setRightText(String text) {
         this.rightText = text;
@@ -447,15 +495,15 @@ public class TopBar extends RelativeLayout {
         return this;
     }
 
-    public TextView getRightTextView(){
+    public TextView getRightTextView() {
         return rightTextView;
     }
 
     /**
      * 设置右边文字的字体大小，以sp为单位
      *
-     * @param size
-     * @return
+     * @param size size
+     * @return TopBar
      */
     public TopBar setRightTextSize(float size) {
         this.rightTextSize = sp2px(size);
@@ -468,8 +516,8 @@ public class TopBar extends RelativeLayout {
     /**
      * 设置右边文字的字体颜色
      *
-     * @param color
-     * @return
+     * @param color color
+     * @return TopBar
      */
     public TopBar setRightTextColor(int color) {
         if (rightTextColor != color) {
@@ -484,8 +532,8 @@ public class TopBar extends RelativeLayout {
     /**
      * 设置居中标题文字
      *
-     * @param text
-     * @return
+     * @param text text
+     * @return TopBar
      */
     public TopBar setCenterText(String text) {
         this.centerText = text;
@@ -500,8 +548,8 @@ public class TopBar extends RelativeLayout {
     /**
      * 设置中间文字的字体大小
      *
-     * @param size
-     * @return
+     * @param size size
+     * @return TopBar
      */
     public TopBar setCenterTextSize(float size) {
         this.centerTextSize = sp2px(size);
@@ -514,8 +562,8 @@ public class TopBar extends RelativeLayout {
     /**
      * 设置中间文字的字体颜色
      *
-     * @param color
-     * @return
+     * @param color color
+     * @return TopBar
      */
     public TopBar setCenterTextColor(int color) {
         this.centerTextColor = color;
@@ -525,37 +573,47 @@ public class TopBar extends RelativeLayout {
         return this;
     }
 
-    public void setTopBarClickListener(OnTopBarClickListener listener) {
-        mTopBarClickListener = listener;
+    public TopBar setTopBarLeftIconClickListener(OnTopBarLeftIconClickListener listener) {
+        mTopBarLeftIconClickListener = listener;
+        return this;
     }
 
-    public void setTopBarRightClickListener(OnTopBarRightClickListener listener) {
-        mTopBarRightClickListener = listener;
+    public TopBar setTopBarRightIconClickListener(OnTopBarRightIconClickListener listener) {
+        mTopBarRightIconClickListener = listener;
+        return this;
+    }
+
+    public TopBar setTopBarRightTextClickListener(OnTopBarRightTextClickListener listener) {
+        mTopBarRightTextClickListener = listener;
+        return this;
+    }
+
+
+    /**
+     * 左侧图标点击事件
+     */
+    public interface OnTopBarLeftIconClickListener {
+        void onLeftIconClick();
     }
 
     /**
-     * 左右图标点击事件
+     * 右侧图标点击事件
      */
-    public interface OnTopBarClickListener {
-
-        void onLeftIconClick();
-
+    public interface OnTopBarRightIconClickListener {
         void onRightIconClick();
     }
 
     /**
      * 右侧文字点击事件
      */
-    public interface OnTopBarRightClickListener {
-
+    public interface OnTopBarRightTextClickListener {
         void onRightTextClick();
-
     }
 
     /**
      * dp 2 px
      *
-     * @param dpVal
+     * @param dpVal dpVal
      */
     protected int dp2px(float dpVal) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
@@ -565,7 +623,7 @@ public class TopBar extends RelativeLayout {
     /**
      * sp 2 px
      *
-     * @param spVal
+     * @param spVal spVal
      * @return
      */
     protected int sp2px(float spVal) {

@@ -211,3 +211,7 @@ public static java.lang.String TABLENAME;
 -keepnames class * {
     @com.alibaba.android.arouter.facade.annotation.Autowired <fields>;
 }
+
+##########AndroidAutoSize#########
+-keep class me.jessyan.autosize.** { *; }
+-keep interface me.jessyan.autosize.** { *; }

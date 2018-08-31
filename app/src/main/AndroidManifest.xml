@@ -51,6 +51,14 @@
                 <action android:name="com.allen.wan_android.need_login_action" />
             </intent-filter>
         </receiver>
+
+        <!--屏幕适配方案AndroidAutoSize-->
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="360" />
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="640" />
     </application>
 
 </manifest>
