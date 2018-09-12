@@ -4,8 +4,8 @@ ext {
             applicationId    : "com.allen.wanandroid",
             minSdkVersion    : 17,
             targetSdkVersion : 27,
-            versionCode      : 102,
-            versionName      : "1.0.2"
+            versionCode      : 103,
+            versionName      : "1.0.3"
     ]
     greendao = [
             schemaVersion: 1,
