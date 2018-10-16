@@ -29,11 +29,24 @@ import java.util.List;
 
 public class BottomTabView extends LinearLayout implements View.OnClickListener {
 
-    private List<View> mTabViews;//保存TabView
-    private List<Tab> mTabs;// 保存Tab
+    /**
+     * 保存TabView
+     */
+    private List<View> mTabViews;
 
+    /**
+     * 保存Tab
+     */
+    private List<Tab> mTabs;
+
+    /**
+     * 点击事件
+     */
     private OnTabSelectedListener mOnTabSelectedListener;
 
+    /**
+     * 当前选中位置
+     */
     private int currentItemPosition;
 
     public void setOnTabSelectedListener(OnTabSelectedListener onTabSelectedListener) {
@@ -53,6 +66,9 @@ public class BottomTabView extends LinearLayout implements View.OnClickListener 
         init();
     }
 
+    /**
+     * 初始化
+     */
     private void init() {
         setOrientation(HORIZONTAL);
         setGravity(Gravity.CENTER);
@@ -100,6 +116,10 @@ public class BottomTabView extends LinearLayout implements View.OnClickListener 
 
     }
 
+    /**
+     * 获取当前tab位置
+     * @return position
+     */
     public int getCurrentItemPosition(){
         return currentItemPosition;
     }
