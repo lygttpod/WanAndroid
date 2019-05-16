@@ -13,8 +13,8 @@ ext {
             targetGenDir : 'src/main/java'
     ]
     url = [
-            debug      : "http://www.wanandroid.com/",
-            release    : "http://www.wanandroid.com/"
+            debug      : "https://www.wanandroid.com/",
+            release    : "https://www.wanandroid.com/"
     ]
     appkey = [
             bugly_appid  : "a1fb27eea0"
